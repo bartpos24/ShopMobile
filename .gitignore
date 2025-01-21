@@ -52,3 +52,8 @@ replay_pid*
 app/release
 app/debug
 /keystore
+
+
+/.idea/caches
+.cxx
+local.properties
