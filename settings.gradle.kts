@@ -10,6 +10,9 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    plugins {
+        id("com.diffplug.spotless") version "6.21.0"
+    }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -21,4 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ShopMobile"
 include(":app")
- 
