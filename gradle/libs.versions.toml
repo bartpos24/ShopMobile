@@ -1,4 +1,11 @@
 [versions]
+#project versions
+compileSdk = "35"
+minSdk = "26"
+targetSdk = "35"
+versionCode = "1"
+versionName = "1.0"
+#end
 agp = "8.9.0-alpha09"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
@@ -14,6 +21,13 @@ navigationFragmentKtx = "2.8.5"
 navigationUiKtx = "2.8.5"
 spotless = "6.21.0"
 ktlin = "0.50.0"
+moshiVer = "1.14.0"
+okhttp = "4.11.0"
+threetenbp = "1.7.0"
+kotlintest-runner-junit-ver = "3.4.2"
+retrofitVer = "2.9.0"
+kotlinx-parcelize = "1.8.10"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,6 +41,18 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin"}
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin"}
+moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshiVer" }
+moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshiVer" }
+moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshiVer" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+threetenbp = { group = "org.threeten", name = "threetenbp", version.ref = "threetenbp" }
+kotlintest-runner-junit5 = { group = "io.kotlintest", name = "kotlintest-runner-junit5", version.ref = "kotlintest-runner-junit-ver" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVer" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofitVer" }
+kotlinx-parcelize = { group = "org.jetbrains.kotlinx", name = "kotlinx-parcelize", version.ref = "kotlinx-parcelize" }
+
 
 
 [plugins]
@@ -34,4 +60,10 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 spotlessWithVersion = { id = "com.diffplug.spotless", version.ref = "spotless" }
 spotless = { id = "com.diffplug.spotless" }
-
+openApiGenerator = { id = "org.openapi.generator" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android = { id = "kotlin-android" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+maven-publish = { id = "maven-publish" }
