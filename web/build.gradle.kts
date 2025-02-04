@@ -1,44 +1,4 @@
-//group 'org.openapitools'
-//version '1.0.0'
-
-//wrapper {
-//    gradleVersion = '7.5'
-//    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
-//}
-
-//buildscript {
-//    ext.kotlin_version = '1.8.10'
-//
-//    repositories {
-//        maven { url "https://repo1.maven.org/maven2" }
-//    }
-//    dependencies {
-//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//    }
-//}
-
-//apply plugin: 'kotlin'
-//apply plugin: 'kotlin-parcelize'
-//apply plugin: 'maven-publish'
-//androidExtensions {
-//    isExperimental = true
-//}
-//repositories {
-//    //mavenCentral()
-//    maven { url "https://repo1.maven.org/maven2" }
-//}
-//
-//test {
-//    useJUnitPlatform()
-//}
 plugins {
-//    alias(libs.plugins.android.library)
-//    alias(libs.plugins.android)
-//    alias(libs.plugins.kotlin.kapt)
-//
-//    alias(libs.plugins.kotlin.jvm) apply false
-//    alias(libs.plugins.kotlin.parcelize)
-//    alias(libs.plugins.maven.publish)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
@@ -65,17 +25,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-//    sourceSets {
-//        getByName("main").java.setSrcDirs(listOf("src/main/java", "src/main/kotlin"))
-//    }
-//    kotlinOptions {
-//        jvmTarget = "11"
-//    }
-}
-repositories {
-    //google()
-    //mavenCentral()
-    //maven(url = "https://repo1.maven.org/maven2")
 }
 dependencies {
     implementation(libs.stdlib)
@@ -86,5 +35,4 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.threetenbp)
     testImplementation(libs.kotlintest.runner.junit5)
-    implementation(libs.kotlinx.parcelize)
 }

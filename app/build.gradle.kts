@@ -53,7 +53,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 
-    //implementation(project(":web"))//implementation(project("path" to ":web"))
+    implementation(project(":web"))
+    //implementation(project("path" to ":web"))
     //openApiGenerate
     // Retrofit
     //implementation(libs.retrofit)
