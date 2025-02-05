@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace = "pl.bartpos24.shopmobile"
-    compileSdk = 35 //libs.versions.compileSdk.get().toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "pl.bartpos24.shopmobile"
-        minSdk = 26 //libs.versions.minSdk.get().toInteger()
-        targetSdk = 35 //libs.versions.targetSdk.get().toInt()
-        versionCode = 1 // libs.versions.versionCode.get().toInt()
-        versionName = "1.0" //libs.versions.versionName.get()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -54,18 +54,15 @@ dependencies {
 
 
     implementation(project(":web"))
-    //implementation(project("path" to ":web"))
     //openApiGenerate
     // Retrofit
-    //implementation(libs.retrofit)
-    //implementation(libs.retrofit.converter.moshi)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.moshi)
 
     // Moshi
-    //implementation(libs.moshi)
-    //implementation(libs.moshi.kotlin)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
 
     // OkHttp (opcjonalne)
-    //implementation(libs.okhttp)
-
-    //implementation(libs.kotlinx.parcelize)
+    implementation(libs.okhttp)
 }

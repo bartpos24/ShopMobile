@@ -6,10 +6,10 @@ plugins {
 }
 android {
     namespace = "pl.bartpos24.web"
-    compileSdk = libs.versions.compileSdk.get().toInt()//compileSdkVersion(libs.versions.compileSdk.get().toInt())
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()//minSdkVersion(libs.versions.minSdk.get().toInt())
-        targetSdk = libs.versions.targetSdk.get().toInt()//targetSdkVersion(libs.versions.targetSdk.get().toInt())
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
