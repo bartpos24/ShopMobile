@@ -1,3 +1,5 @@
+import java.net.URL
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
@@ -17,6 +19,7 @@ spotless {
         ktlint(libs.versions.ktlin.get())
     }
 }
+
 openApiGenerate {
     val apiModuleName = "web"
     // Set date and time library for project
@@ -48,4 +51,41 @@ openApiGenerate {
             "parcelizeModels" to parcelizeModels
         )
     )
+    if (file("$rootDir/$apiModuleName/build.gradle.kts").exists()) {
+        globalProperties.set(
+            mapOf(
+                "supportingFiles" to "false", // **Nie generuje plików build.gradle i settings.gradle**
+                "gradleBuildFile" to "false",
+                "generateGradleProject" to "false"
+            )
+        )
+    }
+}
+
+tasks.register("generateApi") {
+    group = "openapi"
+    description = "Pobiera schemat OpenAPI i generuje API"
+
+    doFirst {
+        val openApiUrl = "http://localhost:5001/swagger/v1/swagger.json"
+        val outputFile = File(rootDir, "specs/openapi.json")
+
+        println("Pobieranie OpenAPI schema z: $openApiUrl")
+
+        try {
+            val schemaContent = URL(openApiUrl).readText()
+            outputFile.parentFile.mkdirs() // Tworzy katalog, jeśli nie istnieje
+            outputFile.writeText(schemaContent)
+
+            println("Zapisano OpenAPI schema do: ${outputFile.absolutePath}")
+        } catch (e: Exception) {
+            println("Błąd pobierania OpenAPI: ${e.message}")
+            throw e
+        }
+        // Uruchomienie openApiGenerate
+    }
+    println("Uruchamianie openApiGenerate...")
+    dependsOn("openApiGenerate")
+    println("Formatowanie spotlessKotlinApply...")
+    finalizedBy("spotlessKotlinApply")
 }
