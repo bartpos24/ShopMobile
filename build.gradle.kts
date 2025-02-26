@@ -89,3 +89,6 @@ tasks.register("generateApi") {
     println("Formatowanie spotlessKotlinApply...")
     finalizedBy("spotlessKotlinApply")
 }
+tasks.named("spotlessKotlinApply") {
+    mustRunAfter("openApiGenerate")
+}
