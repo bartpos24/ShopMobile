@@ -4,12 +4,13 @@ import android.app.Application
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import pl.bartpos24.shopmobile.dagger.IAppComponent
 import javax.inject.Inject
 
 class ShopMobileApplication : Application(), HasAndroidInjector {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
-    //lateinit var appComponent: AppComponent
+    lateinit var appComponent: IAppComponent
 
     override fun onCreate() {
         super.onCreate()
