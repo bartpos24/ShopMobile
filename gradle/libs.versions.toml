@@ -27,7 +27,8 @@ threetenbp = "1.7.0"
 kotlintest-runner-junit-ver = "3.4.2"
 retrofitVer = "2.9.0"
 kotlinx-parcelize = "1.8.10"
-
+daggerVer = "2.50"
+workVersion = "2.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,12 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofitVer" }
 kotlinx-parcelize = { group = "org.jetbrains.kotlinx", name = "kotlinx-parcelize", version.ref = "kotlinx-parcelize" }
 
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "daggerVer" }
+daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "daggerVer" }
+daggerAndroid = { group = "com.google.dagger", name = "dagger-android", version.ref = "daggerVer" }
+daggerAndroidSupport = { group = "com.google.dagger", name = "dagger-android-support", version.ref = "daggerVer" }
+daggerAndroidProcessor = { group = "com.google.dagger", name = "dagger-android-processor", version.ref = "daggerVer" }
+work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workVersion" }
 
 
 [plugins]
