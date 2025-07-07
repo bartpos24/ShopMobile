@@ -15,4 +15,6 @@ interface IAppComponent {
     fun inject(application: ShopMobileApplication)
 
     fun workerFactoryComponent(): IWorkerFactoryComponent.Factory
+
+    fun viewModelFactoryComponent(): IViewModelFactoryComponent.Factory
 }

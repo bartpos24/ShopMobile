@@ -12,11 +12,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import pl.bartpos24.shopmobile.databinding.ActivityMainBinding
+import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    //private val mainActivityViewModel: MainActivityViewModel by viewModels()
+
+    private var hasOptionsMenu: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,9 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+    fun setHasOptionsMenu(value: Boolean) {
+        hasOptionsMenu = value
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

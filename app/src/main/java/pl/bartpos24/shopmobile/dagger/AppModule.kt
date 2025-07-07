@@ -7,7 +7,7 @@ import pl.bartpos24.shopmobile.ShopMobileApplication
 import javax.inject.Singleton
 
 @Module(
-    //includes = [ViewModelModule::class],
+    includes = [ViewModelModule::class],
     subcomponents = [IWorkerFactoryComponent::class]
 )
 class AppModule {
