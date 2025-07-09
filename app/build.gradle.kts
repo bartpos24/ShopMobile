@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -63,6 +64,7 @@ dependencies {
     // Moshi
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.adapters)
 
     // OkHttp (opcjonalne)
     implementation(libs.okhttp)
@@ -77,4 +79,7 @@ dependencies {
     //daggerAssistedInjectAnnotations
     kapt(libs.daggerCompiler)
     //daggerAssistedInjectProcessor
+
+    implementation(libs.flow.preferences)
+    implementation(libs.threetenbp)
 }
