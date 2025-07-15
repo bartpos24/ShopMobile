@@ -5,6 +5,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import pl.bartpos24.shopmobile.repositories.TokenRepository
 import pl.bartpos24.shopmobile.repositories.UserConfigRepository
 import javax.inject.Singleton
 
@@ -15,4 +16,9 @@ object RepositoryModule {
     @Singleton
     @JvmStatic
     fun provideUserConfigRepository(sharedPreferences: SharedPreferences, moshi: Moshi): UserConfigRepository = UserConfigRepository(sharedPreferences, moshi)
+
+    @Reusable
+    @Provides
+    @JvmStatic
+    fun provideTokenRepository(): TokenRepository = TokenRepository()
 }

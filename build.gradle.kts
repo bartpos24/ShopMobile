@@ -21,6 +21,7 @@ spotless {
 }
 
 openApiGenerate {
+    println("Uruchamianie openApiGenerate...")
     val apiModuleName = "web"
     // Set date and time library for project
     // java8 - native java library requires min sdk 26
@@ -60,6 +61,7 @@ openApiGenerate {
             )
         )
     }
+    println("Zakończono konfigurację openApiGenerate.")
 }
 
 tasks.register("generateApi") {
@@ -84,10 +86,6 @@ tasks.register("generateApi") {
         }
         // Uruchomienie openApiGenerate
     }
-    println("Uruchamianie openApiGenerate...")
-    dependsOn("openApiGenerate")
-    println("Formatowanie spotlessKotlinApply...")
-    finalizedBy("spotlessKotlinApply")
 }
 tasks.named("spotlessKotlinApply") {
     mustRunAfter("openApiGenerate")

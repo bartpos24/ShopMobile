@@ -68,6 +68,8 @@ dependencies {
 
     // OkHttp (opcjonalne)
     implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.okhttp.brotli)
 
     //dagger
     implementation(libs.dagger)
@@ -82,4 +84,5 @@ dependencies {
 
     implementation(libs.flow.preferences)
     implementation(libs.threetenbp)
+    implementation(libs.timber)
 }
