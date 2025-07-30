@@ -6,7 +6,7 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import pl.bartpos24.shopmobile.ShopMobileApplication
 
-@Component(modules = [AndroidInjectionModule::class, AppModule::class, WorkerBuildersModule::class, RepositoryModule::class])
+@Component(modules = [AndroidInjectionModule::class, AppModule::class, WorkerBuildersModule::class, RepositoryModule::class, NetworkInfrastructureModule::class])
 interface IAppComponent {
     @Component.Factory
     interface Factory {

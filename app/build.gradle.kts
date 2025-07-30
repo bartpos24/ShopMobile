@@ -85,4 +85,7 @@ dependencies {
     implementation(libs.flow.preferences)
     implementation(libs.threetenbp)
     implementation(libs.timber)
+
+    //JWT
+    implementation(libs.jwt)
 }

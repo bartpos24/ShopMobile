@@ -11,7 +11,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.MutableStateFlow
 import pl.bartpos24.shopmobile.databinding.ActivityMainBinding
+import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +23,14 @@ class MainActivity : AppCompatActivity() {
     //private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
     private var hasOptionsMenu: Boolean = false
+
+    object loginAuth {
+        private val status = MutableStateFlow<LoginStatus>(LoginStatus.UNAUTHENTICATED)
+        fun getStatus() = status
+        fun setStatus(status: LoginStatus) {
+            this.status.value = status
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

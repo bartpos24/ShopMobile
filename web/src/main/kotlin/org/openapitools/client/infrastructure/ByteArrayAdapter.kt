@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.ToJson
 
-class Base64JsonAdapter : JsonAdapter<ByteArray>() {
+class ByteArrayAdapter : JsonAdapter<ByteArray>() {
     override fun fromJson(reader: JsonReader): ByteArray? {
         return Base64.decode(reader.nextString(), Base64.DEFAULT)
     }
