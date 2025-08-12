@@ -20,37 +20,37 @@ class TokenRepository(private val tokenCache: TokenCache, private val context: A
     fun getRefreshToken() = tokenCache.refreshToken
     fun setNewRefreshToken(newRefreshToken: String) = tokenCache.setNewRefreshToken(newRefreshToken)
 
-    @SuppressLint("HardwareIds")
-    suspend fun refreshAccessToken(): TokenPair? {
-        if (validateRefreshToken(tokenCache.refreshToken.get())) {
-            // times: Int = 10, initialDelay: Long = 250L, factor: Double = 1.2
-            return flow {
-                emit(
-                    refreshTokenApi(
-                        refreshToken = tokenCache.refreshToken.get(),
-                        ssaid = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-                    )
-                )
-            }.retry(10) {
-                if (it is ClientException)
-                    false
-                else {
-                    delay(100L)
-                    true
-                }
-            }.catch {
-                tokenCache.clearTokenCache()
-                MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
-            }
-                .singleOrNull()
-        } else {
-            tokenCache.clearTokenCache()
-            MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
-        }
-        return null
-    }
+//    @SuppressLint("HardwareIds")
+//    suspend fun refreshAccessToken(): TokenPair? {
+//        if (validateRefreshToken(tokenCache.refreshToken.get())) {
+//            // times: Int = 10, initialDelay: Long = 250L, factor: Double = 1.2
+//            return flow {
+//                emit(
+//                    refreshTokenApi(
+//                        refreshToken = tokenCache.refreshToken.get(),
+//                        ssaid = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+//                    )
+//                )
+//            }.retry(10) {
+//                if (it is ClientException)
+//                    false
+//                else {
+//                    delay(100L)
+//                    true
+//                }
+//            }.catch {
+//                tokenCache.clearTokenCache()
+//                MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
+//            }
+//                .singleOrNull()
+//        } else {
+//            tokenCache.clearTokenCache()
+//            MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
+//        }
+//        return null
+//    }
 
     private suspend fun refreshTokenApi(refreshToken: String, ssaid: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
-        tokenApi.apiTokenRefreshPost(body = refreshToken, SSAID = ssaid, apiVersion = null)
+        //tokenApi.apiTokenRefreshPost(body = refreshToken, SSAID = ssaid, apiVersion = null)
     }
 }

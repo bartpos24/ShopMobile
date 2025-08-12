@@ -8,7 +8,7 @@ import pl.bartpos24.shopmobile.repositories.TokenRepository
 class AuthHeaderInterceptor(private val tokenRepository: Lazy<TokenRepository>) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-            //.addHeader("Authorization", tokenRepository.get().getHeaderFormattedAccessToken())
+            .addHeader("Authorization", tokenRepository.get().getHeaderFormattedAccessToken())
             .build()
         return chain.proceed(request)
     }

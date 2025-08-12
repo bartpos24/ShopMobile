@@ -14,7 +14,7 @@ import org.openapitools.client.infrastructure.LocalDateAdapter
 import org.openapitools.client.infrastructure.LocalDateTimeAdapter
 import org.openapitools.client.infrastructure.UUIDAdapter
 import pl.bartpos24.shopmobile.api.AuthHeaderInterceptor
-import pl.bartpos24.shopmobile.api.OauthRefreshAuthenticator
+//import pl.bartpos24.shopmobile.api.OauthRefreshAuthenticator
 import pl.bartpos24.shopmobile.repositories.TokenRepository
 import pl.bartpos24.shopmobile.repositories.UserConfigRepository
 import timber.log.Timber
@@ -41,7 +41,7 @@ object NetworkInfrastructureModule {
         .writeTimeout(25, TimeUnit.SECONDS)
         .readTimeout(180, TimeUnit.SECONDS)
         .pingInterval(2, TimeUnit.SECONDS)
-        .authenticator(OauthRefreshAuthenticator(tokenRepository))
+        //.authenticator(OauthRefreshAuthenticator(tokenRepository))
         .addInterceptor(AuthHeaderInterceptor(tokenRepository))
         .addInterceptor(
             HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {

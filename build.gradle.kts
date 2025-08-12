@@ -49,19 +49,39 @@ openApiGenerate {
         mapOf(
             "dateLibrary" to dateLibrary,
             "collectionType" to collectionType,
-            "parcelizeModels" to parcelizeModels
+            "parcelizeModels" to parcelizeModels,
+            "parcelizeModels" to parcelizeModels,
+            "generateApiTests" to "false",
+            "useBeanValidation" to "false",
+            "useRxJava" to "false",
+            "useCoroutines" to "true",
+            "authorizationFeature" to "true",
+            "useBearerToken" to "true",
+            "generateAuth" to "true"
         )
     )
-    if (file("$rootDir/$apiModuleName/build.gradle.kts").exists()) {
-        globalProperties.set(
-            mapOf(
-                "supportingFiles" to "false", // **Nie generuje plików build.gradle i settings.gradle**
-                "gradleBuildFile" to "false",
-                "generateGradleProject" to "false"
-            )
+//    if (file("$rootDir/$apiModuleName/build.gradle.kts").exists()) {
+//        globalProperties.set(
+//            mapOf(
+//                "supportingFiles" to "false", // **Nie generuje plików build.gradle i settings.gradle**
+//                "gradleBuildFile" to "false",
+//                "generateGradleProject" to "false"
+//            )
+//        )
+//    }
+    globalProperties.set(
+        mapOf(
+            "supportingFiles" to "true",
+            "models" to "true",
+            "apis" to "true",
+            "modelDocs" to "false",
+            "apiDocs" to "false"
         )
-    }
+    )
     println("Zakończono konfigurację openApiGenerate.")
+}
+tasks.withType<Test> {
+    enabled = false
 }
 
 tasks.register("generateApi") {
