@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.maven.publish)
+    //alias(libs.plugins.maven.publish)
 }
 android {
     namespace = "pl.bartpos24.web"

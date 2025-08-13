@@ -6,9 +6,9 @@ targetSdk = "35"
 versionCode = "1"
 versionName = "1.0"
 #end
-agp = "8.9.0-alpha09"
+agp = "8.3.0"#"8.9.0-alpha09"
 kotlin = "2.0.21"
-coreKtx = "1.16.0"
+coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -18,6 +18,7 @@ constraintlayout = "2.2.1"
 lifecycleKtx = "2.9.1"
 navigationKtx = "2.9.1"
 spotless = "6.21.0"
+openApiGeneratorVersion = "7.0.1"
 ktlin = "0.50.0"
 moshiVer = "1.14.0"
 okhttp = "4.11.0"
@@ -75,6 +76,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 spotlessWithVersion = { id = "com.diffplug.spotless", version.ref = "spotless" }
 spotless = { id = "com.diffplug.spotless" }
 openApiGenerator = { id = "org.openapi.generator" }
+openApiGeneratorWithVersion = { id = "org.openapi.generator", version.ref = "openApiGeneratorVersion" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 android = { id = "kotlin-android" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }

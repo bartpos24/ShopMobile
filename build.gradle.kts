@@ -3,25 +3,28 @@ import java.net.URL
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    alias(libs.plugins.spotless)
-    alias(libs.plugins.openApiGenerator)
+    alias(libs.plugins.spotlessWithVersion)
+    alias(libs.plugins.openApiGeneratorWithVersion)
+    //alias(libs.plugins.spotless)
+    //alias(libs.plugins.openApiGenerator)
 }
 spotless {
     kotlin {
-        target(listOf("**/*.kt")) // Wszystkie pliki Kotlin
+        target("**/*.kt") // Wszystkie pliki Kotlin
         targetExclude(listOf("**/generated/**/*.kt")) // Wyklucz pliki wygenerowane
         ktlint(libs.versions.ktlin.get()) // Najnowsza wersja KtLint
         trimTrailingWhitespace() // Usuwanie spacji na końcu linii
         endWithNewline() // Wymuszanie nowej linii na końcu plików
     }
     kotlinGradle {
-        target(listOf("**/*.gradle.kts")) // Pliki Gradle w Kotlin DSL
+        target("**/*.gradle.kts") // Pliki Gradle w Kotlin DSL
         ktlint(libs.versions.ktlin.get())
     }
 }
 
 openApiGenerate {
     println("Uruchamianie openApiGenerate...")
+
     val apiModuleName = "web"
     // Set date and time library for project
     // java8 - native java library requires min sdk 26
@@ -80,9 +83,6 @@ openApiGenerate {
     )
     println("Zakończono konfigurację openApiGenerate.")
 }
-tasks.withType<Test> {
-    enabled = false
-}
 
 tasks.register("generateApi") {
     group = "openapi"
@@ -107,6 +107,6 @@ tasks.register("generateApi") {
         // Uruchomienie openApiGenerate
     }
 }
-tasks.named("spotlessKotlinApply") {
-    mustRunAfter("openApiGenerate")
-}
+//tasks.named("spotlessKotlinApply") {
+//    mustRunAfter("openApiGenerate")
+//}
