@@ -3,8 +3,10 @@ import java.net.URL
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.spotlessWithVersion)
-    alias(libs.plugins.openApiGeneratorWithVersion)
+    alias(libs.plugins.openApiGenerator)
     //alias(libs.plugins.spotless)
     //alias(libs.plugins.openApiGenerator)
 }
@@ -24,71 +26,52 @@ spotless {
 
 openApiGenerate {
     println("Uruchamianie openApiGenerate...")
-
-    val apiModuleName = "web"
-    // Set date and time library for project
-    // java8 - native java library requires min sdk 26
-    // threetenbp - backport from java8, can be used on lower sdk levels
-    // string - represent date and time as strings - no sdk requirement
-    val dateLibrary = "threetenbp"
-    // Set collection type for project
-    // array - all collections will be represented as kotlin array
-    // list - all collections will be represented as kotlin list
-    val collectionType = "list"
-    // Set flag to parcelize models
-    val parcelizeModels = "true"
     generatorName.set("kotlin")
-    // Api configuration file(OpenApi Standard)
-    //inputSpec.set("http://localhost:5001/swagger/v1/swagger.json")
     inputSpec.set("$rootDir/specs/openapi.json")
-    outputDir.set("$rootDir/$apiModuleName")
-    // Api files templates
-    //templateDir.set("$rootDir/templates/kotlin-client")
-    apiPackage.set("pl.bartpos24.$apiModuleName.api")
-    invokerPackage.set("pl.bartpos24.$apiModuleName")
-    modelPackage.set("pl.bartpos24.$apiModuleName.model")
-    generateModelDocumentation.set(false)
-    configOptions.set(
-        mapOf(
-            "dateLibrary" to dateLibrary,
-            "collectionType" to collectionType,
-            "parcelizeModels" to parcelizeModels,
-            "parcelizeModels" to parcelizeModels,
-            "generateApiTests" to "false",
-            "useBeanValidation" to "false",
-            "useRxJava" to "false",
-            "useCoroutines" to "true",
-            "authorizationFeature" to "true",
-            "useBearerToken" to "true",
-            "generateAuth" to "true"
-        )
-    )
-//    if (file("$rootDir/$apiModuleName/build.gradle.kts").exists()) {
-//        globalProperties.set(
-//            mapOf(
-//                "supportingFiles" to "false", // **Nie generuje plików build.gradle i settings.gradle**
-//                "gradleBuildFile" to "false",
-//                "generateGradleProject" to "false"
-//            )
-//        )
-//    }
-    globalProperties.set(
-        mapOf(
-            "supportingFiles" to "true",
-            "models" to "true",
-            "apis" to "true",
-            "modelDocs" to "false",
-            "apiDocs" to "false"
-        )
-    )
-    println("Zakończono konfigurację openApiGenerate.")
+    outputDir.set("$rootDir/web")
+    //invokerPackage.set("pl.bartpos24..web")
+    apiPackage.set("pl.bartpos24.web.api")
+    modelPackage.set("pl.bartpos24.web.model")
+    templateDir.set("$rootDir/templates/kotlin-client")
+    configOptions.set(mapOf(
+        "dateLibrary" to "threetenbp",
+        "collectionType" to "list",
+        "parcelizeModels" to "true",
+        //"serializationLibrary" to "gson"
+    ))
+    // Wyłącz generowanie niepotrzebnych plików
+    additionalProperties.set(mapOf(
+        "gradleBuildFile" to "false",
+        //"useSpringBoot3" to "false",
+        // "artifactId" to "web",
+        // "hideGenerationTimestamp" to "true",
+        "generateApiTests" to "false",
+        "generateModelTests" to "false",
+        //"generateApiDocumentation" to "true",
+        "generateModelDocumentation" to "false"
+    ))
+//    // Wyłącz generowanie plików projektu
+    globalProperties.set(mapOf(
+        //"supportingFiles" to "true",
+        "modelDocs" to "false",
+        "apiTests" to "false",
+        "modelTests" to "false",
+    ))
+    println("... koniec openApiGenerate")
 }
 
 tasks.register("generateApi") {
+    println("Uruchamianie generateApi...")
+    dependsOn("openApiGenerate")
+    println("... koniec generateApi")
+}
+
+tasks.register("downloadApiSchema") {
     group = "openapi"
     description = "Pobiera schemat OpenAPI i generuje API"
 
     doFirst {
+        println("Uruchamianie downloadApiSchema...")
         val openApiUrl = "http://localhost:5001/swagger/v1/swagger.json"
         val outputFile = File(rootDir, "specs/openapi.json")
 
@@ -98,15 +81,28 @@ tasks.register("generateApi") {
             val schemaContent = URL(openApiUrl).readText()
             outputFile.parentFile.mkdirs() // Tworzy katalog, jeśli nie istnieje
             outputFile.writeText(schemaContent)
-
             println("Zapisano OpenAPI schema do: ${outputFile.absolutePath}")
         } catch (e: Exception) {
             println("Błąd pobierania OpenAPI: ${e.message}")
             throw e
         }
-        // Uruchomienie openApiGenerate
+
+        println("... koniec downloadApiSchema")
     }
 }
-//tasks.named("spotlessKotlinApply") {
-//    mustRunAfter("openApiGenerate")
-//}
+tasks.register("cleanGeneratedOpenApiFiles") {
+    group = "openapi"
+    description = "Czyści wygenerowane pliki OpenAPI"
+
+    doFirst {
+        println("Uruchamianie cleanGeneratedOpenApiFiles ...")
+        delete(
+            "$rootDir/web/build.gradle",
+            "$rootDir/web/settings.gradle",
+            "$rootDir/web/gradlew",
+            "$rootDir/web/gradlew.bat",
+            "$rootDir/web/gradle"
+        )
+        println("Usunięto wygenerowane pliki z katalogu web")
+    }
+}

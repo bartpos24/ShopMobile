@@ -1,24 +1,24 @@
 [versions]
 #project versions
-compileSdk = "35"
+compileSdk = "36"
 minSdk = "26"
 targetSdk = "35"
 versionCode = "1"
 versionName = "1.0"
 #end
-agp = "8.3.0"#"8.9.0-alpha09"
-kotlin = "2.0.21"
-coreKtx = "1.12.0"
+agp = "8.12.0"#"8.9.0-alpha09"
+kotlin = "2.0.0"#"2.2.10"
+coreKtx = "1.17.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
 appcompat = "1.7.1"
 material = "1.12.0"
 constraintlayout = "2.2.1"
 lifecycleKtx = "2.9.1"
-navigationKtx = "2.9.1"
+navigationKtx = "2.9.3"
 spotless = "6.21.0"
-openApiGeneratorVersion = "7.0.1"
+openApiGeneratorVersion = "7.4.0"
 ktlin = "0.50.0"
 moshiVer = "1.14.0"
 okhttp = "4.11.0"
@@ -26,6 +26,7 @@ threetenbp = "1.7.0"
 kotlintest-runner-junit-ver = "3.4.2"
 retrofitVer = "2.9.0"
 kotlinx-parcelize = "1.8.10"
+kotlinx-metadata = "0.9.0"
 daggerVer = "2.50"
 workVersion = "2.10.2"
 flowPreferencesVersion = "1.9.1"
@@ -57,6 +58,7 @@ kotlintest-runner-junit5 = { group = "io.kotlintest", name = "kotlintest-runner-
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVer" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofitVer" }
 kotlinx-parcelize = { group = "org.jetbrains.kotlinx", name = "kotlinx-parcelize", version.ref = "kotlinx-parcelize" }
+kotlinx-metadata = { group = "org.jetbrains.kotlinx", name = "kotlinx-metadata-jvm", version.ref = "kotlinx-metadata" }
 
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "daggerVer" }
 daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "daggerVer" }
@@ -75,11 +77,11 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 spotlessWithVersion = { id = "com.diffplug.spotless", version.ref = "spotless" }
 spotless = { id = "com.diffplug.spotless" }
-openApiGenerator = { id = "org.openapi.generator" }
-openApiGeneratorWithVersion = { id = "org.openapi.generator", version.ref = "openApiGeneratorVersion" }
-android-library = { id = "com.android.library", version.ref = "agp" }
+openApiGenerator = { id = "org.openapi.generator", version.ref = "openApiGeneratorVersion" }
+android-library = { id = "com.android.library"}
 android = { id = "kotlin-android" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+android-extensions = { id = "kotlin-android-extensions" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt"}
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize"}
 maven-publish = { id = "maven-publish" }

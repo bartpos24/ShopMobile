@@ -7,32 +7,34 @@ plugins {
 }
 android {
     namespace = "pl.bartpos24.web"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdkVersion(libs.versions.compileSdk.get().toInt())
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        //targetSdk = libs.versions.targetSdk.get().toInt()
+        //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            //isMinifyEnabled = false
-            proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro",
-            )
-        }
-    }
+//    buildTypes {
+//        release {
+//            //isMinifyEnabled = false
+//            proguardFiles(
+//                    getDefaultProguardFile("proguard-android-optimize.txt"),
+//                    "proguard-rules.pro",
+//            )
+//        }
+//    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-}
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+//    sourceSets {
+//        getByName("main").java.setSrcDirs(listOf("src/main/java", "src/main/kotlin"))
+//    }
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 dependencies {
+    //implementation(fileTree("include" to "*.jar", "dir" to "libs"))
     implementation(libs.stdlib)
     implementation(libs.kotlin.reflect)
     implementation(libs.moshi)

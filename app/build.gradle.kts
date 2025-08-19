@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    //alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
 }
 
@@ -37,6 +37,11 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    sourceSets {
+        getByName("main") {
+            java.srcDir("${rootDir}/generated/openapi/src/main/kotlin")
+        }
     }
 }
 
@@ -79,7 +84,7 @@ dependencies {
     implementation(libs.daggerAndroidProcessor)
     implementation(libs.work.runtime)
     //daggerAssistedInjectAnnotations
-    kapt(libs.daggerCompiler)
+    //kapt(libs.daggerCompiler)
     //daggerAssistedInjectProcessor
 
     implementation(libs.flow.preferences)
