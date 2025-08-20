@@ -1,5 +1,10 @@
 package org.openapitools.client.infrastructure
 
+import kotlinx.coroutines.suspendCancellableCoroutine
+import okhttp3.Call
+import okhttp3.Callback
+import java.io.IOException
+
 typealias MultiValueMap = MutableMap<String, List<String>>
 
 fun collectionDelimiter(collectionFormat: String) = when (collectionFormat) {
@@ -20,3 +25,17 @@ fun <T : Any?> toMultiValue(items: Iterable<T>, collectionFormat: String, map: (
         else -> listOf(items.joinToString(separator = collectionDelimiter(collectionFormat), transform = map))
     }
 }
+
+//suspend fun Call.await(): Response = suspendCancellableCoroutine { cancellableContinuation ->
+//    cancellableContinuation.invokeOnCancellation {
+//        cancel()
+//    }
+//    enqueue(object : Callback {
+//        override fun onResponse(call: Call, response: Response) {
+//            cancellableContinuation.resumeWith(Result.success(response))
+//        }
+//        override fun onFailure(call: Call, e: IOException) {
+//            cancellableContinuation.resumeWith(Result.failure(e))
+//        }
+//    })
+//}

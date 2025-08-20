@@ -15,7 +15,6 @@
 
 package pl.bartpos24.web.model
 
-import pl.bartpos24.web.model.Product
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -25,27 +24,35 @@ import kotlinx.parcelize.Parcelize
 /**
  * 
  *
- * @param id 
  * @param name 
- * @param code 
- * @param products 
+ * @param surname 
+ * @param username 
+ * @param email 
+ * @param password 
+ * @param confirmPassword 
  */
 @Parcelize
 
 
-data class Unit (
-
-    @Json(name = "id")
-    val id: kotlin.Int? = null,
+data class RegisterModel (
 
     @Json(name = "name")
-    val name: kotlin.String? = null,
+    val name: kotlin.String,
 
-    @Json(name = "code")
-    val code: kotlin.String? = null,
+    @Json(name = "surname")
+    val surname: kotlin.String,
 
-    @Json(name = "products")
-    val products: kotlin.collections.List<Product>? = null
+    @Json(name = "username")
+    val username: kotlin.String,
+
+    @Json(name = "email")
+    val email: kotlin.String,
+
+    @Json(name = "password")
+    val password: kotlin.String,
+
+    @Json(name = "confirmPassword")
+    val confirmPassword: kotlin.String
 
 ) : Parcelable
 

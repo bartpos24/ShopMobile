@@ -42,5 +42,6 @@ dependencies {
     implementation(libs.moshi.adapters)
     implementation(libs.okhttp)
     implementation(libs.threetenbp)
+    implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlintest.runner.junit5)
 }

@@ -32,6 +32,8 @@ workVersion = "2.10.2"
 flowPreferencesVersion = "1.9.1"
 timberVersion = "5.0.1"
 jwtVersion = "2.0.0"
+kotlinCoroutinesVer = "1.10.2"
+corbindVersion = "1.5.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,6 +61,7 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofitVer" }
 kotlinx-parcelize = { group = "org.jetbrains.kotlinx", name = "kotlinx-parcelize", version.ref = "kotlinx-parcelize" }
 kotlinx-metadata = { group = "org.jetbrains.kotlinx", name = "kotlinx-metadata-jvm", version.ref = "kotlinx-metadata" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinCoroutinesVer" }
 
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "daggerVer" }
 daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "daggerVer" }
@@ -70,6 +73,14 @@ work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref
 flow-preferences = { group = "com.fredporciuncula", name = "flow-preferences", version.ref = "flowPreferencesVersion" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timberVersion" }
 jwt = { group = "com.auth0.android", name = "jwtdecode", version.ref = "jwtVersion" }
+
+corbind = { group = "ru.ldralighieri.corbind", name = "corbind", version.ref = "corbindVersion" }
+corbindAppCompat = { group = "ru.ldralighieri.corbind", name = "corbind-appcompat", version.ref = "corbindVersion" }
+corbindDrawerLayout = { group = "ru.ldralighieri.corbind", name = "corbind-drawerlayout", version.ref = "corbindVersion" }
+corbindMaterial = { group = "ru.ldralighieri.corbind", name = "corbind-material", version.ref = "corbindVersion" }
+corbindNavigation = { group = "ru.ldralighieri.corbind", name = "corbind-navigation", version.ref = "corbindVersion" }
+corbindRecyclerView = { group = "ru.ldralighieri.corbind", name = "corbind-recyclerview", version.ref = "corbindVersion" }
+corbindSwipeRefreshLayout = { group = "ru.ldralighieri.corbind", name = "corbind-swiperefreshlayout", version.ref = "corbindVersion" }
 
 
 [plugins]

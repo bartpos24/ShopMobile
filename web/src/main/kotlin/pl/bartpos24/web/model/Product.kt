@@ -10,30 +10,36 @@
     "ArrayInDataClass",
     "EnumEntryName",
     "RemoveRedundantQualifierName",
-    "UnusedImport",
+    "UnusedImport"
 )
 
 package pl.bartpos24.web.model
 
-import android.os.Parcelable
+import pl.bartpos24.web.model.Barcode
+import pl.bartpos24.web.model.Unit
+
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 /**
+ * 
  *
- *
- * @param id
- * @param name
- * @param brand
- * @param capacity
- * @param label
- * @param isGeneral
- * @param unitId
- * @param unit
- * @param barcodes
+ * @param id 
+ * @param name 
+ * @param brand 
+ * @param capacity 
+ * @param label 
+ * @param isGeneral 
+ * @param unitId 
+ * @param unit 
+ * @param barcodes 
  */
 @Parcelize
-data class Product(
+
+
+data class Product (
 
     @Json(name = "id")
     val id: kotlin.Int? = null,
@@ -60,6 +66,7 @@ data class Product(
     val unit: Unit? = null,
 
     @Json(name = "barcodes")
-    val barcodes: kotlin.collections.List<Barcode>? = null,
+    val barcodes: kotlin.collections.List<Barcode>? = null
 
 ) : Parcelable
+

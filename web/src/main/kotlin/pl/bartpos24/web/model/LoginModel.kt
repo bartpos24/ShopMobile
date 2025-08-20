@@ -15,7 +15,7 @@
 
 package pl.bartpos24.web.model
 
-import pl.bartpos24.web.model.Product
+import pl.bartpos24.web.model.ELoginType
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -25,27 +25,27 @@ import kotlinx.parcelize.Parcelize
 /**
  * 
  *
- * @param id 
- * @param code 
- * @param productId 
- * @param product 
+ * @param username 
+ * @param passowrd 
+ * @param ssaid 
+ * @param loginType 
  */
 @Parcelize
 
 
-data class Barcode (
+data class LoginModel (
 
-    @Json(name = "id")
-    val id: kotlin.Int? = null,
+    @Json(name = "username")
+    val username: kotlin.String,
 
-    @Json(name = "code")
-    val code: kotlin.String? = null,
+    @Json(name = "passowrd")
+    val passowrd: kotlin.String,
 
-    @Json(name = "productId")
-    val productId: kotlin.Int? = null,
+    @Json(name = "ssaid")
+    val ssaid: kotlin.String? = null,
 
-    @Json(name = "product")
-    val product: Product? = null
+    @Json(name = "loginType")
+    val loginType: ELoginType? = null
 
 ) : Parcelable
 

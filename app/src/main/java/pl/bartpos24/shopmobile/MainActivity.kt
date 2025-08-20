@@ -2,6 +2,7 @@ package pl.bartpos24.shopmobile
 
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -14,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.MutableStateFlow
 import pl.bartpos24.shopmobile.databinding.ActivityMainBinding
 import pl.bartpos24.shopmobile.utilities.LoginStatus
+import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     //private val mainActivityViewModel: MainActivityViewModel by viewModels()
-
+    private val loginViewModel: LoginViewModel by viewModels()
     private var hasOptionsMenu: Boolean = false
 
     object loginAuth {
@@ -58,6 +60,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //loginViewModel.login("barpos", "Dobrakow56!", "ssaid")
     }
     fun setHasOptionsMenu(value: Boolean) {
         hasOptionsMenu = value

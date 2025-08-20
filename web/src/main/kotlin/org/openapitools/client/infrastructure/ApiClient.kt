@@ -1,26 +1,34 @@
 package org.openapitools.client.infrastructure
 
-import com.squareup.moshi.adapter
-import okhttp3.FormBody
-import okhttp3.Headers.Companion.toHeaders
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.FormBody
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.ResponseBody
-import okhttp3.internal.EMPTY_REQUEST
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.Request
+import okhttp3.Headers
+import okhttp3.Headers.Companion.toHeaders
+import okhttp3.MultipartBody
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.net.URLConnection
+import java.util.Locale
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.OffsetTime
-import java.io.File
-import java.net.URLConnection
-import java.util.Locale
+import com.squareup.moshi.adapter
+
+ val EMPTY_REQUEST: RequestBody = ByteArray(0).toRequestBody()
 
 open class ApiClient(val baseUrl: String, val client: OkHttpClient = defaultClient) {
     companion object {
@@ -76,14 +84,14 @@ open class ApiClient(val baseUrl: String, val client: OkHttpClient = defaultClie
                                 val fileMediaType = guessContentTypeFromFile(part.body).toMediaTypeOrNull()
                                 addPart(
                                     partHeaders.toHeaders(),
-                                    part.body.asRequestBody(fileMediaType),
+                                    part.body.asRequestBody(fileMediaType)
                                 )
                             } else {
                                 val partHeaders = part.headers.toMutableMap() +
                                     ("Content-Disposition" to "form-data; name=\"$name\"")
                                 addPart(
                                     partHeaders.toHeaders(),
-                                    parameterToString(part.body).toRequestBody(null),
+                                    parameterToString(part.body).toRequestBody(null)
                                 )
                             }
                         }
@@ -112,8 +120,8 @@ open class ApiClient(val baseUrl: String, val client: OkHttpClient = defaultClie
         }
 
     @OptIn(ExperimentalStdlibApi::class)
-    protected inline fun <reified T : Any?> responseBody(body: ResponseBody?, mediaType: String? = JsonMediaType): T? {
-        if (body == null) {
+    protected inline fun <reified T: Any?> responseBody(body: ResponseBody?, mediaType: String? = JsonMediaType): T? {
+        if(body == null) {
             return null
         }
         if (T::class.java == File::class.java) {
@@ -138,12 +146,27 @@ open class ApiClient(val baseUrl: String, val client: OkHttpClient = defaultClie
                 Serializer.moshi.adapter<T>().fromJson(bodyContent)
             }
             mediaType == OctetMediaType -> body.bytes() as? T
-            else -> throw UnsupportedOperationException("responseBody currently only supports JSON body.")
+            else ->  throw UnsupportedOperationException("responseBody currently only supports JSON body.")
         }
     }
 
-    protected inline fun <reified I, reified T : Any?> request(requestConfig: RequestConfig<I>): ApiResponse<T?> {
+    protected fun <T> updateAuthParams(requestConfig: RequestConfig<T>) {
+        if (requestConfig.headers["Authorization"].isNullOrEmpty()) {
+            if (apiKey["Authorization"] != null) {
+                if (apiKeyPrefix["Authorization"] != null) {
+                    requestConfig.headers["Authorization"] = apiKeyPrefix["Authorization"]!! + " " + apiKey["Authorization"]!!
+                } else {
+                    requestConfig.headers["Authorization"] = apiKey["Authorization"]!!
+                }
+            }
+        }
+    }
+
+    protected inline fun <reified I, reified T: Any?> request(requestConfig: RequestConfig<I>): ApiResponse<T?> {
         val httpUrl = baseUrl.toHttpUrlOrNull() ?: throw IllegalStateException("baseUrl is invalid.")
+
+        // take authMethod from operation
+        updateAuthParams(requestConfig)
 
         val url = httpUrl.newBuilder()
             .addEncodedPathSegments(requestConfig.path.trimStart('/'))
@@ -192,32 +215,33 @@ open class ApiClient(val baseUrl: String, val client: OkHttpClient = defaultClie
         val accept = response.header(ContentType)?.substringBefore(";")?.lowercase(Locale.US)
 
         // TODO: handle specific mapping types. e.g. Map<int, Class<?>>
+        @Suppress("UNNECESSARY_SAFE_CALL")
         return when {
             response.isRedirect -> Redirection(
                 response.code,
-                response.headers.toMultimap(),
+                response.headers.toMultimap()
             )
             response.isInformational -> Informational(
                 response.message,
                 response.code,
-                response.headers.toMultimap(),
+                response.headers.toMultimap()
             )
             response.isSuccessful -> Success(
                 responseBody(response.body, accept),
                 response.code,
-                response.headers.toMultimap(),
+                response.headers.toMultimap()
             )
             response.isClientError -> ClientError(
                 response.message,
                 response.body?.string(),
                 response.code,
-                response.headers.toMultimap(),
+                response.headers.toMultimap()
             )
             else -> ServerError(
                 response.message,
                 response.body?.string(),
                 response.code,
-                response.headers.toMultimap(),
+                response.headers.toMultimap()
             )
         }
     }
@@ -231,13 +255,13 @@ open class ApiClient(val baseUrl: String, val client: OkHttpClient = defaultClie
         else -> value.toString()
     }
 
-    protected inline fun <reified T : Any> parseDateToQueryString(value: T): String {
+    protected inline fun <reified T: Any> parseDateToQueryString(value : T): String {
         /*
         .replace("\"", "") converts the json object string to an actual string for the query parameter.
         The moshi or gson adapter allows a more generic solution instead of trying to use a native
         formatter. It also easily allows to provide a simple way to define a custom date format pattern
         inside a gson/moshi adapter.
-         */
+        */
         return Serializer.moshi.adapter(T::class.java).toJson(value).replace("\"", "")
     }
 }

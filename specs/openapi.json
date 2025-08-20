@@ -209,6 +209,18 @@
           }
         }
       }
+    },
+    "/api/Product/GetAllProductsTestOpenApiGenerate": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {

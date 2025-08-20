@@ -9,6 +9,7 @@ import dagger.Reusable
 import pl.bartpos24.shopmobile.repositories.TokenRepository
 import pl.bartpos24.shopmobile.repositories.UserConfigRepository
 import pl.bartpos24.shopmobile.utilities.TokenCache
+import pl.bartpos24.web.api.LoginApi
 import javax.inject.Singleton
 
 @Module
@@ -22,5 +23,5 @@ object RepositoryModule {
     @Reusable
     @Provides
     @JvmStatic
-    fun provideTokenRepository(tokenCache: TokenCache, context: Application): TokenRepository = TokenRepository(tokenCache, context)
+    fun provideTokenRepository(loginApi : LoginApi, tokenCache: TokenCache, context: Application): TokenRepository = TokenRepository(loginApi, tokenCache, context)
 }

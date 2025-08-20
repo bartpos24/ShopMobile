@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
+import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
 
 @Module
@@ -13,4 +14,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ClassKey(MainActivityViewModel::class)
     abstract fun bindMainActivityViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ClassKey(LoginViewModel::class)
+    abstract fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
 }

@@ -93,4 +93,12 @@ dependencies {
 
     //JWT
     implementation(libs.jwt)
+
+    implementation(libs.corbind)
+    implementation(libs.corbindAppCompat)
+    implementation(libs.corbindDrawerLayout)
+    implementation(libs.corbindMaterial)
+    implementation(libs.corbindNavigation)
+    implementation(libs.corbindRecyclerView)
+    implementation(libs.corbindSwipeRefreshLayout)
 }
