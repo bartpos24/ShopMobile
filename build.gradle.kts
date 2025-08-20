@@ -37,6 +37,7 @@ openApiGenerate {
         "dateLibrary" to "threetenbp",
         "collectionType" to "list",
         "parcelizeModels" to "true",
+        "useCoroutines" to "true",
         //"serializationLibrary" to "gson"
     ))
     // Wyłącz generowanie niepotrzebnych plików

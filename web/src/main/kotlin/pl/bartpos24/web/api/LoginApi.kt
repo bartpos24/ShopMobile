@@ -25,6 +25,8 @@ import pl.bartpos24.web.model.TokenResponse
 
 import com.squareup.moshi.Json
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
@@ -60,10 +62,10 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiLoginLoginPost(loginModel: LoginModel? = null) : TokenResponse {
+    suspend fun apiLoginLoginPost(loginModel: LoginModel? = null) : TokenResponse = withContext(Dispatchers.IO) {
         val localVarResponse = apiLoginLoginPostWithHttpInfo(loginModel = loginModel)
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as TokenResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -88,10 +90,10 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiLoginLoginPostWithHttpInfo(loginModel: LoginModel?) : ApiResponse<TokenResponse?> {
+    suspend fun apiLoginLoginPostWithHttpInfo(loginModel: LoginModel?) : ApiResponse<TokenResponse?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiLoginLoginPostRequestConfig(loginModel = loginModel)
 
-        return request<LoginModel, TokenResponse>(
+        return@withContext request<LoginModel, TokenResponse>(
             localVariableConfig
         )
     }
@@ -131,10 +133,10 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
      * @throws ServerException If the API returns a server error response
      */
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiLoginRegisterPost(registerModel: RegisterModel? = null) : Unit {
+    suspend fun apiLoginRegisterPost(registerModel: RegisterModel? = null) : Unit = withContext(Dispatchers.IO) {
         val localVarResponse = apiLoginRegisterPostWithHttpInfo(registerModel = registerModel)
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -158,10 +160,10 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiLoginRegisterPostWithHttpInfo(registerModel: RegisterModel?) : ApiResponse<Unit?> {
+    suspend fun apiLoginRegisterPostWithHttpInfo(registerModel: RegisterModel?) : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiLoginRegisterPostRequestConfig(registerModel = registerModel)
 
-        return request<RegisterModel, Unit>(
+        return@withContext request<RegisterModel, Unit>(
             localVariableConfig
         )
     }

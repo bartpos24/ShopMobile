@@ -23,6 +23,8 @@ import pl.bartpos24.web.model.Product
 
 import com.squareup.moshi.Json
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
@@ -57,10 +59,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws ServerException If the API returns a server error response
      */
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiProductAddProductPost(product: Product? = null) : Unit {
+    suspend fun apiProductAddProductPost(product: Product? = null) : Unit = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductAddProductPostWithHttpInfo(product = product)
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -84,10 +86,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiProductAddProductPostWithHttpInfo(product: Product?) : ApiResponse<Unit?> {
+    suspend fun apiProductAddProductPostWithHttpInfo(product: Product?) : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductAddProductPostRequestConfig(product = product)
 
-        return request<Product, Unit>(
+        return@withContext request<Product, Unit>(
             localVariableConfig
         )
     }
@@ -125,10 +127,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws ServerException If the API returns a server error response
      */
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiProductGetAllProductsGet() : Unit {
+    suspend fun apiProductGetAllProductsGet() : Unit = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductGetAllProductsGetWithHttpInfo()
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -151,10 +153,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiProductGetAllProductsGetWithHttpInfo() : ApiResponse<Unit?> {
+    suspend fun apiProductGetAllProductsGetWithHttpInfo() : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductGetAllProductsGetRequestConfig()
 
-        return request<Unit, Unit>(
+        return@withContext request<Unit, Unit>(
             localVariableConfig
         )
     }
@@ -190,10 +192,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws ServerException If the API returns a server error response
      */
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiProductGetAllProductsTestOpenApiGenerateGet() : Unit {
+    suspend fun apiProductGetAllProductsTestOpenApiGenerateGet() : Unit = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductGetAllProductsTestOpenApiGenerateGetWithHttpInfo()
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -216,10 +218,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiProductGetAllProductsTestOpenApiGenerateGetWithHttpInfo() : ApiResponse<Unit?> {
+    suspend fun apiProductGetAllProductsTestOpenApiGenerateGetWithHttpInfo() : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductGetAllProductsTestOpenApiGenerateGetRequestConfig()
 
-        return request<Unit, Unit>(
+        return@withContext request<Unit, Unit>(
             localVariableConfig
         )
     }
@@ -256,10 +258,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws ServerException If the API returns a server error response
      */
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiProductGetProductByBarcodeGet(barcode: kotlin.String? = null) : Unit {
+    suspend fun apiProductGetProductByBarcodeGet(barcode: kotlin.String? = null) : Unit = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductGetProductByBarcodeGetWithHttpInfo(barcode = barcode)
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -283,10 +285,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiProductGetProductByBarcodeGetWithHttpInfo(barcode: kotlin.String?) : ApiResponse<Unit?> {
+    suspend fun apiProductGetProductByBarcodeGetWithHttpInfo(barcode: kotlin.String?) : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductGetProductByBarcodeGetRequestConfig(barcode = barcode)
 
-        return request<Unit, Unit>(
+        return@withContext request<Unit, Unit>(
             localVariableConfig
         )
     }
@@ -330,10 +332,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiProductGetProductFromOpenFoodFactsGet(barcode: kotlin.String? = null) : Product {
+    suspend fun apiProductGetProductFromOpenFoodFactsGet(barcode: kotlin.String? = null) : Product = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductGetProductFromOpenFoodFactsGetWithHttpInfo(barcode = barcode)
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as Product
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -358,10 +360,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiProductGetProductFromOpenFoodFactsGetWithHttpInfo(barcode: kotlin.String?) : ApiResponse<Product?> {
+    suspend fun apiProductGetProductFromOpenFoodFactsGetWithHttpInfo(barcode: kotlin.String?) : ApiResponse<Product?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductGetProductFromOpenFoodFactsGetRequestConfig(barcode = barcode)
 
-        return request<Unit, Product>(
+        return@withContext request<Unit, Product>(
             localVariableConfig
         )
     }
@@ -404,10 +406,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws ServerException If the API returns a server error response
      */
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiProductInitProductFromCSVPost() : Unit {
+    suspend fun apiProductInitProductFromCSVPost() : Unit = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductInitProductFromCSVPostWithHttpInfo()
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -430,10 +432,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiProductInitProductFromCSVPostWithHttpInfo() : ApiResponse<Unit?> {
+    suspend fun apiProductInitProductFromCSVPostWithHttpInfo() : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductInitProductFromCSVPostRequestConfig()
 
-        return request<Unit, Unit>(
+        return@withContext request<Unit, Unit>(
             localVariableConfig
         )
     }
@@ -469,10 +471,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws ServerException If the API returns a server error response
      */
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun apiProductTestApiDirectlyGet() : Unit {
+    suspend fun apiProductTestApiDirectlyGet() : Unit = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductTestApiDirectlyGetWithHttpInfo()
 
-        return when (localVarResponse.responseType) {
+        return@withContext when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
@@ -495,10 +497,10 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Throws(IllegalStateException::class, IOException::class)
-    fun apiProductTestApiDirectlyGetWithHttpInfo() : ApiResponse<Unit?> {
+    suspend fun apiProductTestApiDirectlyGetWithHttpInfo() : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductTestApiDirectlyGetRequestConfig()
 
-        return request<Unit, Unit>(
+        return@withContext request<Unit, Unit>(
             localVariableConfig
         )
     }

@@ -1,5 +1,4 @@
 @file:Suppress("unused")
-
 package org.openapitools.client.infrastructure
 
 import java.lang.RuntimeException
