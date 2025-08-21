@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    //alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
 }
 
@@ -79,12 +79,13 @@ dependencies {
     //dagger
     implementation(libs.dagger)
     implementation(libs.daggerAndroid)
+    //implementation(libs.daggerAndroidProcessor)
     //compileOnly(libs.daggerAssistedInje)
     implementation(libs.daggerAndroidSupport)
-    implementation(libs.daggerAndroidProcessor)
     implementation(libs.work.runtime)
     //daggerAssistedInjectAnnotations
-    //kapt(libs.daggerCompiler)
+    kapt(libs.daggerCompiler)
+    kapt(libs.daggerAndroidProcessor)
     //daggerAssistedInjectProcessor
 
     implementation(libs.flow.preferences)
@@ -101,4 +102,6 @@ dependencies {
     implementation(libs.corbindNavigation)
     implementation(libs.corbindRecyclerView)
     implementation(libs.corbindSwipeRefreshLayout)
+
+    implementation(libs.kotlinx.metadata)
 }

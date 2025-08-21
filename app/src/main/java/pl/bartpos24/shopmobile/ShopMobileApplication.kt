@@ -4,18 +4,19 @@ import android.app.Application
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import pl.bartpos24.shopmobile.dagger.IAppComponent
+import pl.bartpos24.shopmobile.dagger.AppInjector
+import pl.bartpos24.shopmobile.dagger.AppComponent
 import javax.inject.Inject
 
 class ShopMobileApplication : Application(), HasAndroidInjector {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
-    lateinit var appComponent: IAppComponent
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        //appComponent = AppInjector.init(this)
+        appComponent = AppInjector.init(this)
 
         //AndroidThreeTen.init(this)
     }

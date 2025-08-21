@@ -15,6 +15,10 @@ import javax.inject.Singleton
 @Module
 object RepositoryModule {
 
+    @Reusable
+    @Provides
+    @JvmStatic
+    fun provideTokenCache(sharedPreferences: SharedPreferences): TokenCache = TokenCache(sharedPreferences)
     @Provides
     @Singleton
     @JvmStatic

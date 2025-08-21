@@ -12,19 +12,34 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.HasAndroidInjector
+import dagger.android.DispatchingAndroidInjector
 import kotlinx.coroutines.flow.MutableStateFlow
 import pl.bartpos24.shopmobile.databinding.ActivityMainBinding
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
+import androidx.lifecycle.ViewModelProvider
+import dagger.android.AndroidInjector
 import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
+import pl.bartpos24.shopmobile.viewmodels.ShopMobileViewModelFactory
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : AppCompatActivity(), HasAndroidInjector {
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     //private val mainActivityViewModel: MainActivityViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
     private var hasOptionsMenu: Boolean = false
+
+    @Inject
+    lateinit var shopMobileApp: ShopMobileApplication
+    private val viewModelFactory: ShopMobileViewModelFactory by lazy {
+        ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null)
+    }
 
     object loginAuth {
         private val status = MutableStateFlow<LoginStatus>(LoginStatus.UNAUTHENTICATED)
@@ -77,4 +92,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun androidInjector(): AndroidInjector<in Any> = androidInjector
 }

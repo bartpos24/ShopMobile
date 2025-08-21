@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
@@ -21,7 +22,7 @@ import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import ru.ldralighieri.corbind.view.clicks
 
 class HomeFragment : ShopMobileFragment() {
-    private val loginViewModel: LoginViewModel by activityViewModels()
+    private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -36,6 +37,8 @@ class HomeFragment : ShopMobileFragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        loginViewModel = getViewModel(LoginViewModel::class.java)
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -47,6 +50,12 @@ class HomeFragment : ShopMobileFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        loginViewModel.loginError
+            .filterNotNull()
+            .onEach { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
         binding.loginButton.clicks()
             .debounce(1000)
             .onEach {

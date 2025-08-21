@@ -5,12 +5,14 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import pl.bartpos24.shopmobile.ShopMobileApplication
+import javax.inject.Singleton
 
-@Component(modules = [AndroidInjectionModule::class, AppModule::class, WorkerBuildersModule::class, RepositoryModule::class, NetworkInfrastructureModule::class])
-interface IAppComponent {
+@Singleton
+@Component(modules = [AndroidInjectionModule::class, AppModule::class, WorkerBuildersModule::class, RepositoryModule::class, NetworkInfrastructureModule::class, NetworkApiModule::class, ActivityBuildersModule::class])
+interface AppComponent {
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance application: Application): IAppComponent
+        fun create(@BindsInstance application: Application): AppComponent
     }
     fun inject(application: ShopMobileApplication)
 

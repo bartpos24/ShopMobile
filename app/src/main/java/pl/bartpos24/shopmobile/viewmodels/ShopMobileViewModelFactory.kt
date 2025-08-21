@@ -5,11 +5,11 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import pl.bartpos24.shopmobile.dagger.IAppComponent
+import pl.bartpos24.shopmobile.dagger.AppComponent
 import java.lang.IllegalArgumentException
 import javax.inject.Provider
 
-class ShopMobileViewModelFactory(private val appComponent: IAppComponent, owner: SavedStateRegistryOwner, defaultArgs: Bundle?) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
+class ShopMobileViewModelFactory(private val appComponent: AppComponent, owner: SavedStateRegistryOwner, defaultArgs: Bundle?) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
     private fun <T : ViewModel?> createViewModel(modelClass: Class<T>, creators: Map<Class<*>, @JvmSuppressWildcards Provider<ViewModel>>): T {
         val creator = creators[modelClass] ?: creators.entries.firstOrNull {
             modelClass.isAssignableFrom(it.key)

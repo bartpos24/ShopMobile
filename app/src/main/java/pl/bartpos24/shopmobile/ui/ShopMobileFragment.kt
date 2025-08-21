@@ -4,6 +4,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import pl.bartpos24.shopmobile.MainActivity
 import pl.bartpos24.shopmobile.ShopMobileApplication
 import pl.bartpos24.shopmobile.viewmodels.ShopMobileViewModelFactory
@@ -15,10 +16,9 @@ open class ShopMobileFragment : Fragment {
         ShopMobileViewModelFactory((requireActivity().application as ShopMobileApplication).appComponent, this, arguments)
     }
 
-//    override fun getDefaultViewModelProviderFactory(): ViewModelProvider.Factory {
-//        parentFragmentManager
-//        return viewModelFactory
-//    }
+    protected fun <T : androidx.lifecycle.ViewModel> getViewModel(modelClass: Class<T>, owner: ViewModelStoreOwner = this): T {
+        return ViewModelProvider(owner, viewModelFactory)[modelClass]
+    }
 
     override fun setHasOptionsMenu(value: Boolean) {
         super.setHasOptionsMenu(value)
@@ -37,8 +37,7 @@ open class ShopMobileDialogFragment : DialogFragment {
         ShopMobileViewModelFactory((requireActivity().application as ShopMobileApplication).appComponent, this, arguments)
     }
 
-//    override fun getDefaultViewModelProviderFactory(): ViewModelProvider.Factory {
-//        parentFragmentManager
-//        return viewModelFactory
-//    }
+    protected fun <T : androidx.lifecycle.ViewModel> getViewModel(modelClass: Class<T>, owner: ViewModelStoreOwner = this): T {
+        return ViewModelProvider(owner, viewModelFactory)[modelClass]
+    }
 }
