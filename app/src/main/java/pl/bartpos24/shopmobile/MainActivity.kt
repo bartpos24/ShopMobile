@@ -2,6 +2,7 @@ package pl.bartpos24.shopmobile
 
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -11,12 +12,42 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.HasAndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import kotlinx.coroutines.flow.MutableStateFlow
 import pl.bartpos24.shopmobile.databinding.ActivityMainBinding
+import pl.bartpos24.shopmobile.utilities.LoginStatus
+import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
+import androidx.lifecycle.ViewModelProvider
+import dagger.android.AndroidInjector
+import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
+import pl.bartpos24.shopmobile.viewmodels.ShopMobileViewModelFactory
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : AppCompatActivity(), HasAndroidInjector {
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    //private val mainActivityViewModel: MainActivityViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
+    private var hasOptionsMenu: Boolean = false
+
+    @Inject
+    lateinit var shopMobileApp: ShopMobileApplication
+    private val viewModelFactory: ShopMobileViewModelFactory by lazy {
+        ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null)
+    }
+
+    object loginAuth {
+        private val status = MutableStateFlow<LoginStatus>(LoginStatus.UNAUTHENTICATED)
+        fun getStatus() = status
+        fun setStatus(status: LoginStatus) {
+            this.status.value = status
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +75,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //loginViewModel.login("barpos", "Dobrakow56!", "ssaid")
+    }
+    fun setHasOptionsMenu(value: Boolean) {
+        hasOptionsMenu = value
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -56,4 +92,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun androidInjector(): AndroidInjector<in Any> = androidInjector
 }

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -27,14 +29,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
+    }
+    sourceSets {
+        getByName("main") {
+            java.srcDir("${rootDir}/generated/openapi/src/main/kotlin")
+        }
     }
 }
 
@@ -62,7 +69,39 @@ dependencies {
     // Moshi
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.adapters)
 
     // OkHttp (opcjonalne)
     implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.okhttp.brotli)
+
+    //dagger
+    implementation(libs.dagger)
+    implementation(libs.daggerAndroid)
+    //implementation(libs.daggerAndroidProcessor)
+    //compileOnly(libs.daggerAssistedInje)
+    implementation(libs.daggerAndroidSupport)
+    implementation(libs.work.runtime)
+    //daggerAssistedInjectAnnotations
+    kapt(libs.daggerCompiler)
+    kapt(libs.daggerAndroidProcessor)
+    //daggerAssistedInjectProcessor
+
+    implementation(libs.flow.preferences)
+    implementation(libs.threetenbp)
+    implementation(libs.timber)
+
+    //JWT
+    implementation(libs.jwt)
+
+    implementation(libs.corbind)
+    implementation(libs.corbindAppCompat)
+    implementation(libs.corbindDrawerLayout)
+    implementation(libs.corbindMaterial)
+    implementation(libs.corbindNavigation)
+    implementation(libs.corbindRecyclerView)
+    implementation(libs.corbindSwipeRefreshLayout)
+
+    implementation(libs.kotlinx.metadata)
 }
