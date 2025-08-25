@@ -1,15 +1,13 @@
 package org.openapitools.client.infrastructure
 
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.JsonReader
-import com.squareup.moshi.JsonWriter
+import com.squareup.moshi.FromJson
+import com.squareup.moshi.ToJson
 import java.util.UUID
 
-class UUIDAdapter: JsonAdapter<UUID>() {
-    override fun fromJson(reader: JsonReader): UUID? {
-        return UUID.fromString(reader.nextString())
-    }
-    override fun toJson(writer: JsonWriter, value: UUID?) {
-        writer.value(value.toString())
-    }
+class UUIDAdapter {
+    @ToJson
+    fun toJson(uuid: UUID) = uuid.toString()
+
+    @FromJson
+    fun fromJson(s: String): UUID = UUID.fromString(s)
 }

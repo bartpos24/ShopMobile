@@ -246,15 +246,6 @@
         },
         "additionalProperties": false
       },
-      "ELoginType": {
-        "enum": [
-          1,
-          2,
-          3
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
       "LoginModel": {
         "required": [
           "passowrd",
@@ -275,7 +266,8 @@
             "nullable": true
           },
           "loginType": {
-            "$ref": "#/components/schemas/ELoginType"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

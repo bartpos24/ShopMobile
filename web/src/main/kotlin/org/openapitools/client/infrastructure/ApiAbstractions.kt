@@ -21,17 +21,3 @@ fun <T : Any?> toMultiValue(items: Iterable<T>, collectionFormat: String, map: (
         else -> listOf(items.joinToString(separator = collectionDelimiter(collectionFormat), transform = map))
     }
 }
-
-//suspend fun Call.await(): Response = suspendCancellableCoroutine { cancellableContinuation ->
-//    cancellableContinuation.invokeOnCancellation {
-//        cancel()
-//    }
-//    enqueue(object : Callback {
-//        override fun onResponse(call: Call, response: Response) {
-//            cancellableContinuation.resumeWith(Result.success(response))
-//        }
-//        override fun onFailure(call: Call, e: IOException) {
-//            cancellableContinuation.resumeWith(Result.failure(e))
-//        }
-//    })
-//}

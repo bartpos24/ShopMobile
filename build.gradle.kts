@@ -73,7 +73,7 @@ tasks.register("downloadApiSchema") {
 
     doFirst {
         println("Uruchamianie downloadApiSchema...")
-        val openApiUrl = "http://localhost:5001/swagger/v1/swagger.json"
+        val openApiUrl = "http://192.168.137.1:5001/swagger/v1/swagger.json"
         val outputFile = File(rootDir, "specs/openapi.json")
 
         println("Pobieranie OpenAPI schema z: $openApiUrl")

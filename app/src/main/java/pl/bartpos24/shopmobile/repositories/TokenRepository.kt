@@ -109,7 +109,7 @@ class TokenRepository(private val loginApi: LoginApi, private val tokenCache: To
 //    }
 
     private suspend fun loginApi(login: String, password: String, ssaid: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
-        loginApi.apiLoginLoginPost(loginModel = LoginModel(login, password, ssaid, ELoginType._1))
+        loginApi.apiLoginLoginPost(loginModel = LoginModel(login, password, ssaid, "Mobile"))
     }
 
 //    private suspend fun refreshTokenApi(refreshToken: String, ssaid: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {

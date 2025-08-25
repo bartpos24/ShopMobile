@@ -58,10 +58,14 @@ object NetworkInfrastructureModule {
     @JvmStatic
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
-        .add(org.threeten.bp.LocalDateTime::class.java, LocalDateTimeAdapter().nullSafe())
-        .add(org.threeten.bp.LocalDate::class.java, LocalDateAdapter().nullSafe())
-        .add(UUID::class.java, UUIDAdapter().nullSafe())
-        .add(ByteArray::class.java, ByteArrayAdapter())
+        //.add(org.threeten.bp.LocalDateTime::class.java, LocalDateTimeAdapter().nullSafe())
+        .add(LocalDateTimeAdapter())
+        //.add(org.threeten.bp.LocalDate::class.java, LocalDateAdapter().nullSafe())
+        .add(LocalDateAdapter())
+        //.add(UUID::class.java, UUIDAdapter().nullSafe())
+        .add(UUIDAdapter())
+        //.add(ByteArray::class.java, ByteArrayAdapter())
+        .add(ByteArrayAdapter())
         .add(KotlinJsonAdapterFactory())
         .build()
 }
