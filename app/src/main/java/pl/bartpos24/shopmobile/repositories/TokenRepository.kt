@@ -7,9 +7,11 @@ import kotlinx.coroutines.flow.flow
 import android.provider.Settings
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -24,10 +26,12 @@ import pl.bartpos24.shopmobile.utilities.createAuthorizationHeader
 import pl.bartpos24.shopmobile.utilities.logoutWorkerUUID
 import pl.bartpos24.shopmobile.utilities.validateRefreshToken
 import pl.bartpos24.shopmobile.utilities.workerBackoffDelay
+import pl.bartpos24.shopmobile.utilities.refreshTokenWorkerUUID
 import pl.bartpos24.shopmobile.workers.LogoutWorker
 import pl.bartpos24.web.api.LoginApi
 import pl.bartpos24.web.model.ELoginType
 import pl.bartpos24.web.model.LoginModel
+import pl.bartpos24.shopmobile.workers.RefreshTokenWorker
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
 
@@ -97,16 +101,16 @@ class TokenRepository(private val loginApi: LoginApi, private val tokenCache: To
         WorkManager.getInstance(context).enqueueUniqueWork(logoutWorkerUUID, ExistingWorkPolicy.KEEP, worker)
     }
 
-//    fun createRefreshTokenWorker() {
-//        val constraints = Constraints.Builder()
-//            .setRequiredNetworkType(NetworkType.CONNECTED)
-//            .build()
-//        val worker = PeriodicWorkRequestBuilder<RefreshTokenWorker>(repeatInterval = 15, repeatIntervalTimeUnit = TimeUnit.MINUTES)
-//            .setConstraints(constraints)
-//            .setBackoffCriteria(BackoffPolicy.LINEAR, workerBackoffDelay, TimeUnit.MILLISECONDS)
-//            .build()
-//        WorkManager.getInstance(context).enqueueUniquePeriodicWork(refreshTokenWorkerUUID, ExistingPeriodicWorkPolicy.KEEP, worker)
-//    }
+    fun createRefreshTokenWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val worker = PeriodicWorkRequestBuilder<RefreshTokenWorker>(repeatInterval = 15, repeatIntervalTimeUnit = TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .setBackoffCriteria(BackoffPolicy.LINEAR, workerBackoffDelay, TimeUnit.MILLISECONDS)
+            .build()
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(refreshTokenWorkerUUID, ExistingPeriodicWorkPolicy.KEEP, worker)
+    }
 
     private suspend fun loginApi(login: String, password: String, ssaid: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
         loginApi.apiLoginLoginPost(loginModel = LoginModel(login, password, ssaid, "Mobile"))

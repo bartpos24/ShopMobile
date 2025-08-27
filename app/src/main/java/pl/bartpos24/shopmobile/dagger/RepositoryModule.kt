@@ -7,9 +7,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import pl.bartpos24.shopmobile.repositories.TokenRepository
+import pl.bartpos24.shopmobile.repositories.ProductRepository
 import pl.bartpos24.shopmobile.repositories.UserConfigRepository
 import pl.bartpos24.shopmobile.utilities.TokenCache
 import pl.bartpos24.web.api.LoginApi
+import pl.bartpos24.web.api.ProductApi
 import javax.inject.Singleton
 
 @Module
@@ -28,4 +30,9 @@ object RepositoryModule {
     @Provides
     @JvmStatic
     fun provideTokenRepository(loginApi : LoginApi, tokenCache: TokenCache, context: Application): TokenRepository = TokenRepository(loginApi, tokenCache, context)
+
+    @Reusable
+    @Provides
+    @JvmStatic
+    fun provideProductRepository(productApi: ProductApi): ProductRepository = ProductRepository(productApi)
 }

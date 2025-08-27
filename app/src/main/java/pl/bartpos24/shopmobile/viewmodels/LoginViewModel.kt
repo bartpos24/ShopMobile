@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -11,21 +12,29 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.singleOrNull
 import kotlinx.coroutines.launch
 import pl.bartpos24.shopmobile.MainActivity
+import pl.bartpos24.shopmobile.repositories.ProductRepository
 import pl.bartpos24.shopmobile.repositories.TokenRepository
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.utilities.toShopApiMessage
 import timber.log.Timber
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepository) : ShopMobileViewModel() {
+@ExperimentalCoroutinesApi
+class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepository, private val productRepository: ProductRepository) : ShopMobileViewModel() {
     private val _loginError = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val loginError: SharedFlow<String> = _loginError
 
     private val _authenticationState = MutableLiveData<LoginStatus>()
     val authenticationState: LiveData<LoginStatus> = _authenticationState
     val loginInProgress = authenticationState.map { it == LoginStatus.AUTHENTICATING }
+
+    init {
+        _authenticationState.value = LoginStatus.UNAUTHENTICATED
+    }
+
 
     fun login(login: String?, password: String?, ssaid: String) {
         viewModelScope.launch {
@@ -34,7 +43,7 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
                 .onCompletion {
                     if (it == null) {
                         _authenticationState.postValue(LoginStatus.AUTHENTICATED)
-                        //tokenRepository.createRefreshTokenWorker()
+                        tokenRepository.createRefreshTokenWorker()
                         MainActivity.loginAuth.setStatus(LoginStatus.AUTHENTICATED)
                     }
                 }.catch {
@@ -44,4 +53,16 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
                 }.launchIn(this)
         }
     }
+
+    suspend fun getProductFromOpenFoodFacts(barcode: String) = productRepository.getProductFromOpenFoodFacts(barcode)
+        .catch {
+            offerError(it.message.toString())
+        }
+        .singleOrNull()
+
+    suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
+        .catch {
+            offerError(it.message.toString())
+        }
+        .singleOrNull()
 }

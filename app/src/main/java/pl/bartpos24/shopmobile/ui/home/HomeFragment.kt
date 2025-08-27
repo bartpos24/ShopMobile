@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.flow.map
 import pl.bartpos24.shopmobile.databinding.FragmentHomeBinding
 import pl.bartpos24.shopmobile.ui.ShopMobileFragment
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
@@ -51,6 +52,9 @@ class HomeFragment : ShopMobileFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        loginViewModel.toastErrors(requireContext())
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
         loginViewModel.loginError
             .filterNotNull()
             .onEach { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() }
@@ -66,6 +70,17 @@ class HomeFragment : ShopMobileFragment() {
                         Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
                     )
                 }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        binding.testButton.clicks()
+            .debounce(1000)
+            .map { loginViewModel.getProductByBarcode("5906340630011") }
+            .onEach {
+                var x = it
+            }
+            .map { loginViewModel.getProductFromOpenFoodFacts("5906340630011") }
+            .onEach {
+                var x = it
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
