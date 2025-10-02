@@ -75,8 +75,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        //loginViewModel.login("barpos", "Dobrakow56!", "ssaid")
     }
     fun setHasOptionsMenu(value: Boolean) {
         hasOptionsMenu = value

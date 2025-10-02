@@ -54,6 +54,7 @@ Class | Method | HTTP request | Description
 *ProductApi* | [**apiProductGetProductFromOpenFoodFactsGet**](docs/ProductApi.md#apiproductgetproductfromopenfoodfactsget) | **GET** /api/Product/GetProductFromOpenFoodFacts | 
 *ProductApi* | [**apiProductInitProductFromCSVPost**](docs/ProductApi.md#apiproductinitproductfromcsvpost) | **POST** /api/Product/InitProductFromCSV | 
 *ProductApi* | [**apiProductTestApiDirectlyGet**](docs/ProductApi.md#apiproducttestapidirectlyget) | **GET** /api/Product/TestApiDirectly | 
+*UserApi* | [**apiUserGetUserGet**](docs/UserApi.md#apiusergetuserget) | **GET** /api/User/GetUser | 
 
 
 

@@ -221,6 +221,45 @@
           }
         }
       }
+    },
+    "/api/User/GetUser": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -246,9 +285,17 @@
         },
         "additionalProperties": false
       },
+      "ELoginType": {
+        "enum": [
+          "Mobile",
+          "Web",
+          "External"
+        ],
+        "type": "string"
+      },
       "LoginModel": {
         "required": [
-          "passowrd",
+          "password",
           "username"
         ],
         "type": "object",
@@ -257,7 +304,7 @@
             "minLength": 1,
             "type": "string"
           },
-          "passowrd": {
+          "password": {
             "minLength": 1,
             "type": "string"
           },
@@ -266,8 +313,7 @@
             "nullable": true
           },
           "loginType": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/ELoginType"
           }
         },
         "additionalProperties": false

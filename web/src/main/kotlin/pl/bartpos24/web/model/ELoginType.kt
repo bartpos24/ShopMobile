@@ -22,20 +22,20 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * Values: _1,_2,_3
+ * Values: Mobile,Web,External
  */
 
 @JsonClass(generateAdapter = false)
-enum class ELoginType(val value: kotlin.Int) {
+enum class ELoginType(val value: kotlin.String) {
 
-    @Json(name = "1")
-    _1(1),
+    @Json(name = "Mobile")
+    Mobile("Mobile"),
 
-    @Json(name = "2")
-    _2(2),
+    @Json(name = "Web")
+    Web("Web"),
 
-    @Json(name = "3")
-    _3(3);
+    @Json(name = "External")
+    External("External");
 
     /**
      * Override [toString()] to avoid using the enum variable name as the value, and instead use
@@ -44,7 +44,7 @@ enum class ELoginType(val value: kotlin.Int) {
      * This solves a problem when the variable name and its value are different, and ensures that
      * the client sends the correct enum values to the server always.
      */
-    override fun toString(): kotlin.String = value.toString()
+    override fun toString(): kotlin.String = value
 
     companion object {
         /**

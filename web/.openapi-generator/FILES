@@ -2,6 +2,7 @@ README.md
 build.gradle
 docs/LoginApi.md
 docs/ProductApi.md
+docs/UserApi.md
 gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
 gradlew
@@ -26,7 +27,9 @@ src/main/kotlin/org/openapitools/client/infrastructure/URIAdapter.kt
 src/main/kotlin/org/openapitools/client/infrastructure/UUIDAdapter.kt
 src/main/kotlin/pl/bartpos24/web/api/LoginApi.kt
 src/main/kotlin/pl/bartpos24/web/api/ProductApi.kt
+src/main/kotlin/pl/bartpos24/web/api/UserApi.kt
 src/main/kotlin/pl/bartpos24/web/model/Barcode.kt
+src/main/kotlin/pl/bartpos24/web/model/ELoginType.kt
 src/main/kotlin/pl/bartpos24/web/model/LoginModel.kt
 src/main/kotlin/pl/bartpos24/web/model/Product.kt
 src/main/kotlin/pl/bartpos24/web/model/RegisterModel.kt
