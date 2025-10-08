@@ -3,10 +3,6 @@ package pl.bartpos24.shopmobile.api
 import pl.bartpos24.shopmobile.repositories.TokenRepository
 import dagger.Lazy
 import kotlinx.coroutines.runBlocking
-//import net.aspekt.rewistamobile.MainActivity
-//import net.aspekt.rewistamobile.repositories.TokenRepository
-//import net.aspekt.rewistamobile.utilities.LoginStatus
-//import net.aspekt.rewistamobile.utilities.createAuthorizationHeader
 import pl.bartpos24.shopmobile.utilities.createAuthorizationHeader
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -27,18 +23,18 @@ class OauthRefreshAuthenticator(private val tokenRepository: Lazy<TokenRepositor
     @Synchronized
     private fun reAuthenticateRequestUsingRefreshToken(staleRequest: Request): Request? {
         return tokenRepository.get()?.let {
-            if (it.getRefreshToken().get().isBlank()) {
+            if (it.getAccessToken().get().isBlank()) {
                 return null
                 MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
             }
-            if (staleRequest.header("Authorization") == it.getHeaderFormattedAccessToken()) {
+            if(staleRequest.header("Authorization") == it.getHeaderFormattedAccessToken()) {
                 Timber.d("Obtaining new authorization token.")
                 runBlocking {
-                    it.refreshAccessToken()?.let { newTokenResponse ->
-                        Timber.d("Obtained $newTokenResponse")
-                        newTokenResponse.refreshToken?.let { refreshToken -> it.setNewRefreshToken(refreshToken) }
+                    it.refreshAccessToken()?.let { newToken ->
+                        Timber.d("Obtained $newToken")
+                        it.setNewAccessToken(newToken)
                         staleRequest.newBuilder()
-                            .header("Authorization", createAuthorizationHeader(newTokenResponse.accessToken!!))
+                            .header("Authorization", createAuthorizationHeader(newToken))
                             .build()
                     }
                 }

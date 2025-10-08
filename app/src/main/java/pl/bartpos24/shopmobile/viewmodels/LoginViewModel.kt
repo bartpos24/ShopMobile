@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.singleOrNull
 import kotlinx.coroutines.launch
@@ -55,6 +56,15 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
     }
 
     suspend fun getProductFromOpenFoodFacts(barcode: String) = productRepository.getProductFromOpenFoodFacts(barcode)
+        .catch {
+            offerError(it.message.toString())
+        }
+        .singleOrNull()
+
+    suspend fun refreshAccessToken()  = tokenRepository.refreshToken()
+        .onEach {
+            var x = it
+        }
         .catch {
             offerError(it.message.toString())
         }

@@ -46,6 +46,8 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *LoginApi* | [**apiLoginLoginPost**](docs/LoginApi.md#apiloginloginpost) | **POST** /api/Login/Login | 
+*LoginApi* | [**apiLoginLogoutPost**](docs/LoginApi.md#apiloginlogoutpost) | **POST** /api/Login/Logout | 
+*LoginApi* | [**apiLoginRefreshPost**](docs/LoginApi.md#apiloginrefreshpost) | **POST** /api/Login/Refresh | 
 *LoginApi* | [**apiLoginRegisterPost**](docs/LoginApi.md#apiloginregisterpost) | **POST** /api/Login/Register | 
 *ProductApi* | [**apiProductAddProductPost**](docs/ProductApi.md#apiproductaddproductpost) | **POST** /api/Product/AddProduct | 
 *ProductApi* | [**apiProductGetAllProductsGet**](docs/ProductApi.md#apiproductgetallproductsget) | **GET** /api/Product/GetAllProducts | 

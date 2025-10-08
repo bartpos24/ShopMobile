@@ -13,44 +13,39 @@ import pl.bartpos24.shopmobile.repositories.TokenRepository
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.utilities.TokenCache
 import pl.bartpos24.shopmobile.utilities.accessTokenKey
-import pl.bartpos24.shopmobile.utilities.refreshTokenKey
 import pl.bartpos24.shopmobile.utilities.safeApiResult
 import pl.bartpos24.shopmobile.utilities.workerMaxRetryNumber
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ServerException
-import pl.bartpos24.web.model.TokenResponse
+import pl.bartpos24.web.api.LoginApi
 import java.io.IOException
 import javax.inject.Inject
-//import pl.bartpos24.shopmobile.settings.UserPreferences
 
 class RefreshTokenWorker @Inject constructor(
     context: Context,
     workerParameters: WorkerParameters,
     private val tokenRepository: TokenRepository,
     private val tokenCache: TokenCache,
+    private val loginApi: LoginApi
 ) : CoroutineWorker(context, workerParameters) {
 
     @SuppressLint("HardwareIds")
     override suspend fun doWork(): Result {
-        val refreshToken = tokenRepository.getRefreshToken().get()
+        //Timber.d("RefreshTokenWorker started")
+        val accessToken = tokenRepository.getAccessToken().get()
 
-        if (refreshToken.isEmpty() || runAttemptCount > workerMaxRetryNumber)
+        if (accessToken.isEmpty() || runAttemptCount > workerMaxRetryNumber)
             return Result.failure()
 
         val apiResult = safeApiResult {
             withContext(Dispatchers.IO) {
-                TokenResponse(
-                    accessToken = tokenCache.accessToken.get(),
-                    refreshToken = tokenCache.refreshToken.get(),
-                    tokenType = "Bearer"
+                //tokenRepository.refreshToken().singleOrNull()
+                loginApi.apiLoginRefreshPost(
+                    body = accessToken,
+                    SSAID = Settings.Secure.getString(
+                        applicationContext.contentResolver, Settings.Secure.ANDROID_ID
+                    )
                 )
-//                tokenApi.apiTokenRefreshPost(
-//                    body = refreshToken,
-//                    apiVersion = null,
-//                    SSAID = Settings.Secure.getString(
-//                        applicationContext.contentResolver, Settings.Secure.ANDROID_ID
-//                    )
-//                )
             }
         }
 
@@ -60,20 +55,15 @@ class RefreshTokenWorker @Inject constructor(
                     /**
                      * If worker successfully obtains a new token pair, it will replace currently stored pair in cache
                      */
-                    getOrNull()?.refreshToken?.let { newRefreshToken ->
-                        withContext(Dispatchers.IO) {
-                            tokenCache.setNewRefreshToken(newRefreshToken)
-                        }
-                    }
-                    getOrNull()?.accessToken?.let { newAccessToken ->
+                    var accessToken = getOrNull()
+                    accessToken?.let { newAccessToken ->
                         withContext(Dispatchers.IO) {
                             tokenCache.setNewAccessToken(newAccessToken)
                         }
                     }
                     Result.success(
                         workDataOf(
-                            accessTokenKey to getOrNull()?.accessToken,
-                            refreshTokenKey to getOrNull()?.refreshToken
+                            accessTokenKey to accessToken
                         )
                     )
                 }

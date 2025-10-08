@@ -13,20 +13,22 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.flow.singleOrNull
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.openapitools.client.infrastructure.ClientException
-import pl.bartpos24.web.model.TokenResponse
 import pl.bartpos24.shopmobile.MainActivity
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.utilities.TokenCache
 import pl.bartpos24.shopmobile.utilities.createAuthorizationHeader
 import pl.bartpos24.shopmobile.utilities.logoutWorkerUUID
-import pl.bartpos24.shopmobile.utilities.validateRefreshToken
 import pl.bartpos24.shopmobile.utilities.workerBackoffDelay
-import pl.bartpos24.shopmobile.utilities.refreshTokenWorkerUUID
+import pl.bartpos24.shopmobile.utilities.refreshTokenWorkerName
+import pl.bartpos24.shopmobile.utilities.validateAccessToken
 import pl.bartpos24.shopmobile.workers.LogoutWorker
 import pl.bartpos24.web.api.LoginApi
 import pl.bartpos24.web.model.ELoginType
@@ -38,16 +40,21 @@ import kotlin.coroutines.CoroutineContext
 class TokenRepository(private val loginApi: LoginApi, private val tokenCache: TokenCache, private val context: Application) : ShopMobileRepository() {
     fun getHeaderFormattedAccessToken() = createAuthorizationHeader(tokenCache.accessToken.get())
     fun getAccessToken() = tokenCache.accessToken
-    fun getRefreshToken() = tokenCache.refreshToken
-    fun setNewRefreshToken(newRefreshToken: String) = tokenCache.setNewRefreshToken(newRefreshToken)
+    fun setNewAccessToken(newAccessToken: String) = tokenCache.setNewAccessToken(newAccessToken)
 
     fun login(login: String, password: String, ssaid: String) = flow {
         emit(loginApi(login, password, ssaid))
     }.onStart { cancelLogout() }
         .onEach {
-            tokenCache.accessToken.asCollector().emit(it.accessToken.orEmpty())
-            tokenCache.refreshToken.asCollector().emit(it.refreshToken.orEmpty())
+            tokenCache.accessToken.asCollector().emit(it)
         }
+
+    fun refreshToken() = flow {
+        emit(refreshTokenApi(
+            refreshToken = tokenCache.accessToken.get(),
+            ssaid = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        ))
+    }
 
     fun logout() = logoutWorker()
 
@@ -56,33 +63,25 @@ class TokenRepository(private val loginApi: LoginApi, private val tokenCache: To
     }
 
     @SuppressLint("HardwareIds")
-    suspend fun refreshAccessToken(): TokenResponse? {
-        if (validateRefreshToken(tokenCache.refreshToken.get())) {
+    suspend fun refreshAccessToken(): String? {
+        if (validateAccessToken(tokenCache.accessToken.get())) {
             // times: Int = 10, initialDelay: Long = 250L, factor: Double = 1.2
-            return TokenResponse(
-                accessToken = tokenCache.accessToken.get(),
-                refreshToken = tokenCache.refreshToken.get(),
-                tokenType = "Bearer"
-            )
-//            return flow {
-//                emit(
-//                    refreshTokenApi(
-//                        refreshToken = tokenCache.refreshToken.get(),
-//                        ssaid = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-//                    )
-//                )
-//            }.retry(10) {
-//                if (it is ClientException)
-//                    false
-//                else {
-//                    delay(100L)
-//                    true
-//                }
-//            }.catch {
-//                tokenCache.clearTokenCache()
-//                MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
-//            }
-//                .singleOrNull()
+            return flow {
+                emit(refreshTokenApi(
+                    refreshToken = tokenCache.accessToken.get(),
+                    ssaid = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+                ))
+            }.retry(10) {
+                if (it is ClientException)
+                    false
+                else {
+                    delay(100L)
+                    true
+                }
+            }.catch {
+                tokenCache.clearTokenCache()
+                MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
+            }.singleOrNull()
         } else {
             tokenCache.clearTokenCache()
             MainActivity.loginAuth.setStatus(LoginStatus.UNAUTHENTICATED)
@@ -105,18 +104,21 @@ class TokenRepository(private val loginApi: LoginApi, private val tokenCache: To
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
-        val worker = PeriodicWorkRequestBuilder<RefreshTokenWorker>(repeatInterval = 15, repeatIntervalTimeUnit = TimeUnit.MINUTES)
+        val worker = PeriodicWorkRequestBuilder<RefreshTokenWorker>(repeatInterval = 15, repeatIntervalTimeUnit = TimeUnit.SECONDS)
             .setConstraints(constraints)
             .setBackoffCriteria(BackoffPolicy.LINEAR, workerBackoffDelay, TimeUnit.MILLISECONDS)
             .build()
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork(refreshTokenWorkerUUID, ExistingPeriodicWorkPolicy.KEEP, worker)
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(refreshTokenWorkerName, ExistingPeriodicWorkPolicy.KEEP, worker)
     }
 
     private suspend fun loginApi(login: String, password: String, ssaid: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
         loginApi.apiLoginLoginPost(loginModel = LoginModel(login, password, ssaid, ELoginType.Mobile))
     }
 
-//    private suspend fun refreshTokenApi(refreshToken: String, ssaid: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
-//        loginApi.apiTokenRefreshPost(body = refreshToken, SSAID = ssaid, apiVersion = null)
-//    }
+    private suspend fun logoutApi(context: CoroutineContext = coroutineContext) = withContext(context = context) {
+        loginApi.apiLoginLogoutPost()
+    }
+    private suspend fun refreshTokenApi(refreshToken: String, ssaid: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
+        loginApi.apiLoginRefreshPost(body = refreshToken, SSAID = ssaid)
+    }
 }

@@ -15,7 +15,6 @@
 
 package pl.bartpos24.web.model
 
-import pl.bartpos24.web.model.UserInfo
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -28,9 +27,7 @@ import kotlinx.parcelize.Parcelize
  * @param accessToken 
  * @param refreshToken 
  * @param accessTokenExpiry 
- * @param refreshTokenExpiry 
  * @param tokenType 
- * @param user 
  */
 @Parcelize
 
@@ -46,14 +43,8 @@ data class TokenResponse (
     @Json(name = "accessTokenExpiry")
     val accessTokenExpiry: org.threeten.bp.OffsetDateTime? = null,
 
-    @Json(name = "refreshTokenExpiry")
-    val refreshTokenExpiry: org.threeten.bp.OffsetDateTime? = null,
-
     @Json(name = "tokenType")
-    val tokenType: kotlin.String? = null,
-
-    @Json(name = "user")
-    val user: UserInfo? = null
+    val tokenType: kotlin.String? = null
 
 ) : Parcelable
 

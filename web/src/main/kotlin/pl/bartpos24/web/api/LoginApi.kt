@@ -21,7 +21,6 @@ import okhttp3.HttpUrl
 
 import pl.bartpos24.web.model.LoginModel
 import pl.bartpos24.web.model.RegisterModel
-import pl.bartpos24.web.model.TokenResponse
 
 import com.squareup.moshi.Json
 
@@ -53,7 +52,7 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
      * 
      * 
      * @param loginModel  (optional)
-     * @return TokenResponse
+     * @return kotlin.String
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -62,11 +61,11 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun apiLoginLoginPost(loginModel: LoginModel? = null) : TokenResponse = withContext(Dispatchers.IO) {
+    suspend fun apiLoginLoginPost(loginModel: LoginModel? = null) : kotlin.String = withContext(Dispatchers.IO) {
         val localVarResponse = apiLoginLoginPostWithHttpInfo(loginModel = loginModel)
 
         return@withContext when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as TokenResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.String
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -84,16 +83,16 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
      * 
      * 
      * @param loginModel  (optional)
-     * @return ApiResponse<TokenResponse?>
+     * @return ApiResponse<kotlin.String?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    suspend fun apiLoginLoginPostWithHttpInfo(loginModel: LoginModel?) : ApiResponse<TokenResponse?> = withContext(Dispatchers.IO) {
+    suspend fun apiLoginLoginPostWithHttpInfo(loginModel: LoginModel?) : ApiResponse<kotlin.String?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiLoginLoginPostRequestConfig(loginModel = loginModel)
 
-        return@withContext request<LoginModel, TokenResponse>(
+        return@withContext request<LoginModel, kotlin.String>(
             localVariableConfig
         )
     }
@@ -114,6 +113,151 @@ class LoginApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient =
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/Login/Login",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * 
+     * 
+     * @return void
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun apiLoginLogoutPost() : Unit = withContext(Dispatchers.IO) {
+        val localVarResponse = apiLoginLogoutPostWithHttpInfo()
+
+        return@withContext when (localVarResponse.responseType) {
+            ResponseType.Success -> Unit
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @return ApiResponse<Unit?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Throws(IllegalStateException::class, IOException::class)
+    suspend fun apiLoginLogoutPostWithHttpInfo() : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
+        val localVariableConfig = apiLoginLogoutPostRequestConfig()
+
+        return@withContext request<Unit, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation apiLoginLogoutPost
+     *
+     * @return RequestConfig
+     */
+    fun apiLoginLogoutPostRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/api/Login/Logout",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * 
+     * 
+     * @param SSAID  (optional)
+     * @param body  (optional)
+     * @return kotlin.String
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun apiLoginRefreshPost(SSAID: kotlin.String? = null, body: kotlin.String? = null) : kotlin.String = withContext(Dispatchers.IO) {
+        val localVarResponse = apiLoginRefreshPostWithHttpInfo(SSAID = SSAID, body = body)
+
+        return@withContext when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.String
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @param SSAID  (optional)
+     * @param body  (optional)
+     * @return ApiResponse<kotlin.String?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    suspend fun apiLoginRefreshPostWithHttpInfo(SSAID: kotlin.String?, body: kotlin.String?) : ApiResponse<kotlin.String?> = withContext(Dispatchers.IO) {
+        val localVariableConfig = apiLoginRefreshPostRequestConfig(SSAID = SSAID, body = body)
+
+        return@withContext request<kotlin.String, kotlin.String>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation apiLoginRefreshPost
+     *
+     * @param SSAID  (optional)
+     * @param body  (optional)
+     * @return RequestConfig
+     */
+    fun apiLoginRefreshPostRequestConfig(SSAID: kotlin.String?, body: kotlin.String?) : RequestConfig<kotlin.String> {
+        val localVariableBody = body
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (SSAID != null) {
+                    put("SSAID", listOf(SSAID.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/api/Login/Refresh",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,

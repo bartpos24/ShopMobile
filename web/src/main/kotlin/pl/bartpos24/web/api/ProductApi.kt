@@ -250,19 +250,20 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * 
      * 
      * @param barcode  (optional)
-     * @return void
+     * @return kotlin.collections.List<Product>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
+    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun apiProductGetProductByBarcodeGet(barcode: kotlin.String? = null) : Unit = withContext(Dispatchers.IO) {
+    suspend fun apiProductGetProductByBarcodeGet(barcode: kotlin.String? = null) : kotlin.collections.List<Product> = withContext(Dispatchers.IO) {
         val localVarResponse = apiProductGetProductByBarcodeGetWithHttpInfo(barcode = barcode)
 
         return@withContext when (localVarResponse.responseType) {
-            ResponseType.Success -> Unit
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<Product>
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -280,15 +281,16 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
      * 
      * 
      * @param barcode  (optional)
-     * @return ApiResponse<Unit?>
+     * @return ApiResponse<kotlin.collections.List<Product>?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
+    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    suspend fun apiProductGetProductByBarcodeGetWithHttpInfo(barcode: kotlin.String?) : ApiResponse<Unit?> = withContext(Dispatchers.IO) {
+    suspend fun apiProductGetProductByBarcodeGetWithHttpInfo(barcode: kotlin.String?) : ApiResponse<kotlin.collections.List<Product>?> = withContext(Dispatchers.IO) {
         val localVariableConfig = apiProductGetProductByBarcodeGetRequestConfig(barcode = barcode)
 
-        return@withContext request<Unit, Unit>(
+        return@withContext request<Unit, kotlin.collections.List<Product>>(
             localVariableConfig
         )
     }
@@ -308,7 +310,8 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        
+        localVariableHeaders["Accept"] = "application/json"
+
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/api/Product/GetProductByBarcode",

@@ -78,7 +78,11 @@ class HomeFragment : ShopMobileFragment() {
             .onEach {
                 var x = it
             }
-            .map { loginViewModel.getProductFromOpenFoodFacts("5906340630011") }
+            .map { loginViewModel.refreshAccessToken() }
+            .onEach {
+                var x = it
+            }
+            //.map { loginViewModel.getProductFromOpenFoodFacts("5906340630011") }
             .onEach {
                 var x = it
             }.launchIn(viewLifecycleOwner.lifecycleScope)
