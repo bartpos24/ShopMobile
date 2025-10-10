@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 
-@ExperimentalCoroutinesApi
+//@ExperimentalCoroutinesApi
 open class ShopMobileViewModel : ViewModel() {
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error

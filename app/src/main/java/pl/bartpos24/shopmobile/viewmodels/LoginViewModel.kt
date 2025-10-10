@@ -23,7 +23,7 @@ import pl.bartpos24.shopmobile.utilities.toShopApiMessage
 import timber.log.Timber
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
+//@ExperimentalCoroutinesApi
 class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepository, private val productRepository: ProductRepository) : ShopMobileViewModel() {
     private val _loginError = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val loginError: SharedFlow<String> = _loginError
@@ -53,6 +53,11 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
                     _loginError.tryEmit(it.toShopApiMessage())
                 }.launchIn(this)
         }
+    }
+
+    fun logout() {
+        tokenRepository.logout()
+        _authenticationState.value = LoginStatus.UNAUTHENTICATED
     }
 
     suspend fun getProductFromOpenFoodFacts(barcode: String) = productRepository.getProductFromOpenFoodFacts(barcode)

@@ -19,6 +19,7 @@ import pl.bartpos24.shopmobile.databinding.ActivityMainBinding
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import dagger.android.AndroidInjector
 import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
 import pl.bartpos24.shopmobile.viewmodels.ShopMobileViewModelFactory
@@ -32,14 +33,15 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     //private val mainActivityViewModel: MainActivityViewModel by viewModels()
-    private val loginViewModel: LoginViewModel by viewModels()
+    //private lateinit var loginViewModel: LoginViewModel
     private var hasOptionsMenu: Boolean = false
 
     @Inject
     lateinit var shopMobileApp: ShopMobileApplication
-    private val viewModelFactory: ShopMobileViewModelFactory by lazy {
-        ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null)
-    }
+    private val loginViewModel: LoginViewModel by viewModels { ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null) }
+//    private val viewModelFactory: ShopMobileViewModelFactory by lazy {
+//        ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null)
+//    }
 
     object loginAuth {
         private val status = MutableStateFlow<LoginStatus>(LoginStatus.UNAUTHENTICATED)
@@ -64,7 +66,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -75,6 +77,13 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        loginAuth.getStatus().asLiveData().observe(this@MainActivity) {
+            if(it != LoginStatus.AUTHENTICATED) {
+                loginViewModel.logout()
+                findNavController(R.id.nav_host_fragment).navigate(R.id.login_fragment)
+            }
+        }
     }
     fun setHasOptionsMenu(value: Boolean) {
         hasOptionsMenu = value
@@ -87,7 +96,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 

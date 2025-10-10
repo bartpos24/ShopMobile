@@ -38,7 +38,7 @@ class HomeFragment : ShopMobileFragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        loginViewModel = getViewModel(LoginViewModel::class.java)
+        loginViewModel = getViewModel(LoginViewModel::class.java, this)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root

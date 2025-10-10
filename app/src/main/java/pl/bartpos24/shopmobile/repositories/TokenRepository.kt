@@ -18,14 +18,13 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.singleOrNull
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.openapitools.client.infrastructure.ClientException
 import pl.bartpos24.shopmobile.MainActivity
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.utilities.TokenCache
 import pl.bartpos24.shopmobile.utilities.createAuthorizationHeader
-import pl.bartpos24.shopmobile.utilities.logoutWorkerUUID
+import pl.bartpos24.shopmobile.utilities.logoutWorkerName
 import pl.bartpos24.shopmobile.utilities.workerBackoffDelay
 import pl.bartpos24.shopmobile.utilities.refreshTokenWorkerName
 import pl.bartpos24.shopmobile.utilities.validateAccessToken
@@ -59,7 +58,7 @@ class TokenRepository(private val loginApi: LoginApi, private val tokenCache: To
     fun logout() = logoutWorker()
 
     private fun cancelLogout() {
-        WorkManager.getInstance(context).cancelUniqueWork(logoutWorkerUUID)
+        WorkManager.getInstance(context).cancelUniqueWork(logoutWorkerName)
     }
 
     @SuppressLint("HardwareIds")
@@ -97,7 +96,7 @@ class TokenRepository(private val loginApi: LoginApi, private val tokenCache: To
             .setConstraints(constraints)
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, workerBackoffDelay, TimeUnit.MILLISECONDS)
             .build()
-        WorkManager.getInstance(context).enqueueUniqueWork(logoutWorkerUUID, ExistingWorkPolicy.KEEP, worker)
+        WorkManager.getInstance(context).enqueueUniqueWork(logoutWorkerName, ExistingWorkPolicy.KEEP, worker)
     }
 
     fun createRefreshTokenWorker() {

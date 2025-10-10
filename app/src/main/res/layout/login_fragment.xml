@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/login_card"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/login_card_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/login_progress_bar"
+                style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:indeterminateOnly="true"
+                app:layout_constraintBottom_toBottomOf="@id/login_button"
+                app:layout_constraintEnd_toEndOf="@id/login_button"
+                app:layout_constraintStart_toStartOf="@id/login_button"
+                app:layout_constraintTop_toTopOf="@id/login_button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Zaloguj"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_text_input_layout" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_text_input_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Login"
+                app:hintEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/password_text_input_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="46dp"
+                tools:layout_conversion_absoluteWidth="384dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    tools:text="@tools:sample/lorem" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_text_input_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Hasło"
+                android:visibility="visible"
+                app:hintEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/login_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_text_input_layout"
+                app:passwordToggleEnabled="true"
+                tools:layout_conversion_absoluteHeight="46dp"
+                tools:layout_conversion_absoluteWidth="384dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    tools:text="@tools:sample/lorem" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/btnSettings"-->
+<!--        style="@style/Widget.App.Button.OutlinedButton.IconOnly"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="48dp"-->
+<!--        app:icon="@drawable/ic_settings_black_24dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/ssaid"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/version"-->
+<!--        app:layout_constraintTop_toTopOf="@id/version" />-->
+
+<!--    <com.google.android.material.textview.MaterialTextView-->
+<!--        android:id="@+id/version"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/login_card"-->
+<!--        tools:text="Version: 1.5.3" />-->
+
+<!--    <com.google.android.material.textview.MaterialTextView-->
+<!--        android:id="@+id/ssaid"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:textSize="10sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/version"-->
+<!--        tools:text="Version: 1.5.3"-->
+<!--        tools:ignore="SmallSp" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
