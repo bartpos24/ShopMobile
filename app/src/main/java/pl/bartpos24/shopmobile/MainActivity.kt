@@ -18,10 +18,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import pl.bartpos24.shopmobile.databinding.ActivityMainBinding
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import dagger.android.AndroidInjector
-import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
 import pl.bartpos24.shopmobile.viewmodels.ShopMobileViewModelFactory
 import javax.inject.Inject
 
@@ -71,7 +69,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.homeFragment, R.id.scanner_product_graph,
             ),
             drawerLayout,
         )
@@ -81,7 +79,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         loginAuth.getStatus().asLiveData().observe(this@MainActivity) {
             if(it != LoginStatus.AUTHENTICATED) {
                 loginViewModel.logout()
-                findNavController(R.id.nav_host_fragment).navigate(R.id.login_fragment)
+                findNavController(R.id.nav_host_fragment).navigate(R.id.loginFragment)
             }
         }
     }

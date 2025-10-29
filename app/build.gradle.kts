@@ -3,6 +3,15 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
+    //alias("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.androidNavigationSafeArgs)
+}
+
+buildscript {
+    dependencies {
+        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
+        //classpath(libs.libraries.androidx.navigation.safeargs.gradle.plugin)
+    }
 }
 
 android {
@@ -104,4 +113,10 @@ dependencies {
     implementation(libs.corbindSwipeRefreshLayout)
 
     implementation(libs.kotlinx.metadata)
+
+    //Camera and Barcode Scanner
+    implementation(libs.cameraCamera2)
+    implementation(libs.cameraLifecycle)
+    implementation(libs.cameraView)
+    implementation(libs.mlKitBarcode)
 }

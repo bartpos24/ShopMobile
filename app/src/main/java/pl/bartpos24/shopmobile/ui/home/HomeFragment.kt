@@ -10,15 +10,14 @@ import android.widget.Toast
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import androidx.lifecycle.lifecycleScope
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.map
 import pl.bartpos24.shopmobile.databinding.FragmentHomeBinding
 import pl.bartpos24.shopmobile.ui.ShopMobileFragment
+import pl.bartpos24.shopmobile.utilities.navigateSafe
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import ru.ldralighieri.corbind.view.clicks
 
@@ -74,14 +73,20 @@ class HomeFragment : ShopMobileFragment() {
 
         binding.testButton.clicks()
             .debounce(1000)
-            .map { loginViewModel.getProductByBarcode("5906340630011") }
-            .onEach {
-                var x = it
+            .map {
+                HomeFragmentDirections.actionHomeFragmentToScannerProductGraph()
             }
-            .map { loginViewModel.refreshAccessToken() }
             .onEach {
-                var x = it
+                findNavController().navigateSafe(it)
             }
+//            .map { loginViewModel.getProductByBarcode("5906340630011") }
+//            .onEach {
+//                var x = it
+//            }
+//            .map { loginViewModel.refreshAccessToken() }
+//            .onEach {
+//                var x = it
+//            }
             //.map { loginViewModel.getProductFromOpenFoodFacts("5906340630011") }
             .onEach {
                 var x = it

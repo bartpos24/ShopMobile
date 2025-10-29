@@ -3,29 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
-        android:id="@+id/login_fragment"
+        android:id="@+id/loginFragment"
         android:name="pl.bartpos24.shopmobile.ui.LoginFragment"
         android:label="@string/menu_login"
         tools:layout="@layout/login_fragment" />
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
         android:name="pl.bartpos24.shopmobile.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_scanner_product_graph"
+            app:destination="@id/scanner_product_graph" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="pl.bartpos24.shopmobile.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+    <navigation
+        android:id="@+id/scanner_product_graph"
+        app:startDestination="@id/findProductFragment">
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="pl.bartpos24.shopmobile.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        <fragment
+            android:id="@+id/findProductFragment"
+            android:name="pl.bartpos24.shopmobile.ui.FindProductFragment"
+            android:label="@string/menu_findProduct"
+            tools:layout="@layout/find_product_fragment" >
+<!--            <action-->
+<!--                android:id="@+id/action_findProductFragment_to_barcodeScannerFragment"-->
+<!--                app:destination="@id/barcodeScannerFragment" />-->
+        </fragment>
+<!--        <fragment-->
+<!--            android:id="@+id/barcodeScannerFragment"-->
+<!--            android:name="pl.bartpos24.shopmobile.ui.BarcodeScannerFragment"-->
+<!--            tools:layout="@layout/barcode_scanner_fragment"-->
+<!--            tools:showIn="@layout/activity_main" />-->
+    </navigation>
 </navigation>

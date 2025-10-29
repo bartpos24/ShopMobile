@@ -60,22 +60,10 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
         _authenticationState.value = LoginStatus.UNAUTHENTICATED
     }
 
-    suspend fun getProductFromOpenFoodFacts(barcode: String) = productRepository.getProductFromOpenFoodFacts(barcode)
-        .catch {
-            offerError(it.message.toString())
-        }
-        .singleOrNull()
-
     suspend fun refreshAccessToken()  = tokenRepository.refreshToken()
         .onEach {
             var x = it
         }
-        .catch {
-            offerError(it.message.toString())
-        }
-        .singleOrNull()
-
-    suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
         .catch {
             offerError(it.message.toString())
         }
