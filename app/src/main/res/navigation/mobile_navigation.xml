@@ -30,14 +30,17 @@
             android:name="pl.bartpos24.shopmobile.ui.FindProductFragment"
             android:label="@string/menu_findProduct"
             tools:layout="@layout/find_product_fragment" >
-<!--            <action-->
-<!--                android:id="@+id/action_findProductFragment_to_barcodeScannerFragment"-->
-<!--                app:destination="@id/barcodeScannerFragment" />-->
         </fragment>
-<!--        <fragment-->
-<!--            android:id="@+id/barcodeScannerFragment"-->
-<!--            android:name="pl.bartpos24.shopmobile.ui.BarcodeScannerFragment"-->
-<!--            tools:layout="@layout/barcode_scanner_fragment"-->
-<!--            tools:showIn="@layout/activity_main" />-->
+    </navigation>
+
+    <navigation
+        android:id="@+id/inventory_graph"
+        app:startDestination="@id/inventoryPositionFragment">
+        <fragment
+            android:id="@+id/inventoryPositionFragment"
+            android:name="pl.bartpos24.shopmobile.ui.InventoryPositionFragment"
+            android:label="@string/menu_inventory"
+            tools:layout="@layout/inventory_position_fragment" >
+        </fragment>
     </navigation>
 </navigation>

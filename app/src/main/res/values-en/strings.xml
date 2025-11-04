@@ -9,6 +9,7 @@
 
     <string name="menu_login">Login</string>
     <string name="menu_home">Home</string>
+    <string name="menu_inventory">Inventory</string>
     <string name="menu_findProduct">Find</string>
 
     <string name="lbl_productBarcode">Product barcode</string>
@@ -16,4 +17,9 @@
     <string name="lbl_quantity">Quantity</string>
     <string name="lbl_unit">J.M.</string>
     <string name="lbl_brand">Brand</string>
+    <string name="lbl_capacity">Capacity</string>
+
+    <string name="lbl_price">Price</string>
+
+    <string name="btn_confirm">Confirm</string>
 </resources>

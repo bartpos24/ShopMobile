@@ -70,12 +70,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:text="@string/lbl_brand"
                 android:textColor="@color/black"
                 android:textSize="8sp"
-                app:layout_constraintEnd_toStartOf="@+id/unity_label"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_name"
+                tools:ignore="SmallSp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/capacity_label"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/lbl_capacity"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                app:layout_constraintStart_toStartOf="@+id/product_capacity"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
                 tools:ignore="SmallSp" />
 
@@ -100,11 +111,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/product_unt"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/product_capacity"
                 app:layout_constraintTop_toBottomOf="@+id/brand_label" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/product_capacity"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/product_unt"
+                app:layout_constraintStart_toEndOf="@+id/product_brand"
+                app:layout_constraintTop_toBottomOf="@+id/capacity_label" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/product_unt"
@@ -115,7 +136,7 @@
                 android:layout_marginEnd="8dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/product_brand"
+                app:layout_constraintStart_toEndOf="@+id/product_capacity"
                 app:layout_constraintTop_toBottomOf="@+id/unity_label" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

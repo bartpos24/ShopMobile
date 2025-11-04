@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
+            android:id="@+id/inventory_graph"
+            android:icon="@drawable/ic_page_edit"
+            android:title="@string/menu_inventory" />
+        <item
             android:id="@+id/scanner_product_graph"
             android:icon="@drawable/search_engine"
             android:title="@string/menu_findProduct" />

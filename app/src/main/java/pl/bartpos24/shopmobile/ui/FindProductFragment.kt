@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapNotNull
@@ -21,6 +23,7 @@ import pl.bartpos24.shopmobile.utilities.navGraphShopMobileViewModels
 import pl.bartpos24.shopmobile.viewmodels.BarcodeScannerViewModel
 import pl.bartpos24.shopmobile.viewmodels.FindProductViewModel
 import ru.ldralighieri.corbind.view.clicks
+import ru.ldralighieri.corbind.widget.textChanges
 
 class FindProductFragment : ShopMobileFragment() {
     private val findProductViewModel: FindProductViewModel by navGraphShopMobileViewModels(R.id.scanner_product_graph)
@@ -39,9 +42,14 @@ class FindProductFragment : ShopMobileFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FindProductFragmentBinding.inflate(inflater, container, false)
-        bindingBarcodeScanner = BarcodeScannerFragmentBinding.inflate(inflater, container, false)
-        initBarcodeScannerfragment(R.id.scanner_product_graph)
+        //bindingBarcodeScanner = BarcodeScannerFragmentBinding.inflate(inflater, container, false)
+        //initBarcodeScannerfragment(R.id.scanner_product_graph)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        findProductViewModel.scanner.stopScanning()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,17 +60,25 @@ class FindProductFragment : ShopMobileFragment() {
         binding.productList.adapter = productListAdapter
 
         binding.btnCamera.clicks()
-            .onEach { barcodeScannerViewModel.clearData() }
+            .onEach { findProductViewModel.clearBarcodeData() }
             .onEach { binding.barcodeScannerLayout.visibility = View.VISIBLE }
+            .onEach { findProductViewModel.scanner.startScanning(viewLifecycleOwner, binding.previewView) }
+//            .onEach { barcodeScannerViewModel.clearData() }
+//            .onEach { binding.barcodeScannerLayout.visibility = View.VISIBLE }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         // Sprawdzic czy kamera jest caly czas wlaczona nawet jesli widocznosc skanowania jest wylaczona
-        barcodeScannerViewModel.barcodeResults
-            .mapNotNull { it }
-            .onEach {
-                var x = it
-            }
-            .map { findProductViewModel.getProductByBarcode(it.rawValue) }
+        //barcodeScannerViewModel.barcodeResults
+        findProductViewModel.barcodeResult
+            //.mapNotNull { it }
+            .filter { it.isNotEmpty() }
+            .onEach { binding.productBarcodeInputEditText.setText(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        binding.productBarcodeInputEditText.textChanges()
+            .debounce(700)
+            .filter { it.isNotEmpty() }
+            .map { findProductViewModel.getProductByBarcode(it.toString()) }
             .onEach {
                 var x = it
             }
@@ -76,15 +92,15 @@ class FindProductFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun initBarcodeScannerfragment(viewRId: Int) {
-        var oldBarcodeScannerFragment = childFragmentManager.findFragmentByTag(barcodeScannerFragmentTag)
-        barcodeScannerFragment = BarcodeScannerFragment(requireContext(), bindingBarcodeScanner, viewRId)
-
-        childFragmentManager.commit {
-            if(oldBarcodeScannerFragment == null)
-                add(R.id.barcodeScannerFragmentContainer, barcodeScannerFragment, barcodeScannerFragmentTag)
-            else
-                replace(R.id.barcodeScannerFragmentContainer, barcodeScannerFragment, barcodeScannerFragmentTag)
-        }
-    }
+//    private fun initBarcodeScannerfragment(viewRId: Int) {
+//        var oldBarcodeScannerFragment = childFragmentManager.findFragmentByTag(barcodeScannerFragmentTag)
+//        barcodeScannerFragment = BarcodeScannerFragment(requireContext(), bindingBarcodeScanner, viewRId)
+//
+//        childFragmentManager.commit {
+//            if(oldBarcodeScannerFragment == null)
+//                add(R.id.barcodeScannerFragmentContainer, barcodeScannerFragment, barcodeScannerFragmentTag)
+//            else
+//                replace(R.id.barcodeScannerFragmentContainer, barcodeScannerFragment, barcodeScannerFragmentTag)
+//        }
+//    }
 }

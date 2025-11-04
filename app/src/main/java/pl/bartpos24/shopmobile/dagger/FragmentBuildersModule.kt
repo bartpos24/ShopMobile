@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import pl.bartpos24.shopmobile.ui.BarcodeScannerFragment
 import pl.bartpos24.shopmobile.ui.FindProductFragment
+import pl.bartpos24.shopmobile.ui.InventoryPositionFragment
 import pl.bartpos24.shopmobile.ui.LoginFragment
 import pl.bartpos24.shopmobile.ui.home.HomeFragment
 
@@ -19,4 +20,6 @@ abstract class FragmentBuildersModule {
     abstract  fun contributeBarcodeScannerFragment(): BarcodeScannerFragment
     @ContributesAndroidInjector
     abstract  fun contributeFindProductFragment(): FindProductFragment
+    @ContributesAndroidInjector
+    abstract  fun contributeInventoryPositionFragment(): InventoryPositionFragment
 }

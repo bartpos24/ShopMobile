@@ -8,7 +8,7 @@ import pl.bartpos24.shopmobile.ShopMobileApplication
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, AppModule::class, WorkerBuildersModule::class, RepositoryModule::class, NetworkInfrastructureModule::class, NetworkApiModule::class, ActivityBuildersModule::class])
+@Component(modules = [AndroidInjectionModule::class, AppModule::class, WorkerBuildersModule::class, RepositoryModule::class, NetworkInfrastructureModule::class, NetworkApiModule::class, ActivityBuildersModule::class, ScannerModule::class])
 interface AppComponent {
     @Component.Factory
     interface Factory {

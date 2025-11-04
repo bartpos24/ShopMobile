@@ -1,9 +1,13 @@
 package pl.bartpos24.shopmobile
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,6 +24,8 @@ import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import androidx.lifecycle.asLiveData
 import dagger.android.AndroidInjector
+import pl.bartpos24.shopmobile.utilities.requestCodeRequiredPermissions
+import pl.bartpos24.shopmobile.utilities.requiredPermissions
 import pl.bartpos24.shopmobile.viewmodels.ShopMobileViewModelFactory
 import javax.inject.Inject
 
@@ -69,7 +75,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.scanner_product_graph,
+                R.id.homeFragment, R.id.scanner_product_graph, R.id.inventory_graph
             ),
             drawerLayout,
         )
@@ -81,6 +87,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 loginViewModel.logout()
                 findNavController(R.id.nav_host_fragment).navigate(R.id.loginFragment)
             }
+        }
+
+        if (!checkAllPermissions()) {
+            ActivityCompat.requestPermissions(this, requiredPermissions, requestCodeRequiredPermissions)
         }
     }
     fun setHasOptionsMenu(value: Boolean) {
@@ -99,4 +109,18 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     override fun androidInjector(): AndroidInjector<in Any> = androidInjector
+
+    private fun checkAllPermissions() = requiredPermissions.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == requestCodeRequiredPermissions) {
+            if (!checkAllPermissions()) {
+                Toast.makeText(this, "Required Permissions not granted by the user.", Toast.LENGTH_LONG).show()
+                finish()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 }

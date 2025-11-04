@@ -29,6 +29,7 @@ class ProductListAdapter: ListAdapter<Product, ProductListAdapter.ViewHolder>(Pr
                 productBarcode.text = item.barcodes?.joinToString(", ") { it.code.toString() }
                 productBrand.text = item.brand
                 productUnt.text = item.unit?.name
+                productCapacity.text = item.capacity
             }
         }
     }
