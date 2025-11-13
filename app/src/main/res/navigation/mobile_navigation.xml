@@ -43,4 +43,9 @@
             tools:layout="@layout/inventory_position_fragment" >
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="pl.bartpos24.shopmobile.ui.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/settings_fragment" />
 </navigation>

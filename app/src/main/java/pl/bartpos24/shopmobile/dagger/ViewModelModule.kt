@@ -10,6 +10,7 @@ import pl.bartpos24.shopmobile.viewmodels.FindProductViewModel
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
+import pl.bartpos24.shopmobile.viewmodels.SettingsViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -37,4 +38,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ClassKey(InventoryViewModel::class)
     abstract fun bindInventoryViewModel(inventoryViewModel: InventoryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ClassKey(SettingsViewModel::class)
+    abstract fun bindSettingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
 }

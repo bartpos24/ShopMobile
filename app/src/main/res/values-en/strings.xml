@@ -11,6 +11,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_inventory">Inventory</string>
     <string name="menu_findProduct">Find</string>
+    <string name="menu_settings">Settings</string>
 
     <string name="lbl_productBarcode">Product barcode</string>
     <string name="lbl_productName">Product name</string>
@@ -22,4 +23,7 @@
     <string name="lbl_price">Price</string>
 
     <string name="btn_confirm">Confirm</string>
+
+    <string name="lbl_lightDarkMode">Day/Night mode</string>
+    <string name="lbl_language">Language</string>
 </resources>

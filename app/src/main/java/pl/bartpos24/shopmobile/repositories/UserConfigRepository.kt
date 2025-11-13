@@ -13,4 +13,15 @@ class UserConfigRepository(private val sharedPreferences: SharedPreferences, pri
     private val userConfigAdapter = moshi.adapter(UserConfig::class.java)
     private val _userConfig = MutableStateFlow(userConfigAdapter.fromJson(userConfigPreference.get()) ?: UserConfig())
     val userConfig: StateFlow<UserConfig> get() = _userConfig
+    private suspend fun persistConfig(newConfig: UserConfig) {
+        userConfigPreference.setAndCommit(userConfigAdapter.toJson(newConfig))
+    }
+
+    suspend fun saveConfig(newConfig: UserConfig) {
+        if (_userConfig.value == newConfig)
+            return
+        persistConfig(newConfig)
+        _userConfig.value = newConfig
+    }
+
 }

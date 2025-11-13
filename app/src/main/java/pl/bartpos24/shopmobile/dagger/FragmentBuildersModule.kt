@@ -6,6 +6,7 @@ import pl.bartpos24.shopmobile.ui.BarcodeScannerFragment
 import pl.bartpos24.shopmobile.ui.FindProductFragment
 import pl.bartpos24.shopmobile.ui.InventoryPositionFragment
 import pl.bartpos24.shopmobile.ui.LoginFragment
+import pl.bartpos24.shopmobile.ui.SettingsFragment
 import pl.bartpos24.shopmobile.ui.home.HomeFragment
 
 @Module
@@ -22,4 +23,6 @@ abstract class FragmentBuildersModule {
     abstract  fun contributeFindProductFragment(): FindProductFragment
     @ContributesAndroidInjector
     abstract  fun contributeInventoryPositionFragment(): InventoryPositionFragment
+    @ContributesAndroidInjector
+    abstract  fun contributeSettingsFragment(): SettingsFragment
 }

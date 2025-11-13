@@ -16,5 +16,9 @@
             android:id="@+id/scanner_product_graph"
             android:icon="@drawable/search_engine"
             android:title="@string/menu_findProduct" />
+        <item
+            android:id="@+id/settingsFragment"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/menu_settings" />
     </group>
 </menu>
