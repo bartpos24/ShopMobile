@@ -73,12 +73,18 @@ class FindProductFragment : ShopMobileFragment() {
             //.mapNotNull { it }
             .filter { it.isNotEmpty() }
             .onEach { binding.productBarcodeInputEditText.setText(it) }
+            .onEach { findProductViewModel.clearBarcodeData() }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.productBarcodeInputEditText.textChanges()
             .debounce(700)
             .filter { it.isNotEmpty() }
             .map { findProductViewModel.getProductByBarcode(it.toString()) }
+            .map {
+                if(it.isNullOrEmpty())
+                    findProductViewModel.getProductFromOpenFoodFacts(binding.productBarcodeInputEditText.text.toString())
+                else it
+            }
             .onEach {
                 var x = it
             }

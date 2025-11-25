@@ -6,11 +6,14 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.singleOrNull
 import pl.bartpos24.shopmobile.models.BarcodeResult
 import pl.bartpos24.shopmobile.repositories.ProductRepository
 import pl.bartpos24.shopmobile.repositories.TokenRepository
 import pl.bartpos24.shopmobile.scanner.Scanner
+import pl.bartpos24.shopmobile.utilities.toShopApiMessage
+import pl.bartpos24.web.model.Product
 import javax.inject.Inject
 
 class FindProductViewModel @Inject constructor(private val productRepository: ProductRepository, val scanner: Scanner) : ShopMobileViewModel() {
@@ -28,13 +31,14 @@ class FindProductViewModel @Inject constructor(private val productRepository: Pr
 
     suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
         .catch {
-            offerError(it.message.toString())
+           // offerError(it.toShopApiMessage())
         }
         .singleOrNull()
 
     suspend fun getProductFromOpenFoodFacts(barcode: String) = productRepository.getProductFromOpenFoodFacts(barcode)
         .catch {
-            offerError(it.message.toString())
+            offerError(it.toShopApiMessage())
         }
+        .map { listOf(it) }
         .singleOrNull()
 }

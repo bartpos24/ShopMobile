@@ -30,7 +30,7 @@ import pl.bartpos24.shopmobile.viewmodels.ShopMobileViewModelFactory
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity(), HasAndroidInjector {
+class MainActivity : AppCompatActivity(), HasAndroidInjector, IActivityCommunicator {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -62,12 +62,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
-
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
-        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment)
@@ -97,6 +91,16 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         hasOptionsMenu = value
     }
 
+    override fun onResume() {
+        super.onResume()
+        loginAuth.getStatus().asLiveData().observe(this@MainActivity) {
+            if(it != LoginStatus.AUTHENTICATED) {
+                loginViewModel.logout()
+                findNavController(R.id.nav_host_fragment).navigate(R.id.loginFragment)
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
@@ -122,5 +126,11 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+    override fun alterToolbar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+    override fun setDrawerLockMode(lockMode: Int) {
+        binding.drawerLayout.setDrawerLockMode(lockMode)
     }
 }

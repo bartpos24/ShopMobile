@@ -65,7 +65,7 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
             var x = it
         }
         .catch {
-            offerError(it.message.toString())
+            offerError(it.toShopApiMessage())
         }
         .singleOrNull()
 }

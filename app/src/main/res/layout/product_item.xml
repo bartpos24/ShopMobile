@@ -23,7 +23,6 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/lbl_productBarcode"
                 android:textColor="@color/black"
-                android:textSize="8sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SmallSp" />
@@ -47,7 +46,6 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/lbl_productName"
                 android:textColor="@color/black"
-                android:textSize="8sp"
                 app:layout_constraintBottom_toTopOf="@+id/product_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/product_barcode"
@@ -72,21 +70,8 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/lbl_brand"
                 android:textColor="@color/black"
-                android:textSize="8sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_name"
-                tools:ignore="SmallSp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/capacity_label"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/lbl_capacity"
-                android:textColor="@color/black"
-                android:textSize="8sp"
-                app:layout_constraintStart_toStartOf="@+id/product_capacity"
+                app:layout_constraintEnd_toEndOf="@+id/product_brand"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
                 tools:ignore="SmallSp" />
 
@@ -95,13 +80,25 @@
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/lbl_unit"
                 android:textColor="@color/black"
-                android:textSize="8sp"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/product_unt"
-                app:layout_constraintStart_toStartOf="@+id/product_unt"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toEndOf="@+id/product_brand"
+                app:layout_constraintTop_toBottomOf="@+id/product_name"
+                tools:ignore="SmallSp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/capacity_label"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/lbl_capacity"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
                 tools:ignore="SmallSp" />
 
@@ -112,32 +109,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/product_capacity"
-                app:layout_constraintTop_toBottomOf="@+id/brand_label" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/product_capacity"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/product_unt"
-                app:layout_constraintStart_toEndOf="@+id/product_brand"
-                app:layout_constraintTop_toBottomOf="@+id/capacity_label" />
+                app:layout_constraintTop_toBottomOf="@+id/brand_label" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/product_unt"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/product_capacity"
+                app:layout_constraintEnd_toEndOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="@+id/unity_label"
                 app:layout_constraintTop_toBottomOf="@+id/unity_label" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/product_capacity"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/capacity_label" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

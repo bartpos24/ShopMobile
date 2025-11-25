@@ -10,6 +10,7 @@ import pl.bartpos24.shopmobile.repositories.ProductRepository
 import pl.bartpos24.shopmobile.scanner.Scanner
 import pl.bartpos24.web.model.Product
 import kotlinx.coroutines.flow.map
+import pl.bartpos24.shopmobile.utilities.toShopApiMessage
 import javax.inject.Inject
 
 class InventoryViewModel  @Inject constructor(private val productRepository: ProductRepository, val scanner: Scanner) : ShopMobileViewModel() {
@@ -28,13 +29,13 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         .map { if(!it.isNullOrEmpty() && it.count() == 1) it.firstOrNull() else null }
         .onEach { _product.value = it }
         .catch {
-            offerError(it.message.toString())
+            offerError(it.toShopApiMessage())
         }
         .singleOrNull()
 
     suspend fun getProductFromOpenFoodFacts(barcode: String) = productRepository.getProductFromOpenFoodFacts(barcode)
         .catch {
-            offerError(it.message.toString())
+            offerError(it.toShopApiMessage())
         }
         .singleOrNull()
 }

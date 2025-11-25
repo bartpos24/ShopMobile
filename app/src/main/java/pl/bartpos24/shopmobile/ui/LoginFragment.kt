@@ -6,22 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.view.isInvisible
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import pl.bartpos24.shopmobile.IActivityCommunicator
 import pl.bartpos24.shopmobile.dagger.Injectable
-import pl.bartpos24.shopmobile.databinding.FragmentHomeBinding
 import pl.bartpos24.shopmobile.databinding.LoginFragmentBinding
 import pl.bartpos24.shopmobile.utilities.LoginStatus
 import pl.bartpos24.shopmobile.utilities.autoClearedView
+import pl.bartpos24.shopmobile.utilities.states
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import ru.ldralighieri.corbind.view.clicks
-import kotlin.toString
 
 class LoginFragment : ShopMobileFragment(), Injectable {
     private val loginViewModel: LoginViewModel by activityViewModels()
@@ -53,8 +56,8 @@ class LoginFragment : ShopMobileFragment(), Injectable {
             .onEach {
                 with(binding) {
                     loginViewModel.login(
-                        "barpos",
-                        "Dobrakow56!",
+                        "temp_user",
+                        "temp_password",
                         Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
                     )
                 }
@@ -69,5 +72,22 @@ class LoginFragment : ShopMobileFragment(), Injectable {
         loginViewModel.authenticationState.observe(viewLifecycleOwner) {
             if (it == LoginStatus.AUTHENTICATED) findNavController().popBackStack()
         }
+        activity?.let {
+            it.onBackPressedDispatcher.addCallback(viewLifecycleOwner, enabled = true) { it.finish() }
+        }
+
+        viewLifecycleOwner.lifecycle.states()
+            .onEach {
+                (activity as? IActivityCommunicator)?.apply {
+                    val drawerMode = when (it) {
+                        Lifecycle.State.DESTROYED -> DrawerLayout.LOCK_MODE_UNLOCKED
+                        else -> {
+                            alterToolbar()
+                            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+                        }
+                    }
+                    setDrawerLockMode(drawerMode)
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

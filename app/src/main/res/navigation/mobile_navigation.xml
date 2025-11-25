@@ -9,7 +9,8 @@
         android:id="@+id/loginFragment"
         android:name="pl.bartpos24.shopmobile.ui.LoginFragment"
         android:label="@string/menu_login"
-        tools:layout="@layout/login_fragment" />
+        tools:layout="@layout/login_fragment"
+        tools:showIn="@layout/activity_main" />
 
     <fragment
         android:id="@+id/homeFragment"

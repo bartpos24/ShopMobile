@@ -12,5 +12,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:colorBackground">@color/purple_500</item>
+<!--        <item name="android:windowBackground">@color/themeBackground</item>-->
+<!--        <item name="android:windowBackground">@drawable/night_theme</item>-->
+<!--        <item name="android:windowBackground">@drawable/hunyuan_night_theme</item>-->
+        <item name="android:windowBackground">@drawable/gpt_dark_theme</item>
     </style>
 </resources>
