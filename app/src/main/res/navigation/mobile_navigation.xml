@@ -39,7 +39,7 @@
         app:startDestination="@id/inventoryPositionFragment">
         <fragment
             android:id="@+id/inventoryPositionFragment"
-            android:name="pl.bartpos24.shopmobile.ui.InventoryPositionFragment"
+            android:name="pl.bartpos24.shopmobile.ui.inventory.InventoryPositionFragment"
             android:label="@string/menu_inventory"
             tools:layout="@layout/inventory_position_fragment" >
         </fragment>

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import pl.bartpos24.shopmobile.ui.BarcodeScannerFragment
 import pl.bartpos24.shopmobile.ui.FindProductFragment
-import pl.bartpos24.shopmobile.ui.InventoryPositionFragment
+import pl.bartpos24.shopmobile.ui.inventory.InventoryPositionFragment
 import pl.bartpos24.shopmobile.ui.LoginFragment
 import pl.bartpos24.shopmobile.ui.SettingsFragment
 import pl.bartpos24.shopmobile.ui.home.HomeFragment

@@ -1,4 +1,4 @@
-package pl.bartpos24.shopmobile.ui
+package pl.bartpos24.shopmobile.ui.inventory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,13 +13,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import pl.bartpos24.shopmobile.R
 import pl.bartpos24.shopmobile.databinding.InventoryPositionFragmentBinding
+import pl.bartpos24.shopmobile.ui.ShopMobileFragment
 import pl.bartpos24.shopmobile.utilities.autoClearedView
 import pl.bartpos24.shopmobile.utilities.navGraphShopMobileViewModels
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
 import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 
 class InventoryPositionFragment : ShopMobileFragment() {
     private val inventoryViewModel: InventoryViewModel by navGraphShopMobileViewModels(R.id.inventory_graph)
