@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -33,6 +34,7 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
     val loginInProgress = authenticationState.map { it == LoginStatus.AUTHENTICATING }
 
     init {
+        tokenRepository.logout()
         _authenticationState.value = LoginStatus.UNAUTHENTICATED
     }
 
@@ -59,10 +61,14 @@ class LoginViewModel @Inject constructor(private val tokenRepository: TokenRepos
         tokenRepository.logout()
         _authenticationState.value = LoginStatus.UNAUTHENTICATED
     }
+    override fun onCleared() {
+        super.onCleared()
+        logout()
+    }
 
-    suspend fun refreshAccessToken()  = tokenRepository.refreshToken()
+    suspend fun refreshToken() = tokenRepository.refreshToken()
         .onEach {
-            var x = it
+            tokenRepository.setNewAccessToken(it)
         }
         .catch {
             offerError(it.toShopApiMessage())

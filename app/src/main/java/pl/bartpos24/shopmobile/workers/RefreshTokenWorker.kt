@@ -39,7 +39,6 @@ class RefreshTokenWorker @Inject constructor(
 
         val apiResult = safeApiResult {
             withContext(Dispatchers.IO) {
-                //tokenRepository.refreshToken().singleOrNull()
                 loginApi.apiLoginRefreshPost(
                     body = accessToken,
                     SSAID = Settings.Secure.getString(

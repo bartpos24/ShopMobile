@@ -42,11 +42,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, IActivityCommunica
 
     @Inject
     lateinit var shopMobileApp: ShopMobileApplication
-    private val loginViewModel: LoginViewModel by viewModels { ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null) }
-//    private val viewModelFactory: ShopMobileViewModelFactory by lazy {
-//        ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null)
-//    }
 
+    private val loginViewModel: LoginViewModel by viewModels { ShopMobileViewModelFactory(shopMobileApp.appComponent, this@MainActivity, null) }
     object loginAuth {
         private val status = MutableStateFlow<LoginStatus>(LoginStatus.UNAUTHENTICATED)
         fun getStatus() = status

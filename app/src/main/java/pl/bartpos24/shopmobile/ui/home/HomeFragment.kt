@@ -61,14 +61,11 @@ class HomeFragment : ShopMobileFragment() {
 
         binding.loginButton.clicks()
             .debounce(1000)
+            .map {
+                loginViewModel.refreshToken()
+            }
             .onEach {
-                with(binding) {
-                    loginViewModel.login(
-                        "barpos",
-                        "Dobrakow56!",
-                        Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
-                    )
-                }
+                var x = it
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.testButton.clicks()
