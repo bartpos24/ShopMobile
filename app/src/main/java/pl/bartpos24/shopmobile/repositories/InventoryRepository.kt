@@ -10,6 +10,9 @@ class InventoryRepository(private val inventoryApi: InventoryApi) : ShopMobileRe
     fun getAllInventory() = flow {
         emit(getAllInventoryApi())
     }
+    fun getAllInventoryPositionsForUser(inventoryId: Int, userId: Int? = null) = flow {
+        emit(getAllInventoryPositionsForUserApi(inventoryId, userId))
+    }
 
     fun addInventoryPosition(inventoryPosition: InventoryPosition) = flow {
         emit(addInventoryPositionApi(inventoryPosition))
@@ -17,6 +20,9 @@ class InventoryRepository(private val inventoryApi: InventoryApi) : ShopMobileRe
 
     private suspend fun getAllInventoryApi(context: CoroutineContext = coroutineContext) = withContext(context = context) {
         inventoryApi.apiInventoryGetAllInventoriesGet()
+    }
+    private suspend fun getAllInventoryPositionsForUserApi(inventoryId: Int, userId: Int? = null, context: CoroutineContext = coroutineContext) = withContext(context = context) {
+        inventoryApi.apiInventoryGetAllInventoryPositionsForUserGet(inventoryId, userId)
     }
     private suspend fun addInventoryPositionApi(inventoryPosition: InventoryPosition, context: CoroutineContext = coroutineContext) = withContext(context = context) {
         inventoryApi.apiInventoryAddInventoryPositionPost(inventoryPosition)

@@ -32,7 +32,10 @@ class InventoryPositionListAdapter : ListAdapter<InventoryPosition, InventoryPos
     class ViewHolder(private val binding: InventoryPositionItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(listener: View.OnClickListener, inventoryPosition: InventoryPosition) {
             with(binding) {
-
+                productBrand.text = inventoryPosition.product?.brand ?: ""
+                productBarcode.text = inventoryPosition.product?.barcodes?.firstOrNull()?.code ?: ""
+                productName.text = inventoryPosition.product?.name ?: ""
+                productCapacity.text = inventoryPosition.product?.capacity ?: ""
             }
         }
     }

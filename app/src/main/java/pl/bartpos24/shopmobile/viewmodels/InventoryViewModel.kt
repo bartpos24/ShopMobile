@@ -102,4 +102,9 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         //.onEach { _inventoryPositions.value = _inventoryPositions.value + it }
         .catch { offerError(it.toShopApiMessage()) }
         .singleOrNull()
+
+    suspend fun getAllInventoryPositionsForUser() = inventoryRepository.getAllInventoryPositionsForUser(_inventory.value?.id ?: 0)
+        //.onEach { _inventoryPositions.value = it.sortedByDescending { it.scanDate } }
+        .catch { }
+        .singleOrNull()
 }
