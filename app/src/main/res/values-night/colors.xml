@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorIconBlackWhite">#FFFFFF</color>
     <color name="themeBackground">#535353</color>
+    <color name="colorListItem">#F19321</color>
+    <color name="colorListItem2">#F7AA1D</color>
+    <color name="colorListItem3">#FBBE2C</color>
 </resources>

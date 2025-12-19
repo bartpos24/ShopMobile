@@ -6,10 +6,12 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import pl.bartpos24.shopmobile.repositories.InventoryRepository
 import pl.bartpos24.shopmobile.repositories.TokenRepository
 import pl.bartpos24.shopmobile.repositories.ProductRepository
 import pl.bartpos24.shopmobile.repositories.UserConfigRepository
 import pl.bartpos24.shopmobile.utilities.TokenCache
+import pl.bartpos24.web.api.InventoryApi
 import pl.bartpos24.web.api.LoginApi
 import pl.bartpos24.web.api.ProductApi
 import javax.inject.Singleton
@@ -35,4 +37,9 @@ object RepositoryModule {
     @Provides
     @JvmStatic
     fun provideProductRepository(productApi: ProductApi): ProductRepository = ProductRepository(productApi)
+
+    @Reusable
+    @Provides
+    @JvmStatic
+    fun provideInventoryRepository(inventoryApi: InventoryApi): InventoryRepository = InventoryRepository(inventoryApi)
 }

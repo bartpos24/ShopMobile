@@ -59,7 +59,7 @@ class FindProductFragment : ShopMobileFragment() {
         binding.productList.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.default_padding)))
         binding.productList.adapter = productListAdapter
 
-        binding.btnCamera.clicks()
+        binding.cameraImgBtn.clicks()
             .onEach { findProductViewModel.clearBarcodeData() }
             .onEach { binding.barcodeScannerLayout.visibility = View.VISIBLE }
             .onEach { findProductViewModel.scanner.startScanning(viewLifecycleOwner, binding.previewView) }

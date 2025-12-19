@@ -16,6 +16,7 @@
 package pl.bartpos24.web.model
 
 import pl.bartpos24.web.model.Barcode
+import pl.bartpos24.web.model.InventoryPosition
 import pl.bartpos24.web.model.Unit
 
 import com.squareup.moshi.Json
@@ -35,6 +36,7 @@ import kotlinx.parcelize.Parcelize
  * @param unitId 
  * @param unit 
  * @param barcodes 
+ * @param inventoryPositions 
  */
 @Parcelize
 
@@ -66,7 +68,10 @@ data class Product (
     val unit: Unit? = null,
 
     @Json(name = "barcodes")
-    val barcodes: kotlin.collections.List<Barcode>? = null
+    val barcodes: kotlin.collections.List<Barcode>? = null,
+
+    @Json(name = "inventoryPositions")
+    val inventoryPositions: kotlin.collections.List<InventoryPosition>? = null
 
 ) : Parcelable
 

@@ -13,6 +13,8 @@
     <string name="menu_findProduct">Szukaj</string>
     <string name="menu_settings">Ustawienia</string>
 
+    <string name="inventory_position_fragment_lbl">Dodawanie pozycji</string>
+
     <string name="lbl_productBarcode">Kod kreskowy produktu</string>
     <string name="lbl_productName">Nazwa produktu</string>
     <string name="lbl_quantity">Ilość</string>
@@ -21,9 +23,22 @@
     <string name="lbl_capacity">Pojemność</string>
 
     <string name="lbl_price">Cena</string>
+    <string name="lbl_name">Nazwa</string>
+    <string name="lbl_status">Status</string>
+    <string name="lbl_type">Typ</string>
+    <string name="lbl_executeWay">Sposób przeprowadzania</string>
+    <string name="lbl_companyInformation">Nazwa i adres firmy</string>
+    <string name="lbl_createdByUser">Utworzone przez</string>
+    <string name="lbl_creationDate">Data utworzenia</string>
 
     <string name="btn_confirm">Zatwierdź</string>
 
     <string name="lbl_lightDarkMode">Tryb dzień/noc</string>
     <string name="lbl_language">Język</string>
+
+    <string name="error_product_not_found_by_barcode">Nie znaleziono produktu z podanym kodem</string>
+    <string name="error_empty_field">Pole nie może być puste</string>
+    <string name="error_zero_quantity">Ilość musi być większa od zera</string>
+    <string name="error_zero_price">Cena musi być większa od zera</string>
+    <string name="toast_err_inventories_404">Nie udało się pobrać listy dostępnych inwentaryzacji</string>
 </resources>

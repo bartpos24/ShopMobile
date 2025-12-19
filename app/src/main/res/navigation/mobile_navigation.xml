@@ -36,11 +36,20 @@
 
     <navigation
         android:id="@+id/inventory_graph"
-        app:startDestination="@id/inventoryPositionFragment">
+        app:startDestination="@id/inventoryFragment">
+        <fragment
+            android:id="@+id/inventoryFragment"
+            android:name="pl.bartpos24.shopmobile.ui.inventory.InventoryFragment"
+            android:label="@string/menu_inventory"
+            tools:layout="@layout/inventory_fragment" >
+            <action
+                android:id="@+id/action_inventoryFragment_to_inventoryPositionFragment"
+                app:destination="@id/inventoryPositionFragment" />
+        </fragment>
         <fragment
             android:id="@+id/inventoryPositionFragment"
             android:name="pl.bartpos24.shopmobile.ui.inventory.InventoryPositionFragment"
-            android:label="@string/menu_inventory"
+            android:label="@string/inventory_position_fragment_lbl"
             tools:layout="@layout/inventory_position_fragment" >
         </fragment>
     </navigation>

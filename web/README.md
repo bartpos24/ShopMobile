@@ -45,6 +45,12 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*InventoryApi* | [**apiInventoryAddInventoryPositionPost**](docs/InventoryApi.md#apiinventoryaddinventorypositionpost) | **POST** /api/Inventory/AddInventoryPosition | 
+*InventoryApi* | [**apiInventoryCreateInventoryPost**](docs/InventoryApi.md#apiinventorycreateinventorypost) | **POST** /api/Inventory/CreateInventory | 
+*InventoryApi* | [**apiInventoryGetAllInventoriesGet**](docs/InventoryApi.md#apiinventorygetallinventoriesget) | **GET** /api/Inventory/GetAllInventories | 
+*InventoryApi* | [**apiInventoryGetAllInventoryPositionsForUserGet**](docs/InventoryApi.md#apiinventorygetallinventorypositionsforuserget) | **GET** /api/Inventory/GetAllInventoryPositionsForUser | 
+*InventoryApi* | [**apiInventoryGetAllInventoryPositionsGet**](docs/InventoryApi.md#apiinventorygetallinventorypositionsget) | **GET** /api/Inventory/GetAllInventoryPositions | 
+*InventoryApi* | [**apiInventoryGetInventoryByIdGet**](docs/InventoryApi.md#apiinventorygetinventorybyidget) | **GET** /api/Inventory/GetInventoryById | 
 *LoginApi* | [**apiLoginLoginPost**](docs/LoginApi.md#apiloginloginpost) | **POST** /api/Login/Login | 
 *LoginApi* | [**apiLoginLogoutPost**](docs/LoginApi.md#apiloginlogoutpost) | **POST** /api/Login/Logout | 
 *LoginApi* | [**apiLoginRefreshPost**](docs/LoginApi.md#apiloginrefreshpost) | **POST** /api/Login/Refresh | 
