@@ -2,9 +2,14 @@ package pl.bartpos24.shopmobile.ui.inventory
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
@@ -14,6 +19,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pl.bartpos24.shopmobile.R
 import pl.bartpos24.shopmobile.adapters.InventoryListAdapter
 import pl.bartpos24.shopmobile.adapters.InventoryPositionListAdapter
@@ -22,6 +29,7 @@ import pl.bartpos24.shopmobile.ui.ShopMobileFragment
 import pl.bartpos24.shopmobile.utilities.MarginItemDecoration
 import pl.bartpos24.shopmobile.utilities.autoClearedView
 import pl.bartpos24.shopmobile.utilities.navGraphShopMobileViewModels
+import pl.bartpos24.shopmobile.utilities.navigateSafe
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
 import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
@@ -37,7 +45,21 @@ class InventoryPositionFragment : ShopMobileFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = InventoryPositionFragmentBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_inventory_position, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.commonInventoryPosition -> {
+                findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToCommonInventoryPositionFragment())
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {

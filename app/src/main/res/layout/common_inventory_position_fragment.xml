@@ -15,52 +15,28 @@
         android:visibility="gone"
         app:swipeRefreshLayoutProgressSpinnerBackgroundColor="?colorSurface" />
 
-    <LinearLayout
-        android:id="@+id/barcodeScannerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.camera.view.PreviewView
-            android:id="@+id/previewView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/productBarcodeInputLayout"
+        android:id="@+id/productNameInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        android:hint="@string/lbl_productBarcode"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/lbl_productName"
         app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintEnd_toStartOf="@+id/cameraImgBtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/productBarcodeInputEditText"
+            android:id="@+id/productNameInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusedByDefault="true"
-            android:inputType="number"
+            android:inputType="text"
             android:nextFocusDown="@id/quantityEditText"
             android:maxLines="1"
             android:saveEnabled="false"
@@ -68,45 +44,20 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/cameraImgBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="10dp"
-        android:src="@android:drawable/ic_menu_camera"
-        android:tint="@color/colorIconBlackWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/productBarcodeInputLayout"
-        app:layout_constraintStart_toEndOf="@+id/productBarcodeInputLayout" />
-
-    <include
-        android:id="@+id/productInformation"
-        layout="@layout/product_item"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productBarcodeInputLayout" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/quantityInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:hint="@string/lbl_quantity"
         app:errorEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintEnd_toStartOf="@id/priceInputLayout"
+        app:layout_constraintEnd_toStartOf="@id/unitInputLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productInformation">
+        app:layout_constraintTop_toBottomOf="@+id/productNameInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/quantityEditText"
@@ -122,19 +73,41 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/unitInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/lbl_unit"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/quantityInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/productNameInputLayout">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/unitsExposedDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:saveEnabled="false" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/priceInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:hint="@string/lbl_price"
         app:errorEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintStart_toEndOf="@id/quantityInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productInformation">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/confirmButton"
+        app:layout_constraintTop_toBottomOf="@+id/quantityInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/priceEditText"
@@ -153,15 +126,16 @@
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/btn_confirm"
         android:nextFocusDown="@id/productBarcodeInputEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceInputLayout" />
+        app:layout_constraintStart_toEndOf="@id/priceInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/quantityInputLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/inventoryPositionList"
+        android:id="@+id/commonInventoryPositionList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -173,6 +147,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmButton" />
+        app:layout_constraintTop_toBottomOf="@id/priceInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

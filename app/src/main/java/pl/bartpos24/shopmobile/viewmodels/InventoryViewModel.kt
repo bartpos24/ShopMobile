@@ -21,8 +21,10 @@ import org.threeten.bp.LocalDateTime
 import pl.bartpos24.shopmobile.R
 import pl.bartpos24.shopmobile.repositories.InventoryRepository
 import pl.bartpos24.shopmobile.utilities.toShopApiMessage
+import pl.bartpos24.web.model.CommonInventoryPosition
 import pl.bartpos24.web.model.Inventory
 import pl.bartpos24.web.model.InventoryPosition
+import pl.bartpos24.web.model.Unit
 import javax.inject.Inject
 
 class InventoryViewModel  @Inject constructor(private val productRepository: ProductRepository, private val inventoryRepository: InventoryRepository, val scanner: Scanner) : ShopMobileViewModel() {
@@ -35,14 +37,29 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
     private val _inventories = MutableStateFlow<List<Inventory>>(emptyList())
     val inventories: StateFlow<List<Inventory>> = _inventories
 
+    private val _units = MutableStateFlow<List<Unit>>(emptyList())
+    val units: StateFlow<List<Unit>> = _units
+
+    private val _unit = MutableStateFlow<Unit?>(null)
+    val unit: StateFlow<Unit?> = _unit
+
     private val _inventoryPositions = MutableStateFlow<List<InventoryPosition>>(emptyList())
     val inventoryPositions: StateFlow<List<InventoryPosition>> = _inventoryPositions
+
+    private val _commonInventoryPositions = MutableStateFlow<List<CommonInventoryPosition>>(emptyList())
+    val commonInventoryPositions: StateFlow<List<CommonInventoryPosition>> = _commonInventoryPositions
+
+    private val _productName = MutableStateFlow<String?>(null)
+    val productName: StateFlow<String?> = _productName
 
     private val _product = MutableStateFlow<Product?>(null)
     val product: StateFlow<Product?> = _product
 
     private val _refresh = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _refresh
+
+    private val _refreshCommonInventory = MutableStateFlow(false)
+    val refreshCommonInventory: StateFlow<Boolean> = _refreshCommonInventory
 
     private val _quantity = MutableStateFlow<Double?>(null)
     val quantity: StateFlow<Double?> = _quantity
@@ -72,6 +89,13 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         _product.value = null
     }
 
+    fun setUnit(unit: Unit?) {
+        _unit.value = unit
+    }
+    fun setProductName(productName: String?) {
+        _productName.value = productName
+    }
+
     val barcodeResult = scanner.scannerDataFlow
 
     init {
@@ -91,6 +115,9 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
             .map { getAllInventoryPositionsForUser() }
             .flowOn(Dispatchers.IO)
             .launchIn(viewModelScope)
+
+//        _refreshCommonInventory.filter { it }
+//            .map { productReposito }
     }
 
     suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
@@ -110,8 +137,19 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         .catch { offerError(it.toShopApiMessage()) }
         .singleOrNull()
 
+    suspend fun addCommonInventoryPosition() = inventoryRepository.addCommonInventoryPosition(
+        CommonInventoryPosition(id = 0, quantity = _quantity.value, price = _price.value, scanDate = LocalDateTime.now(), productName = _productName.value, userId = 0, inventoryId = _inventory.value?.id, unitId = _unit.value?.id ?: 0))
+        .onEach { _commonInventoryPositions.value = _commonInventoryPositions.value + it }
+        .catch { offerError(it.toShopApiMessage()) }
+        .singleOrNull()
+
     suspend fun getAllInventoryPositionsForUser() = inventoryRepository.getAllInventoryPositionsForUser(_inventory.value?.id ?: 0)
         .onEach { _inventoryPositions.value = it }
+        .catch { }
+        .singleOrNull()
+
+    suspend fun getAllCommonInventoryPositionsForUser() = inventoryRepository.getAllCommonInventoryPositionsForUser(_inventory.value?.id ?: 0)
+        .onEach { _commonInventoryPositions.value = it }
         .catch { }
         .singleOrNull()
 }

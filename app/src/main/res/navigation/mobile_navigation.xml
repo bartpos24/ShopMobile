@@ -51,6 +51,15 @@
             android:name="pl.bartpos24.shopmobile.ui.inventory.InventoryPositionFragment"
             android:label="@string/inventory_position_fragment_lbl"
             tools:layout="@layout/inventory_position_fragment" >
+            <action
+                android:id="@+id/action_inventoryPositionFragment_to_commonInventoryPositionFragment"
+                app:destination="@id/commonInventoryPositionFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/commonInventoryPositionFragment"
+            android:name="pl.bartpos24.shopmobile.ui.inventory.CommonInventoryPositionFragment"
+            android:label="@string/common_inventory_position_fragment_lbl"
+            tools:layout="@layout/common_inventory_position_fragment" >
         </fragment>
     </navigation>
     <fragment

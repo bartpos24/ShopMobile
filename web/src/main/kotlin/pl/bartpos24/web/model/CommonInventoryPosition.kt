@@ -59,7 +59,7 @@ data class CommonInventoryPosition (
     val price: kotlin.Double? = null,
 
     @Json(name = "scanDate")
-    val scanDate: org.threeten.bp.OffsetDateTime? = null,
+    val scanDate: org.threeten.bp.LocalDateTime? = null,
 
     @Json(name = "userId")
     val userId: kotlin.Int? = null,
