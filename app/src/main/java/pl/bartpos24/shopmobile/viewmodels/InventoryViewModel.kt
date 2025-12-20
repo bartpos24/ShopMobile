@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -67,7 +68,7 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
     }
     fun clearData() {
         _price.value = 0.0
-        _quantity.value = 0.0
+        _quantity.value = 1.0
         _product.value = null
     }
 
@@ -84,12 +85,18 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
             }
             .flowOn(Dispatchers.IO)
             .launchIn(viewModelScope)
+
+        _inventory
+            .filterNotNull()
+            .map { getAllInventoryPositionsForUser() }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
     }
 
     suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
         .map { if(!it.isNullOrEmpty() && it.count() == 1) it.firstOrNull() else null }
         .onEach { _product.value = it }
-        .catch { offerError(it.toShopApiMessage()) }
+        .catch {  }
         .singleOrNull()
 
     suspend fun getProductFromOpenFoodFacts(barcode: String) = productRepository.getProductFromOpenFoodFacts(barcode)
@@ -98,13 +105,13 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         }
         .singleOrNull()
 
-    suspend fun addInventoryPosition() = inventoryRepository.addInventoryPosition(InventoryPosition(id = 0, quantity = _quantity.value, price = _price.value, scanDate = LocalDateTime.now(), productId = _product.value?.id, userId = 0, inventoryId = _inventory.value?.id))
-        //.onEach { _inventoryPositions.value = _inventoryPositions.value + it }
+    suspend fun addInventoryPosition() = inventoryRepository.addInventoryPosition(InventoryPosition(id = 0, quantity = _quantity.value, price = _price.value, scanDate = LocalDateTime.now(), productId = _product.value?.id, userId = 0, inventoryId = _inventory.value?.id, product = _product.value))
+        .onEach { _inventoryPositions.value = _inventoryPositions.value + it }
         .catch { offerError(it.toShopApiMessage()) }
         .singleOrNull()
 
     suspend fun getAllInventoryPositionsForUser() = inventoryRepository.getAllInventoryPositionsForUser(_inventory.value?.id ?: 0)
-        //.onEach { _inventoryPositions.value = it.sortedByDescending { it.scanDate } }
+        .onEach { _inventoryPositions.value = it }
         .catch { }
         .singleOrNull()
 }

@@ -31,6 +31,7 @@ src/main/kotlin/pl/bartpos24/web/api/LoginApi.kt
 src/main/kotlin/pl/bartpos24/web/api/ProductApi.kt
 src/main/kotlin/pl/bartpos24/web/api/UserApi.kt
 src/main/kotlin/pl/bartpos24/web/model/Barcode.kt
+src/main/kotlin/pl/bartpos24/web/model/CommonInventoryPosition.kt
 src/main/kotlin/pl/bartpos24/web/model/ELoginType.kt
 src/main/kotlin/pl/bartpos24/web/model/Inventory.kt
 src/main/kotlin/pl/bartpos24/web/model/InventoryPosition.kt

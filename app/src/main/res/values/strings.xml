@@ -30,6 +30,7 @@
     <string name="lbl_companyInformation">Nazwa i adres firmy</string>
     <string name="lbl_createdByUser">Utworzone przez</string>
     <string name="lbl_creationDate">Data utworzenia</string>
+    <string name="lbl_scanDate">Data skanowania</string>
 
     <string name="btn_confirm">Zatwierdź</string>
 

@@ -45,8 +45,13 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*InventoryApi* | [**apiInventoryAddCommonInventoryPositionPost**](docs/InventoryApi.md#apiinventoryaddcommoninventorypositionpost) | **POST** /api/Inventory/AddCommonInventoryPosition | 
 *InventoryApi* | [**apiInventoryAddInventoryPositionPost**](docs/InventoryApi.md#apiinventoryaddinventorypositionpost) | **POST** /api/Inventory/AddInventoryPosition | 
 *InventoryApi* | [**apiInventoryCreateInventoryPost**](docs/InventoryApi.md#apiinventorycreateinventorypost) | **POST** /api/Inventory/CreateInventory | 
+*InventoryApi* | [**apiInventoryEditCommonInventoryPositionPost**](docs/InventoryApi.md#apiinventoryeditcommoninventorypositionpost) | **POST** /api/Inventory/EditCommonInventoryPosition | 
+*InventoryApi* | [**apiInventoryEditInventoryPositionPost**](docs/InventoryApi.md#apiinventoryeditinventorypositionpost) | **POST** /api/Inventory/EditInventoryPosition | 
+*InventoryApi* | [**apiInventoryGetAllCommonInventoryPositionsForUserGet**](docs/InventoryApi.md#apiinventorygetallcommoninventorypositionsforuserget) | **GET** /api/Inventory/GetAllCommonInventoryPositionsForUser | 
+*InventoryApi* | [**apiInventoryGetAllCommonInventoryPositionsGet**](docs/InventoryApi.md#apiinventorygetallcommoninventorypositionsget) | **GET** /api/Inventory/GetAllCommonInventoryPositions | 
 *InventoryApi* | [**apiInventoryGetAllInventoriesGet**](docs/InventoryApi.md#apiinventorygetallinventoriesget) | **GET** /api/Inventory/GetAllInventories | 
 *InventoryApi* | [**apiInventoryGetAllInventoryPositionsForUserGet**](docs/InventoryApi.md#apiinventorygetallinventorypositionsforuserget) | **GET** /api/Inventory/GetAllInventoryPositionsForUser | 
 *InventoryApi* | [**apiInventoryGetAllInventoryPositionsGet**](docs/InventoryApi.md#apiinventorygetallinventorypositionsget) | **GET** /api/Inventory/GetAllInventoryPositions | 

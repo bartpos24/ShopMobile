@@ -15,7 +15,6 @@
 
 package pl.bartpos24.web.model
 
-import pl.bartpos24.web.model.Product
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -28,7 +27,6 @@ import kotlinx.parcelize.Parcelize
  * @param id 
  * @param name 
  * @param code 
- * @param products 
  */
 @Parcelize
 
@@ -42,10 +40,7 @@ data class Unit (
     val name: kotlin.String? = null,
 
     @Json(name = "code")
-    val code: kotlin.String? = null,
-
-    @Json(name = "products")
-    val products: kotlin.collections.List<Product>? = null
+    val code: kotlin.String? = null
 
 ) : Parcelable
 

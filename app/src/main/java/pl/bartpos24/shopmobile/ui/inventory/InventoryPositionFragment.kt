@@ -73,7 +73,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .debounce(700)
             .onEach {
                 binding.productBarcodeInputLayout.error = when {
-                    binding.productBarcodeInputEditText.text.toString().isNullOrEmpty() -> getString(R.string.error_empty_field)
+                    binding.productBarcodeInputEditText.text.toString().isEmpty() -> getString(R.string.error_empty_field)
                     else -> null
                 }
             }
@@ -132,7 +132,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .onEach { binding.progress.visibility = View.VISIBLE }
             .map { inventoryViewModel.addInventoryPosition() }
             .onEach { binding.progress.visibility = View.GONE }
-            .filter { it != null && it > 0 }
+            .filter { it != null && (it.id ?: 0) > 0 }
             .onEach { binding.confirmButton.isEnabled = false }
             .onEach { clearData() }
             .onEach { inventoryViewModel.clearData() }
@@ -159,7 +159,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
     }
     private fun clearData() {
         binding.productBarcodeInputEditText.setText("")
-        binding.quantityEditText.setText("0.0")
+        binding.quantityEditText.setText("1.0")
         binding.priceEditText.setText("0.0")
     }
 }
