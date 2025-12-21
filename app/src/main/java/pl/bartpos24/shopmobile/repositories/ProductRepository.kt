@@ -9,9 +9,11 @@ class ProductRepository(private val productApi: ProductApi) : ShopMobileReposito
     fun getProductByBarcode(barcode: String) = flow {
         emit(getProductByBarcodeApi(barcode))
     }
-
     fun getProductFromOpenFoodFacts(barcode: String) = flow {
         emit(getProductFromOpenFoodFactsApi(barcode))
+    }
+    fun getAllUnits() = flow {
+        emit(getAllUnitsApi())
     }
 
     private suspend fun getProductByBarcodeApi(barcode: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
@@ -19,5 +21,8 @@ class ProductRepository(private val productApi: ProductApi) : ShopMobileReposito
     }
     private suspend fun getProductFromOpenFoodFactsApi(barcode: String, context: CoroutineContext = coroutineContext) = withContext(context = context) {
         productApi.apiProductGetProductFromOpenFoodFactsGet(barcode)
+    }
+    private suspend fun getAllUnitsApi(context: CoroutineContext = coroutineContext) = withContext(context = context) {
+        productApi.apiProductGetAllUnitsGet()
     }
 }

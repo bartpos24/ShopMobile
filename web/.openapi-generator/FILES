@@ -38,9 +38,9 @@ src/main/kotlin/pl/bartpos24/web/model/InventoryPosition.kt
 src/main/kotlin/pl/bartpos24/web/model/InventoryStatus.kt
 src/main/kotlin/pl/bartpos24/web/model/LoginModel.kt
 src/main/kotlin/pl/bartpos24/web/model/Product.kt
+src/main/kotlin/pl/bartpos24/web/model/ProductUnit.kt
 src/main/kotlin/pl/bartpos24/web/model/RegisterModel.kt
 src/main/kotlin/pl/bartpos24/web/model/RoleForUser.kt
-src/main/kotlin/pl/bartpos24/web/model/Unit.kt
 src/main/kotlin/pl/bartpos24/web/model/User.kt
 src/main/kotlin/pl/bartpos24/web/model/UserInfo.kt
 src/main/kotlin/pl/bartpos24/web/model/UserRole.kt

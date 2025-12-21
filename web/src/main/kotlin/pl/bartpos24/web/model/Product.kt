@@ -16,7 +16,7 @@
 package pl.bartpos24.web.model
 
 import pl.bartpos24.web.model.Barcode
-import pl.bartpos24.web.model.Unit
+import pl.bartpos24.web.model.ProductUnit
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -63,7 +63,7 @@ data class Product (
     val unitId: kotlin.Int? = null,
 
     @Json(name = "unit")
-    val unit: Unit? = null,
+    val unit: ProductUnit? = null,
 
     @Json(name = "barcodes")
     val barcodes: kotlin.collections.List<Barcode>? = null

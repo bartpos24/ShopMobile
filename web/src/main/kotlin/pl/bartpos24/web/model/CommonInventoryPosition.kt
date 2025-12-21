@@ -16,7 +16,7 @@
 package pl.bartpos24.web.model
 
 import pl.bartpos24.web.model.Inventory
-import pl.bartpos24.web.model.Unit
+import pl.bartpos24.web.model.ProductUnit
 import pl.bartpos24.web.model.User
 
 import com.squareup.moshi.Json
@@ -74,7 +74,7 @@ data class CommonInventoryPosition (
     val unitId: kotlin.Int? = null,
 
     @Json(name = "unit")
-    val unit: Unit? = null,
+    val unit: ProductUnit? = null,
 
     @Json(name = "user")
     val user: User? = null,

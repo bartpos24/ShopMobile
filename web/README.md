@@ -63,6 +63,7 @@ Class | Method | HTTP request | Description
 *ProductApi* | [**apiProductAddProductPost**](docs/ProductApi.md#apiproductaddproductpost) | **POST** /api/Product/AddProduct | 
 *ProductApi* | [**apiProductGetAllProductsGet**](docs/ProductApi.md#apiproductgetallproductsget) | **GET** /api/Product/GetAllProducts | 
 *ProductApi* | [**apiProductGetAllProductsTestOpenApiGenerateGet**](docs/ProductApi.md#apiproductgetallproductstestopenapigenerateget) | **GET** /api/Product/GetAllProductsTestOpenApiGenerate | 
+*ProductApi* | [**apiProductGetAllUnitsGet**](docs/ProductApi.md#apiproductgetallunitsget) | **GET** /api/Product/GetAllUnits | 
 *ProductApi* | [**apiProductGetProductByBarcodeGet**](docs/ProductApi.md#apiproductgetproductbybarcodeget) | **GET** /api/Product/GetProductByBarcode | 
 *ProductApi* | [**apiProductGetProductFromOpenFoodFactsGet**](docs/ProductApi.md#apiproductgetproductfromopenfoodfactsget) | **GET** /api/Product/GetProductFromOpenFoodFacts | 
 *ProductApi* | [**apiProductInitProductFromCSVPost**](docs/ProductApi.md#apiproductinitproductfromcsvpost) | **POST** /api/Product/InitProductFromCSV | 

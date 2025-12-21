@@ -31,7 +31,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 
 
-data class Unit (
+data class ProductUnit (
 
     @Json(name = "id")
     val id: kotlin.Int? = null,
