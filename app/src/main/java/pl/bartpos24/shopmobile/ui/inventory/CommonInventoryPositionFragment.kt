@@ -16,13 +16,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import pl.bartpos24.shopmobile.R
+import pl.bartpos24.shopmobile.adapters.CommonInventoryPositionListAdapter
 import pl.bartpos24.shopmobile.adapters.DropdownListAdapter
+import pl.bartpos24.shopmobile.adapters.InventoryPositionListAdapter
 import pl.bartpos24.shopmobile.databinding.CommonInventoryPositionFragmentBinding
 import pl.bartpos24.shopmobile.ui.ShopMobileFragment
+import pl.bartpos24.shopmobile.utilities.MarginItemDecoration
 import pl.bartpos24.shopmobile.utilities.autoClearedView
 import pl.bartpos24.shopmobile.utilities.navGraphShopMobileViewModels
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
-import pl.bartpos24.web.model.Unit
+import pl.bartpos24.web.model.ProductUnit
 import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
 import kotlin.getValue
@@ -44,7 +47,7 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         inventoryViewModel.toastErrors(requireContext()).launchIn(viewLifecycleOwner.lifecycleScope)
 
-        val unitsDropdownAdapter = DropdownListAdapter<Unit>(
+        val unitsDropdownAdapter = DropdownListAdapter<ProductUnit>(
             requireContext(), convertToString = { it.code },
             convertFromString = { item, items -> items.singleOrNull { it.code == item } }
         ) { item, binding ->
@@ -87,7 +90,7 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
             .map { it.toString() }
             .onEach { inventoryViewModel.setProductName(it) }
             .onEach {
-                binding.quantityInputLayout.error = when {
+                binding.productNameInputLayout.error = when {
                     it.isEmpty() -> getString(R.string.error_empty_field)
                     else -> null
                 }
@@ -126,7 +129,7 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
             .onEach { binding.progress.visibility = View.GONE }
             .filter { it != null && (it.id ?: 0) > 0 }
             .onEach { binding.confirmButton.isEnabled = false }
-            .onEach { inventoryViewModel.clearData() }
+            .onEach { clearData() }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         combine(
@@ -139,11 +142,24 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
             }
         ).onEach { binding.confirmButton.isEnabled = !it }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        val adapter = CommonInventoryPositionListAdapter()
+        binding.commonInventoryPositionList.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.default_padding)))
+        binding.commonInventoryPositionList.adapter = adapter
+
+        inventoryViewModel.commonInventoryPositions
+            .map { it.sortedByDescending { it.scanDate } }
+            .onEach { adapter.submitList(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        inventoryViewModel.refreshCommonInventory()
+        clearData()
     }
 
     private fun clearData() {
         binding.productNameInputEditText.setText("")
         binding.quantityEditText.setText("1.0")
         binding.priceEditText.setText("0.0")
+        binding.productNameInputEditText.requestFocus()
     }
 }

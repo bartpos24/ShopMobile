@@ -24,7 +24,7 @@ import pl.bartpos24.shopmobile.utilities.toShopApiMessage
 import pl.bartpos24.web.model.CommonInventoryPosition
 import pl.bartpos24.web.model.Inventory
 import pl.bartpos24.web.model.InventoryPosition
-import pl.bartpos24.web.model.Unit
+import pl.bartpos24.web.model.ProductUnit
 import javax.inject.Inject
 
 class InventoryViewModel  @Inject constructor(private val productRepository: ProductRepository, private val inventoryRepository: InventoryRepository, val scanner: Scanner) : ShopMobileViewModel() {
@@ -37,11 +37,11 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
     private val _inventories = MutableStateFlow<List<Inventory>>(emptyList())
     val inventories: StateFlow<List<Inventory>> = _inventories
 
-    private val _units = MutableStateFlow<List<Unit>>(emptyList())
-    val units: StateFlow<List<Unit>> = _units
+    private val _units = MutableStateFlow<List<ProductUnit>>(emptyList())
+    val units: StateFlow<List<ProductUnit>> = _units
 
-    private val _unit = MutableStateFlow<Unit?>(null)
-    val unit: StateFlow<Unit?> = _unit
+    private val _unit = MutableStateFlow<ProductUnit?>(null)
+    val unit: StateFlow<ProductUnit?> = _unit
 
     private val _inventoryPositions = MutableStateFlow<List<InventoryPosition>>(emptyList())
     val inventoryPositions: StateFlow<List<InventoryPosition>> = _inventoryPositions
@@ -76,6 +76,9 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
     fun refreshInventory() {
         _refresh.value = true
     }
+    fun refreshCommonInventory() {
+        _refreshCommonInventory.value = true
+    }
 
     fun setQuantity(quantity: Double?) {
         _quantity.value = quantity
@@ -89,7 +92,7 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         _product.value = null
     }
 
-    fun setUnit(unit: Unit?) {
+    fun setUnit(unit: ProductUnit?) {
         _unit.value = unit
     }
     fun setProductName(productName: String?) {
@@ -116,8 +119,22 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
             .flowOn(Dispatchers.IO)
             .launchIn(viewModelScope)
 
-//        _refreshCommonInventory.filter { it }
-//            .map { productReposito }
+        _refreshCommonInventory.filter { it }
+            .onEach { _refreshCommonInventory.value = false }
+            .onEach {
+                productRepository.getAllUnits()
+                    .onEach { _units.value = it }
+                    .catch { offerError(it.toShopApiMessage()) }
+                    .singleOrNull()
+            }
+            .onEach {
+                inventoryRepository.getAllCommonInventoryPositionsForUser(_inventory.value?.id ?: 0)
+                    .onEach { _commonInventoryPositions.value = it }
+                    .catch { offerError(it.toShopApiMessage()) }
+                    .singleOrNull()
+            }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
     }
 
     suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
@@ -138,8 +155,10 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         .singleOrNull()
 
     suspend fun addCommonInventoryPosition() = inventoryRepository.addCommonInventoryPosition(
-        CommonInventoryPosition(id = 0, quantity = _quantity.value, price = _price.value, scanDate = LocalDateTime.now(), productName = _productName.value, userId = 0, inventoryId = _inventory.value?.id, unitId = _unit.value?.id ?: 0))
-        .onEach { _commonInventoryPositions.value = _commonInventoryPositions.value + it }
+        CommonInventoryPosition(id = 0, quantity = _quantity.value, price = _price.value, scanDate = LocalDateTime.now(), productName = _productName.value, userId = 0, inventoryId = _inventory.value?.id, unitId = _unit.value?.id ?: 0, unit = _unit.value))
+        .onEach {
+            _commonInventoryPositions.value = _commonInventoryPositions.value + it
+        }
         .catch { offerError(it.toShopApiMessage()) }
         .singleOrNull()
 

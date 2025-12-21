@@ -12,6 +12,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productNameLabel"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/lbl_productName"
+            android:textColor="@color/colorListItem"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productName"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productNameLabel"
+            app:layout_constraintVertical_chainStyle="packed" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/editImgBtn"
             android:layout_width="wrap_content"
@@ -37,124 +63,6 @@
             app:layout_constraintStart_toEndOf="@+id/editImgBtn" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/productBarcodeLabel"
-            style="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/lbl_productBarcode"
-            android:textColor="@color/colorListItem"
-            android:textSize="8sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/productBarcode"
-            style="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintEnd_toEndOf="@id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productBarcodeLabel"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/productBrandLabel"
-            style="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/lbl_brand"
-            android:textColor="@color/colorListItem"
-            android:textSize="8sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productBarcode"
-            tools:ignore="SmallSp" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/productBrand"
-            style="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productBrandLabel"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/productNameLabel"
-            style="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/lbl_productName"
-            android:textColor="@color/colorListItem"
-            android:textSize="8sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productBrand"
-            tools:ignore="SmallSp" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/productName"
-            style="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintEnd_toStartOf="@id/capacityLinearLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productNameLabel"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <LinearLayout
-            android:id="@+id/capacityLinearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/productName"
-            app:layout_constraintTop_toBottomOf="@+id/productBrand">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/productCapacityLabel"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/lbl_capacity"
-                android:textColor="@color/colorListItem"
-                android:textAlignment="center"
-                android:textSize="8sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/productCapacity"
-                tools:ignore="SmallSp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/productCapacity"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productCapacityLabel"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
-        </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scanDateLabel"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
@@ -174,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scanDateLabel"
@@ -189,7 +99,7 @@
             app:layout_constraintEnd_toStartOf="@id/unitLinearLayout"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/capacityLinearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/productName">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/quantityLabel"
@@ -231,7 +141,7 @@
             app:layout_constraintEnd_toStartOf="@id/priceLinearLayout"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/quantityLinearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/capacityLinearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/productName">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/unitLabel"
@@ -273,7 +183,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/unitLinearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/capacityLinearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/productName">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/priceLabel"
