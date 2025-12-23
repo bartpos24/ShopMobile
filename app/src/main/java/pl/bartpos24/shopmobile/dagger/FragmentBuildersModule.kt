@@ -10,6 +10,7 @@ import pl.bartpos24.shopmobile.ui.SettingsFragment
 import pl.bartpos24.shopmobile.ui.home.HomeFragment
 import pl.bartpos24.shopmobile.ui.inventory.CommonInventoryPositionFragment
 import pl.bartpos24.shopmobile.ui.inventory.InventoryFragment
+import pl.bartpos24.shopmobile.ui.inventory.InventoryPositionEditFragment
 
 @Module
 abstract class FragmentBuildersModule {
@@ -31,4 +32,6 @@ abstract class FragmentBuildersModule {
     abstract fun contributeInventoryFragment(): InventoryFragment
     @ContributesAndroidInjector
     abstract  fun contributeCommonInventoryPositionFragment(): CommonInventoryPositionFragment
+    @ContributesAndroidInjector
+    abstract  fun contributeInventoryPositionEditFragment(): InventoryPositionEditFragment
 }

@@ -54,12 +54,28 @@
             <action
                 android:id="@+id/action_inventoryPositionFragment_to_commonInventoryPositionFragment"
                 app:destination="@id/commonInventoryPositionFragment" />
+            <action
+                android:id="@+id/action_inventoryPositionFragment_to_inventoryPositionEditFragment"
+                app:destination="@id/inventoryPositionEditFragment" >
+                <argument
+                    android:name="inventoryPosition"
+                    app:argType="pl.bartpos24.web.model.InventoryPosition" />
+            </action>
         </fragment>
         <fragment
             android:id="@+id/commonInventoryPositionFragment"
             android:name="pl.bartpos24.shopmobile.ui.inventory.CommonInventoryPositionFragment"
             android:label="@string/common_inventory_position_fragment_lbl"
             tools:layout="@layout/common_inventory_position_fragment" >
+        </fragment>
+        <fragment
+            android:id="@+id/inventoryPositionEditFragment"
+            android:name="pl.bartpos24.shopmobile.ui.inventory.InventoryPositionEditFragment"
+            android:label="@string/inventory_position_edit_fragment_lbl"
+            tools:layout="@layout/inventory_position_edit_fragment" >
+            <argument
+                android:name="inventoryPosition"
+                app:argType="pl.bartpos24.web.model.InventoryPosition" />
         </fragment>
     </navigation>
     <fragment

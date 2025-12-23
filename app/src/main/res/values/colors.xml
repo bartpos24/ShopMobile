@@ -12,4 +12,5 @@
     <color name="colorListItem">#F19321</color>
     <color name="colorListItem2">#F7AA1D</color>
     <color name="colorListItem3">#FBBE2C</color>
+    <color name="red">#FF0000</color>
 </resources>

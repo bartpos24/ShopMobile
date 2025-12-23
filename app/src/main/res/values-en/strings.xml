@@ -13,8 +13,12 @@
     <string name="menu_findProduct">Find</string>
     <string name="menu_settings">Settings</string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <string name="inventory_position_fragment_lbl">Adding position</string>
     <string name="common_inventory_position_fragment_lbl">Common inventory</string>
+    <string name="inventory_position_edit_fragment_lbl">Editing position</string>
 
     <string name="lbl_productBarcode">Product barcode</string>
     <string name="lbl_productName">Product name</string>
@@ -34,6 +38,7 @@
     <string name="lbl_scanDate">Scan date</string>
 
     <string name="btn_confirm">Confirm</string>
+    <string name="btn_edit">Edit</string>
 
     <string name="lbl_lightDarkMode">Day/Night mode</string>
     <string name="lbl_language">Language</string>
@@ -43,4 +48,8 @@
     <string name="error_zero_quantity">Quantity must be greater than zero</string>
     <string name="error_zero_price">Price must be greater than zero</string>
     <string name="toast_err_inventories_404">Failed to retrieve the list of available inventories</string>
+
+    <string name="al_dial_title_delete_position">Deleting position</string>
+
+    <string name="al_dial_message_delete_position">Are you certain to remove this position?</string>
 </resources>

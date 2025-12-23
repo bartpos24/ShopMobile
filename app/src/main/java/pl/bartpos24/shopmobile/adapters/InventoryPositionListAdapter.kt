@@ -43,6 +43,7 @@ class InventoryPositionListAdapter : ListAdapter<InventoryPosition, InventoryPos
                 price.text = inventoryPosition.price?.toString() ?: ""
                 //scanDate.text = inventoryPosition.scanDate?.let { DateTimeFormatter.ofPattern("HH:mm:ss").format(it) } ?: ""
                 scanDate.text = inventoryPosition.scanDate?.let { DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss").format(it) } ?: ""
+                editImgBtn.setOnClickListener(listener)
             }
         }
     }

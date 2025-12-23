@@ -23,6 +23,18 @@ class InventoryRepository(private val inventoryApi: InventoryApi) : ShopMobileRe
     fun addCommonInventoryPosition(commonInventoryPosition: CommonInventoryPosition) = flow {
         emit(addCommonInventoryPositionApi(commonInventoryPosition))
     }
+    fun editInventoryPosition(inventoryPosition: InventoryPosition) = flow {
+        emit(editInventoryPositionApi(inventoryPosition))
+    }
+    fun editCommonInventoryPosition(commonInventoryPosition: CommonInventoryPosition) = flow {
+        emit(editCommonInventoryPositionApi(commonInventoryPosition))
+    }
+//    fun deleteInventoryPosition(inventoryPosition: InventoryPosition) = flow {
+//        emit(deleteInventoryPositionApi(inventoryPosition))
+//    }
+//    fun deleteCommonInventoryPosition(commonInventoryPosition: CommonInventoryPosition) = flow {
+//        emit(deleteCommonInventoryPositionApi(commonInventoryPosition))
+//    }
 
     private suspend fun getAllInventoryApi(context: CoroutineContext = coroutineContext) = withContext(context = context) {
         inventoryApi.apiInventoryGetAllInventoriesGet()
@@ -39,4 +51,13 @@ class InventoryRepository(private val inventoryApi: InventoryApi) : ShopMobileRe
     private suspend fun addCommonInventoryPositionApi(commonInventoryPosition: CommonInventoryPosition, context: CoroutineContext = coroutineContext) = withContext(context = context) {
         inventoryApi.apiInventoryAddCommonInventoryPositionPost(commonInventoryPosition)
     }
+    private suspend fun editInventoryPositionApi(inventoryPosition: InventoryPosition, context: CoroutineContext = coroutineContext) = withContext(context = context) {
+        inventoryApi.apiInventoryEditInventoryPositionPost(inventoryPosition)
+    }
+    private suspend fun editCommonInventoryPositionApi(commonInventoryPosition: CommonInventoryPosition, context: CoroutineContext = coroutineContext) = withContext(context = context) {
+        inventoryApi.apiInventoryEditCommonInventoryPositionPost(commonInventoryPosition)
+    }
+//    private suspend fun deleteInventoryPositionApi(inventoryPosition: InventoryPosition, context: CoroutineContext = coroutineContext) = withContext(context = context) {
+//        inventoryApi.apiInventoryDeleteInventoryPositionPost(inventoryPosition)
+//    }
 }

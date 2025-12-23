@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.combine
@@ -178,10 +179,26 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .map { it.sortedByDescending { it.scanDate } }
             .onEach { adapter.submitList(it) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        adapter.clicks()
+            .filterNotNull()
+            .onEach { findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToInventoryPositionEditFragment(it)) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
     private fun clearData() {
         binding.productBarcodeInputEditText.setText("")
         binding.quantityEditText.setText("1.0")
         binding.priceEditText.setText("0.0")
+    }
+    private fun showDeleteDialog() {
+        MaterialAlertDialogBuilder(requireContext()).let { builder ->
+            builder.setTitle(resources.getString(R.string.al_dial_title_delete_position))
+            builder.setMessage(resources.getString(R.string.al_dial_message_delete_position))
+            builder.setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
+                //inventoryViewModel.deleteInventoryPosition()
+            }
+            builder.setNegativeButton(resources.getString(R.string.no)) { _, _ -> }
+            builder.create().show()
+        }
     }
 }

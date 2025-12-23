@@ -137,6 +137,18 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
             .launchIn(viewModelScope)
     }
 
+    fun editingInventoryPositionData(inventoryPosition: InventoryPosition): InventoryPosition {
+        return InventoryPosition(
+            id = inventoryPosition.id,
+            quantity = _quantity.value,
+            price = _price.value,
+            scanDate = LocalDateTime.now(),
+            productId = inventoryPosition.productId,
+            inventoryId = inventoryPosition.inventoryId,
+            product = inventoryPosition.product,
+        )
+    }
+
     suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
         .map { if(!it.isNullOrEmpty() && it.count() == 1) it.firstOrNull() else null }
         .onEach { _product.value = it }
@@ -171,4 +183,20 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         .onEach { _commonInventoryPositions.value = it }
         .catch { }
         .singleOrNull()
+
+    suspend fun editInventoryPosition(inventoryPosition: InventoryPosition) = inventoryRepository.editInventoryPosition(inventoryPosition)
+        .onEach { updatedInventoryPosition ->
+            _inventoryPositions.value = _inventoryPositions.value.map {
+                if (it.id == updatedInventoryPosition.id) updatedInventoryPosition else it
+            }
+        }
+        .catch { offerError(it.toShopApiMessage()) }
+        .singleOrNull()
+
+//    suspend fun deleteInventoryPosition(inventoryPosition: InventoryPosition) = inventoryRepository.deleteInventoryPosition(inventoryPosition)
+//        .onEach {
+//            _inventoryPositions.value = _inventoryPositions.value.filter { it.id != inventoryPosition.id }
+//        }
+//        .catch { offerError(it.toShopApiMessage()) }
+//        .singleOrNull()
 }
