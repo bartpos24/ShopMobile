@@ -1,56 +1,48 @@
 package pl.bartpos24.shopmobile.ui.inventory
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import pl.bartpos24.shopmobile.R
-import pl.bartpos24.shopmobile.databinding.InventoryPositionEditFragmentBinding
+import pl.bartpos24.shopmobile.databinding.CommonInventoryPositionEditFragmentBinding
 import pl.bartpos24.shopmobile.ui.ShopMobileFragment
 import pl.bartpos24.shopmobile.utilities.autoClearedView
 import pl.bartpos24.shopmobile.utilities.navGraphShopMobileViewModels
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
-import pl.bartpos24.web.model.InventoryPosition
 import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
 import kotlin.getValue
 
-class InventoryPositionEditFragment : ShopMobileFragment() {
+class CommonInventoryPositionEditFragment : ShopMobileFragment() {
     private val inventoryViewModel: InventoryViewModel by navGraphShopMobileViewModels(R.id.inventory_graph)
-    private var binding: InventoryPositionEditFragmentBinding by autoClearedView()
-    private val args: InventoryPositionEditFragmentArgs by navArgs()
+    private var binding: CommonInventoryPositionEditFragmentBinding by autoClearedView()
+
+    private val args: CommonInventoryPositionEditFragmentArgs by navArgs()
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: android.view.LayoutInflater,
+        container: android.view.ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = InventoryPositionEditFragmentBinding.inflate(inflater, container, false)
+        binding = CommonInventoryPositionEditFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         inventoryViewModel.toastErrors(requireContext()).launchIn(viewLifecycleOwner.lifecycleScope)
 
-        args.inventoryPosition.let {
+        args.commonInventoryPosition.let {
             with(binding.editingPositionInformation) {
-                productBarcode.text = it.product?.barcodes?.firstOrNull()?.code ?: ""
-                productBrand.text = it.product?.brand ?: ""
-                productName.text = it.product?.name ?: ""
-                productCapacity.text = it.product?.capacity ?: ""
-                unit.text = it.product?.unit?.name ?: ""
+                productName.text = it.productName ?: ""
+                unit.text = it.unit?.name ?: ""
                 quantity.text = (it.quantity ?: 0.0).toString()
                 price.text = (it.price ?: 0.0).toString()
                 scanDate.text = it.scanDate?.let { DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss").format(it) } ?: ""
@@ -90,9 +82,9 @@ class InventoryPositionEditFragment : ShopMobileFragment() {
 
         binding.editButton.clicks()
             .onEach { binding.progress.visibility = View.VISIBLE }
-            .map { inventoryViewModel.editingInventoryPositionData(args.inventoryPosition) }
-            .filter { it.id!! > 0 && it.productId!! > 0 && it.inventoryId!! > 0 }
-            .map { inventoryViewModel.editInventoryPosition(it) }
+            .map { inventoryViewModel.editingCommonInventoryPositionData(args.commonInventoryPosition) }
+            .filter { it.id!! > 0 && it.inventoryId!! > 0 }
+            .map { inventoryViewModel.editCommonInventoryPosition(it) }
             .onEach { binding.progress.visibility = View.GONE }
             .filter { it != null && (it.modifiedByUserId ?: 0) > 0 }
             .onEach { binding.editButton.isEnabled = false }
@@ -103,16 +95,15 @@ class InventoryPositionEditFragment : ShopMobileFragment() {
 
         combine(
             flow {
-                emit((args.inventoryPosition.id == null || args.inventoryPosition.id!! <= 0)
-                    || (args.inventoryPosition.productId == null || args.inventoryPosition.productId!! <= 0)
-                        || (args.inventoryPosition.inventoryId == null || args.inventoryPosition.inventoryId!! <= 0)) },
+                emit((args.commonInventoryPosition.id == null || args.commonInventoryPosition.id!! <= 0)
+                        || (args.commonInventoryPosition.inventoryId == null || args.commonInventoryPosition.inventoryId!! <= 0)) },
             inventoryViewModel.quantity.map { it == null || it <= 0.0 },
             inventoryViewModel.price.map { it == null || it <= 0.0 },
             combine(
                 inventoryViewModel.price,
                 inventoryViewModel.quantity
             ) { price, quantity ->
-                price == args.inventoryPosition.price && quantity == args.inventoryPosition.quantity
+                price == args.commonInventoryPosition.price && quantity == args.commonInventoryPosition.quantity
             },
             transform = { inventoryPositionOk, quantityOk, priceOk, theSamePriceAndQuantity ->
                 inventoryPositionOk || quantityOk || priceOk || theSamePriceAndQuantity

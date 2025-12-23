@@ -48,6 +48,8 @@ Class | Method | HTTP request | Description
 *InventoryApi* | [**apiInventoryAddCommonInventoryPositionPost**](docs/InventoryApi.md#apiinventoryaddcommoninventorypositionpost) | **POST** /api/Inventory/AddCommonInventoryPosition | 
 *InventoryApi* | [**apiInventoryAddInventoryPositionPost**](docs/InventoryApi.md#apiinventoryaddinventorypositionpost) | **POST** /api/Inventory/AddInventoryPosition | 
 *InventoryApi* | [**apiInventoryCreateInventoryPost**](docs/InventoryApi.md#apiinventorycreateinventorypost) | **POST** /api/Inventory/CreateInventory | 
+*InventoryApi* | [**apiInventoryDeleteCommonInventoryPositionPost**](docs/InventoryApi.md#apiinventorydeletecommoninventorypositionpost) | **POST** /api/Inventory/DeleteCommonInventoryPosition | 
+*InventoryApi* | [**apiInventoryDeleteInventoryPositionPost**](docs/InventoryApi.md#apiinventorydeleteinventorypositionpost) | **POST** /api/Inventory/DeleteInventoryPosition | 
 *InventoryApi* | [**apiInventoryEditCommonInventoryPositionPost**](docs/InventoryApi.md#apiinventoryeditcommoninventorypositionpost) | **POST** /api/Inventory/EditCommonInventoryPosition | 
 *InventoryApi* | [**apiInventoryEditInventoryPositionPost**](docs/InventoryApi.md#apiinventoryeditinventorypositionpost) | **POST** /api/Inventory/EditInventoryPosition | 
 *InventoryApi* | [**apiInventoryGetAllCommonInventoryPositionsForUserGet**](docs/InventoryApi.md#apiinventorygetallcommoninventorypositionsforuserget) | **GET** /api/Inventory/GetAllCommonInventoryPositionsForUser | 

@@ -142,10 +142,27 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
             id = inventoryPosition.id,
             quantity = _quantity.value,
             price = _price.value,
-            scanDate = LocalDateTime.now(),
+            scanDate = inventoryPosition.scanDate,
             productId = inventoryPosition.productId,
+            userId = inventoryPosition.userId,
             inventoryId = inventoryPosition.inventoryId,
             product = inventoryPosition.product,
+            modificationDate = LocalDateTime.now()
+        )
+    }
+
+    fun editingCommonInventoryPositionData(commonInventoryPosition: CommonInventoryPosition): CommonInventoryPosition {
+        return CommonInventoryPosition(
+            id = commonInventoryPosition.id,
+            productName = commonInventoryPosition.productName,
+            quantity = _quantity.value,
+            price = _price.value,
+            scanDate = commonInventoryPosition.scanDate,
+            userId = commonInventoryPosition.userId,
+            inventoryId = commonInventoryPosition.inventoryId,
+            unitId = commonInventoryPosition.unitId,
+            modificationDate = LocalDateTime.now(),
+            unit = commonInventoryPosition.unit
         )
     }
 
@@ -193,10 +210,26 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         .catch { offerError(it.toShopApiMessage()) }
         .singleOrNull()
 
-//    suspend fun deleteInventoryPosition(inventoryPosition: InventoryPosition) = inventoryRepository.deleteInventoryPosition(inventoryPosition)
-//        .onEach {
-//            _inventoryPositions.value = _inventoryPositions.value.filter { it.id != inventoryPosition.id }
-//        }
-//        .catch { offerError(it.toShopApiMessage()) }
-//        .singleOrNull()
+    suspend fun editCommonInventoryPosition(commonInventoryPosition: CommonInventoryPosition) = inventoryRepository.editCommonInventoryPosition(commonInventoryPosition)
+        .onEach { updatedInventoryPosition ->
+            _commonInventoryPositions.value = _commonInventoryPositions.value.map {
+                if (it.id == updatedInventoryPosition.id) updatedInventoryPosition else it
+            }
+        }
+        .catch { offerError(it.toShopApiMessage()) }
+        .singleOrNull()
+
+    suspend fun deleteInventoryPosition(inventoryPosition: InventoryPosition) = inventoryRepository.deleteInventoryPosition(inventoryPosition)
+        .onEach {
+            _inventoryPositions.value = _inventoryPositions.value.filter { it.id != inventoryPosition.id }
+        }
+        .catch { offerError(it.toShopApiMessage()) }
+        .singleOrNull()
+
+    suspend fun deleteCommonInventoryPosition(commonInventoryPosition: CommonInventoryPosition) = inventoryRepository.deleteCommonInventoryPosition(commonInventoryPosition)
+        .onEach {
+            _commonInventoryPositions.value = _commonInventoryPositions.value.filter { it.id != commonInventoryPosition.id }
+        }
+        .catch { offerError(it.toShopApiMessage()) }
+        .singleOrNull()
 }

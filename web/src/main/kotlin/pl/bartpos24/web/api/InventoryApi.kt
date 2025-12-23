@@ -269,6 +269,150 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClie
      * 
      * 
      * @param commonInventoryPosition  (optional)
+     * @return kotlin.Int
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun apiInventoryDeleteCommonInventoryPositionPost(commonInventoryPosition: CommonInventoryPosition? = null) : kotlin.Int = withContext(Dispatchers.IO) {
+        val localVarResponse = apiInventoryDeleteCommonInventoryPositionPostWithHttpInfo(commonInventoryPosition = commonInventoryPosition)
+
+        return@withContext when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Int
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @param commonInventoryPosition  (optional)
+     * @return ApiResponse<kotlin.Int?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    suspend fun apiInventoryDeleteCommonInventoryPositionPostWithHttpInfo(commonInventoryPosition: CommonInventoryPosition?) : ApiResponse<kotlin.Int?> = withContext(Dispatchers.IO) {
+        val localVariableConfig = apiInventoryDeleteCommonInventoryPositionPostRequestConfig(commonInventoryPosition = commonInventoryPosition)
+
+        return@withContext request<CommonInventoryPosition, kotlin.Int>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation apiInventoryDeleteCommonInventoryPositionPost
+     *
+     * @param commonInventoryPosition  (optional)
+     * @return RequestConfig
+     */
+    fun apiInventoryDeleteCommonInventoryPositionPostRequestConfig(commonInventoryPosition: CommonInventoryPosition?) : RequestConfig<CommonInventoryPosition> {
+        val localVariableBody = commonInventoryPosition
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/api/Inventory/DeleteCommonInventoryPosition",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * 
+     * 
+     * @param inventoryPosition  (optional)
+     * @return kotlin.Int
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun apiInventoryDeleteInventoryPositionPost(inventoryPosition: InventoryPosition? = null) : kotlin.Int = withContext(Dispatchers.IO) {
+        val localVarResponse = apiInventoryDeleteInventoryPositionPostWithHttpInfo(inventoryPosition = inventoryPosition)
+
+        return@withContext when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Int
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @param inventoryPosition  (optional)
+     * @return ApiResponse<kotlin.Int?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    suspend fun apiInventoryDeleteInventoryPositionPostWithHttpInfo(inventoryPosition: InventoryPosition?) : ApiResponse<kotlin.Int?> = withContext(Dispatchers.IO) {
+        val localVariableConfig = apiInventoryDeleteInventoryPositionPostRequestConfig(inventoryPosition = inventoryPosition)
+
+        return@withContext request<InventoryPosition, kotlin.Int>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation apiInventoryDeleteInventoryPositionPost
+     *
+     * @param inventoryPosition  (optional)
+     * @return RequestConfig
+     */
+    fun apiInventoryDeleteInventoryPositionPostRequestConfig(inventoryPosition: InventoryPosition?) : RequestConfig<InventoryPosition> {
+        val localVariableBody = inventoryPosition
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/api/Inventory/DeleteInventoryPosition",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * 
+     * 
+     * @param commonInventoryPosition  (optional)
      * @return CommonInventoryPosition
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception

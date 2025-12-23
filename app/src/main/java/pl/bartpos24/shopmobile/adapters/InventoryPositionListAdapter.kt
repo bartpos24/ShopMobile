@@ -13,8 +13,10 @@ import pl.bartpos24.web.model.InventoryPosition
 import kotlin.text.format
 
 class InventoryPositionListAdapter : ListAdapter<InventoryPosition, InventoryPositionListAdapter.ViewHolder>(InventorypositionListDiffCallback()) {
-    private val channel = MutableSharedFlow<InventoryPosition>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    fun clicks() = channel.asSharedFlow()
+    private val channelEdit = MutableSharedFlow<InventoryPosition>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val channelDelete = MutableSharedFlow<InventoryPosition>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    fun editClicks() = channelEdit.asSharedFlow()
+    fun deleteClicks() = channelDelete.asSharedFlow()
 
     override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(InventoryPositionItemBinding.inflate(android.view.LayoutInflater.from(parent.context), parent, false))
@@ -23,16 +25,20 @@ class InventoryPositionListAdapter : ListAdapter<InventoryPosition, InventoryPos
         getItem(position).let { inventoryPosition ->
             with(holder) {
                 itemView.tag = inventoryPosition
-                bind(createOnClickListener(inventoryPosition), inventoryPosition)
+                bind(createEditClickListener(inventoryPosition), createDeleteClickListener(inventoryPosition), inventoryPosition)
             }
         }
     }
-    private fun createOnClickListener(inventoryPosition: InventoryPosition): View.OnClickListener =
+    private fun createEditClickListener(inventoryPosition: InventoryPosition): View.OnClickListener =
         View.OnClickListener {
-            channel.tryEmit(inventoryPosition)
+            channelEdit.tryEmit(inventoryPosition)
+        }
+    private fun createDeleteClickListener(inventoryPosition: InventoryPosition): View.OnClickListener =
+        View.OnClickListener {
+            channelDelete.tryEmit(inventoryPosition)
         }
     class ViewHolder(private val binding: InventoryPositionItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(listener: View.OnClickListener, inventoryPosition: InventoryPosition) {
+        fun bind(editListener: View.OnClickListener, deleteListener: View.OnClickListener, inventoryPosition: InventoryPosition) {
             with(binding) {
                 productBrand.text = inventoryPosition.product?.brand ?: ""
                 productBarcode.text = inventoryPosition.product?.barcodes?.firstOrNull()?.code ?: ""
@@ -43,7 +49,8 @@ class InventoryPositionListAdapter : ListAdapter<InventoryPosition, InventoryPos
                 price.text = inventoryPosition.price?.toString() ?: ""
                 //scanDate.text = inventoryPosition.scanDate?.let { DateTimeFormatter.ofPattern("HH:mm:ss").format(it) } ?: ""
                 scanDate.text = inventoryPosition.scanDate?.let { DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss").format(it) } ?: ""
-                editImgBtn.setOnClickListener(listener)
+                editImgBtn.setOnClickListener(editListener)
+                deleteImgBtn.setOnClickListener(deleteListener)
             }
         }
     }

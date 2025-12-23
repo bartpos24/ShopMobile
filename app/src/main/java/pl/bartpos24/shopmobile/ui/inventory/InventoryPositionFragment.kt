@@ -32,6 +32,7 @@ import pl.bartpos24.shopmobile.utilities.autoClearedView
 import pl.bartpos24.shopmobile.utilities.navGraphShopMobileViewModels
 import pl.bartpos24.shopmobile.utilities.navigateSafe
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
+import pl.bartpos24.web.model.InventoryPosition
 import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
 
@@ -180,9 +181,13 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .onEach { adapter.submitList(it) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
-        adapter.clicks()
+        adapter.editClicks()
             .filterNotNull()
             .onEach { findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToInventoryPositionEditFragment(it)) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+        adapter.deleteClicks()
+            .filterNotNull()
+            .onEach { showDeleteDialog(it) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
     private fun clearData() {
@@ -190,14 +195,21 @@ class InventoryPositionFragment : ShopMobileFragment() {
         binding.quantityEditText.setText("1.0")
         binding.priceEditText.setText("0.0")
     }
-    private fun showDeleteDialog() {
+    private fun showDeleteDialog(inventoryPosition: InventoryPosition) {
         MaterialAlertDialogBuilder(requireContext()).let { builder ->
             builder.setTitle(resources.getString(R.string.al_dial_title_delete_position))
             builder.setMessage(resources.getString(R.string.al_dial_message_delete_position))
-            builder.setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
-                //inventoryViewModel.deleteInventoryPosition()
+            builder.setPositiveButton(resources.getString(R.string.yes)) { dialog, _ ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val result = withContext(Dispatchers.IO) {
+                        inventoryViewModel.deleteInventoryPosition(inventoryPosition)
+                    }
+                    if (result != null && result == inventoryPosition.id) {
+                        dialog.dismiss()
+                    }
+                }
             }
-            builder.setNegativeButton(resources.getString(R.string.no)) { _, _ -> }
+            builder.setNegativeButton(resources.getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
             builder.create().show()
         }
     }

@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pl.bartpos24.shopmobile.R
 import pl.bartpos24.shopmobile.adapters.CommonInventoryPositionListAdapter
 import pl.bartpos24.shopmobile.adapters.DropdownListAdapter
@@ -24,7 +30,10 @@ import pl.bartpos24.shopmobile.ui.ShopMobileFragment
 import pl.bartpos24.shopmobile.utilities.MarginItemDecoration
 import pl.bartpos24.shopmobile.utilities.autoClearedView
 import pl.bartpos24.shopmobile.utilities.navGraphShopMobileViewModels
+import pl.bartpos24.shopmobile.utilities.navigateSafe
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
+import pl.bartpos24.web.model.CommonInventoryPosition
+import pl.bartpos24.web.model.InventoryPosition
 import pl.bartpos24.web.model.ProductUnit
 import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
@@ -154,6 +163,15 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
 
         inventoryViewModel.refreshCommonInventory()
         clearData()
+
+        adapter.editClicks()
+            .filterNotNull()
+            .onEach { findNavController().navigateSafe(CommonInventoryPositionFragmentDirections.actionCommonInventoryPositionFragmentToCommonInventoryPositionEditFragment(it)) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+        adapter.deleteClicks()
+            .filterNotNull()
+            .onEach { showDeleteDialog(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun clearData() {
@@ -161,5 +179,24 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
         binding.quantityEditText.setText("1.0")
         binding.priceEditText.setText("0.0")
         binding.productNameInputEditText.requestFocus()
+    }
+
+    private fun showDeleteDialog(commonInventoryPosition: CommonInventoryPosition) {
+        MaterialAlertDialogBuilder(requireContext()).let { builder ->
+            builder.setTitle(resources.getString(R.string.al_dial_title_delete_position))
+            builder.setMessage(resources.getString(R.string.al_dial_message_delete_position))
+            builder.setPositiveButton(resources.getString(R.string.yes)) { dialog, _ ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val result = withContext(Dispatchers.IO) {
+                        inventoryViewModel.deleteCommonInventoryPosition(commonInventoryPosition)
+                    }
+                    if (result != null && result == commonInventoryPosition.id) {
+                        dialog.dismiss()
+                    }
+                }
+            }
+            builder.setNegativeButton(resources.getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
+            builder.create().show()
+        }
     }
 }

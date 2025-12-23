@@ -325,6 +325,108 @@
         }
       }
     },
+    "/api/Inventory/DeleteInventoryPosition": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryPosition"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryPosition"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryPosition"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Inventory/DeleteCommonInventoryPosition": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommonInventoryPosition"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommonInventoryPosition"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommonInventoryPosition"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Inventory/GetAllInventoryPositions": {
       "get": {
         "tags": [
@@ -1058,6 +1160,16 @@
             "type": "integer",
             "format": "int32"
           },
+          "isDeleted": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modificationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "unit": {
             "$ref": "#/components/schemas/ProductUnit"
           },
@@ -1188,6 +1300,16 @@
           "modifiedByUserId": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modificationDate": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           },
           "product": {

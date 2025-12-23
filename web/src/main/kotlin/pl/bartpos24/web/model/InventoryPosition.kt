@@ -35,6 +35,8 @@ import kotlinx.parcelize.Parcelize
  * @param userId 
  * @param inventoryId 
  * @param modifiedByUserId 
+ * @param isDeleted 
+ * @param modificationDate 
  * @param product 
  * @param user 
  * @param modifiedByUser 
@@ -68,6 +70,12 @@ data class InventoryPosition (
 
     @Json(name = "modifiedByUserId")
     val modifiedByUserId: kotlin.Int? = null,
+
+    @Json(name = "isDeleted")
+    val isDeleted: kotlin.Int? = null,
+
+    @Json(name = "modificationDate")
+    val modificationDate: org.threeten.bp.LocalDateTime? = null,
 
     @Json(name = "product")
     val product: Product? = null,
