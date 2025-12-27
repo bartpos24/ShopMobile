@@ -45,6 +45,9 @@
                     android:name="inventoryPosition"
                     app:argType="pl.bartpos24.web.model.InventoryPosition" />
             </action>
+            <action
+                android:id="@+id/action_inventoryPositionFragment_to_addEditProductFragment"
+                app:destination="@id/addEditProductFragment" />
         </fragment>
         <fragment
             android:id="@+id/commonInventoryPositionFragment"
@@ -76,6 +79,20 @@
             <argument
                 android:name="commonInventoryPosition"
                 app:argType="pl.bartpos24.web.model.CommonInventoryPosition" />
+        </fragment>
+        <fragment
+            android:id="@+id/addEditProductFragment"
+            android:name="pl.bartpos24.shopmobile.ui.product.AddEditProductFragment"
+            android:label="@string/add_edit_product_fragment_lbl"
+            tools:layout="@layout/add_edit_product_fragment" >
+            <argument
+                android:name="product"
+                app:argType="pl.bartpos24.web.model.Product"
+                app:nullable="true" />
+            <argument
+                android:name="barcode"
+                app:argType="string"
+                app:nullable="true" />
         </fragment>
     </navigation>
     <fragment

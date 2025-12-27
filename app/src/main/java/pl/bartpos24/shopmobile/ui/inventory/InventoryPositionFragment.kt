@@ -60,6 +60,9 @@ class InventoryPositionFragment : ShopMobileFragment() {
             R.id.commonInventoryPosition -> {
                 findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToCommonInventoryPositionFragment())
             }
+            R.id.addEditProduct -> {
+                findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToAddEditProductFragment(null, null))
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -85,6 +88,12 @@ class InventoryPositionFragment : ShopMobileFragment() {
                     inventoryViewModel.scanner.startScanning(viewLifecycleOwner, binding.previewView)
                 }
             }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        binding.editImgBtn.clicks()
+            .map { inventoryViewModel.product.value }
+            .map { InventoryPositionFragmentDirections.actionInventoryPositionFragmentToAddEditProductFragment(it, binding.productBarcodeInputEditText.text.toString()) }
+            .onEach { findNavController().navigateSafe(it) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         inventoryViewModel.barcodeResult
@@ -115,6 +124,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         inventoryViewModel.product
+            .onEach { binding.editImgBtn.visibility = if(it == null) View.GONE else View.VISIBLE }
             .onEach {
                 with(binding.productInformation) {
                     productName.text = it?.name ?: ""

@@ -19,6 +19,7 @@
     <string name="inventory_position_fragment_lbl">Dodawanie pozycji</string>
     <string name="common_inventory_position_fragment_lbl">Zwykła inwentaryzacja</string>
     <string name="inventory_position_edit_fragment_lbl">Edycja pozycji</string>
+    <string name="add_edit_product_fragment_lbl">Dodawanie/edycja produktu</string>
 
     <string name="lbl_productBarcode">Kod kreskowy produktu</string>
     <string name="lbl_productName">Nazwa produktu</string>

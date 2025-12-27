@@ -19,6 +19,7 @@
     <string name="inventory_position_fragment_lbl">Adding position</string>
     <string name="common_inventory_position_fragment_lbl">Common inventory</string>
     <string name="inventory_position_edit_fragment_lbl">Editing position</string>
+    <string name="add_edit_product_fragment_lbl">Product adding/editing</string>
 
     <string name="lbl_productBarcode">Product barcode</string>
     <string name="lbl_productName">Product name</string>

@@ -3,4 +3,7 @@
     <item
         android:id="@+id/commonInventoryPosition"
         android:title="@string/common_inventory_position_fragment_lbl" />
+    <item
+        android:id="@+id/addEditProduct"
+        android:title="@string/add_edit_product_fragment_lbl" />
 </menu>

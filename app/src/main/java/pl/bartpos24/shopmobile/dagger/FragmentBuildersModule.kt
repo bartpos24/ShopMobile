@@ -11,6 +11,7 @@ import pl.bartpos24.shopmobile.ui.inventory.CommonInventoryPositionEditFragment
 import pl.bartpos24.shopmobile.ui.inventory.CommonInventoryPositionFragment
 import pl.bartpos24.shopmobile.ui.inventory.InventoryFragment
 import pl.bartpos24.shopmobile.ui.inventory.InventoryPositionEditFragment
+import pl.bartpos24.shopmobile.ui.product.AddEditProductFragment
 
 @Module
 abstract class FragmentBuildersModule {
@@ -33,4 +34,6 @@ abstract class FragmentBuildersModule {
     abstract  fun contributeInventoryPositionEditFragment(): InventoryPositionEditFragment
     @ContributesAndroidInjector
     abstract  fun contributeCommonInventoryPositionEditFragment(): CommonInventoryPositionEditFragment
+    @ContributesAndroidInjector
+    abstract  fun contributeAddEditProductFragment(): AddEditProductFragment
 }

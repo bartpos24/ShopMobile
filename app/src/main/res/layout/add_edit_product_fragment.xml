@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/progress"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         android:visibility="gone"
@@ -44,24 +44,22 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/lbl_productBarcode"
         app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:hintEnabled="true"
         app:layout_constraintEnd_toStartOf="@+id/cameraImgBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barcodeScannerLayout">
+        app:layout_constraintTop_toBottomOf="@+id/barcodeScannerLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/productBarcodeInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusedByDefault="true"
-            android:inputType="number"
-            android:nextFocusDown="@id/quantityEditText"
+            android:inputType="text"
             android:maxLines="1"
             android:saveEnabled="false"
             android:singleLine="true" />
@@ -73,117 +71,129 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="16dp"
         android:src="@android:drawable/ic_menu_camera"
         android:tint="@color/colorIconBlackWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/productBarcodeInputLayout"
         app:layout_constraintStart_toEndOf="@+id/productBarcodeInputLayout" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/editImgBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:src="@drawable/ic_edit_yellow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraImgBtn"
-        app:layout_constraintStart_toEndOf="@+id/productBarcodeInputLayout" />
-
-    <include
-        android:id="@+id/productInformation"
-        layout="@layout/product_item"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productBarcodeInputLayout" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/quantityInputLayout"
+        android:id="@+id/productBrandInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:hint="@string/lbl_quantity"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/lbl_brand"
+        app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintEnd_toStartOf="@id/priceInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productInformation">
+        app:layout_constraintTop_toBottomOf="@+id/productBarcodeInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/quantityEditText"
+            android:id="@+id/productBrandInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="number|numberDecimal"
-            android:selectAllOnFocus="true"
-            android:nextFocusDown="@id/priceEditText"
-            android:singleLine="true"
+            android:focusedByDefault="true"
+            android:inputType="text"
             android:maxLines="1"
-            android:text="1.0" />
+            android:saveEnabled="false"
+            android:singleLine="true" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/priceInputLayout"
+        android:id="@+id/productNameInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:hint="@string/lbl_price"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/lbl_productName"
+        app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintStart_toEndOf="@id/quantityInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productInformation">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productBrandInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/priceEditText"
+            android:id="@+id/productNameInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="number|numberDecimal"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
+            android:focusedByDefault="true"
+            android:inputType="text"
             android:maxLines="1"
-            android:nextFocusDown="@id/confirmButton"
-            android:text="0.0" />
+            android:saveEnabled="false"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/productCapacityInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/lbl_capacity"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintEnd_toStartOf="@id/unitInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productNameInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productCapacityInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusedByDefault="true"
+            android:inputType="text"
+            android:maxLines="1"
+            android:saveEnabled="false"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/unitInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/lbl_unit"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/productCapacityInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/productNameInputLayout">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/unitsExposedDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:saveEnabled="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/btn_confirm"
         android:nextFocusDown="@id/productBarcodeInputEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceInputLayout" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/inventoryPositionList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmButton" />
+        app:layout_constraintTop_toBottomOf="@+id/productCapacityInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
