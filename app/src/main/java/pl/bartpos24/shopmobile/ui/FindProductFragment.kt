@@ -24,15 +24,9 @@ import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
 
 class FindProductFragment : ShopMobileFragment() {
-    private val productViewModel: ProductViewModel by navGraphShopMobileViewModels(R.id.scanner_product_graph)
-    private val barcodeScannerViewModel: BarcodeScannerViewModel by navGraphShopMobileViewModels(R.id.scanner_product_graph)
+    private val productViewModel: ProductViewModel by navGraphShopMobileViewModels(R.id.findProductFragment)
 
     private var binding: FindProductFragmentBinding by autoClearedView()
-
-    private var bindingBarcodeScanner: BarcodeScannerFragmentBinding by autoClearedView()
-
-    private lateinit var barcodeScannerFragment: BarcodeScannerFragment
-    private val barcodeScannerFragmentTag = "BarcodeScannerFragmentTag"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,8 +34,6 @@ class FindProductFragment : ShopMobileFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FindProductFragmentBinding.inflate(inflater, container, false)
-        //bindingBarcodeScanner = BarcodeScannerFragmentBinding.inflate(inflater, container, false)
-        //initBarcodeScannerfragment(R.id.scanner_product_graph)
         return binding.root
     }
 
@@ -61,14 +53,10 @@ class FindProductFragment : ShopMobileFragment() {
             .onEach { productViewModel.clearBarcodeData() }
             .onEach { binding.barcodeScannerLayout.visibility = View.VISIBLE }
             .onEach { productViewModel.scanner.startScanning(viewLifecycleOwner, binding.previewView) }
-//            .onEach { barcodeScannerViewModel.clearData() }
-//            .onEach { binding.barcodeScannerLayout.visibility = View.VISIBLE }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         // Sprawdzic czy kamera jest caly czas wlaczona nawet jesli widocznosc skanowania jest wylaczona
-        //barcodeScannerViewModel.barcodeResults
         productViewModel.barcodeResult
-            //.mapNotNull { it }
             .filter { it.isNotEmpty() }
             .onEach { binding.productBarcodeInputEditText.setText(it) }
             .onEach { productViewModel.clearBarcodeData() }
@@ -83,9 +71,6 @@ class FindProductFragment : ShopMobileFragment() {
                     productViewModel.getProductFromOpenFoodFacts(binding.productBarcodeInputEditText.text.toString())
                 else it
             }
-            .onEach {
-                var x = it
-            }
             .filterNotNull()
             .onEach {
                 productListAdapter.submitList(it)
@@ -95,16 +80,4 @@ class FindProductFragment : ShopMobileFragment() {
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
-
-//    private fun initBarcodeScannerfragment(viewRId: Int) {
-//        var oldBarcodeScannerFragment = childFragmentManager.findFragmentByTag(barcodeScannerFragmentTag)
-//        barcodeScannerFragment = BarcodeScannerFragment(requireContext(), bindingBarcodeScanner, viewRId)
-//
-//        childFragmentManager.commit {
-//            if(oldBarcodeScannerFragment == null)
-//                add(R.id.barcodeScannerFragmentContainer, barcodeScannerFragment, barcodeScannerFragmentTag)
-//            else
-//                replace(R.id.barcodeScannerFragmentContainer, barcodeScannerFragment, barcodeScannerFragmentTag)
-//        }
-//    }
 }

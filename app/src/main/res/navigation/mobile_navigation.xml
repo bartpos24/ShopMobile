@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/homeFragment">
+    app:startDestination="@+id/inventory_graph">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -11,28 +11,12 @@
         android:label="@string/menu_login"
         tools:layout="@layout/login_fragment"
         tools:showIn="@layout/activity_main" />
-
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="pl.bartpos24.shopmobile.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_scanner_product_graph"
-            app:destination="@id/scanner_product_graph" />
+        android:id="@+id/findProductFragment"
+        android:name="pl.bartpos24.shopmobile.ui.FindProductFragment"
+        android:label="@string/menu_findProduct"
+        tools:layout="@layout/find_product_fragment" >
     </fragment>
-
-    <navigation
-        android:id="@+id/scanner_product_graph"
-        app:startDestination="@id/findProductFragment">
-
-        <fragment
-            android:id="@+id/findProductFragment"
-            android:name="pl.bartpos24.shopmobile.ui.FindProductFragment"
-            android:label="@string/menu_findProduct"
-            tools:layout="@layout/find_product_fragment" >
-        </fragment>
-    </navigation>
 
     <navigation
         android:id="@+id/inventory_graph"

@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, IActivityCommunica
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.scanner_product_graph, R.id.inventory_graph
+                R.id.findProductFragment, R.id.inventory_graph
             ),
             drawerLayout,
         )
