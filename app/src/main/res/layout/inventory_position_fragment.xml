@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         android:visibility="gone"
@@ -45,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:hint="@string/lbl_productBarcode"
         app:endIconMode="clear_text"
@@ -53,7 +53,7 @@
         app:hintEnabled="true"
         app:layout_constraintEnd_toStartOf="@+id/cameraImgBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/barcodeScannerLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/productBarcodeInputEditText"

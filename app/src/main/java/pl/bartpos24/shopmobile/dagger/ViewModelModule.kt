@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import pl.bartpos24.shopmobile.viewmodels.BarcodeScannerViewModel
-import pl.bartpos24.shopmobile.viewmodels.FindProductViewModel
+import pl.bartpos24.shopmobile.viewmodels.ProductViewModel
 import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
 import pl.bartpos24.shopmobile.viewmodels.LoginViewModel
 import pl.bartpos24.shopmobile.viewmodels.MainActivityViewModel
@@ -31,8 +31,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ClassKey(FindProductViewModel::class)
-    abstract fun bindFindProductViewModel(findProductViewModel: FindProductViewModel): ViewModel
+    @ClassKey(ProductViewModel::class)
+    abstract fun bindProductViewModel(productViewModel: ProductViewModel): ViewModel
 
     @Binds
     @IntoMap
