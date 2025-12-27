@@ -39,6 +39,19 @@
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
+    <include
+        android:id="@+id/productInformation"
+        layout="@layout/product_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barcodeScannerLayout" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/productBarcodeInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -52,7 +65,7 @@
         app:hintEnabled="true"
         app:layout_constraintEnd_toStartOf="@+id/cameraImgBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barcodeScannerLayout">
+        app:layout_constraintTop_toBottomOf="@+id/productInformation">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/productBarcodeInputEditText"

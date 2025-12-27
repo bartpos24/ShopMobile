@@ -90,7 +90,8 @@ class InventoryPositionFragment : ShopMobileFragment() {
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
-        binding.editImgBtn.clicks()
+//        binding.productInformation.editImgBtn.visibility = View.VISIBLE
+        binding.productInformation.editImgBtn.clicks()
             .map { inventoryViewModel.product.value }
             .map { InventoryPositionFragmentDirections.actionInventoryPositionFragmentToAddEditProductFragment(it, binding.productBarcodeInputEditText.text.toString()) }
             .onEach { findNavController().navigateSafe(it) }
@@ -124,7 +125,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         inventoryViewModel.product
-            .onEach { binding.editImgBtn.visibility = if(it == null) View.GONE else View.VISIBLE }
+            .onEach { binding.productInformation.editImgBtn.visibility = if(it == null) View.GONE else View.VISIBLE }
             .onEach {
                 with(binding.productInformation) {
                     productName.text = it?.name ?: ""

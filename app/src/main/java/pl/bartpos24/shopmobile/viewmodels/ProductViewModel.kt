@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.singleOrNull
+import pl.bartpos24.shopmobile.R
 import pl.bartpos24.shopmobile.models.BarcodeResult
 import pl.bartpos24.shopmobile.repositories.ProductRepository
 import pl.bartpos24.shopmobile.scanner.Scanner
@@ -57,9 +58,55 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     fun clearBarcodeData() {
         scanner.clearBarcodeResult()
     }
+    fun setProduct(product: Product?) {
+        _product.value = product
+    }
+    fun setProductBarcode(barcode: String?) {
+        _productBarcode.value = barcode
+    }
+    fun setProductBrand(brand: String?) {
+        _productBrand.value = brand
+    }
+    fun setProductName(name: String?) {
+        _productName.value = name
+    }
+    fun setProductCapacity(capacity: String?) {
+        _productCapacity.value = capacity
+    }
 
     val barcodeResult = scanner.scannerDataFlow
 
+    fun clearData() {
+        _productBarcode.value = null
+        _productBrand.value = null
+        _productName.value = null
+        _productCapacity.value = null
+        _product.value = null
+    }
+
+    fun getProductData(): Product {
+        if(_product.value == null) {
+            return Product(
+                id = 0,
+                brand = _productBrand.value,
+                name = _productName.value,
+                unitId = _unit.value?.id ?: 0,
+                capacity = _productCapacity.value,
+                isGeneral = false,
+                label = "",
+            )
+        } else {
+            return Product(
+                id = _product.value?.id ?: 0,
+                brand = _productBrand.value,
+                name = _productName.value,
+                unitId = _unit.value?.id ?: 0,
+                capacity = _productCapacity.value,
+                isGeneral = _product.value?.isGeneral ?: false,
+                label = _product.value?.label ?: ""
+            )
+        }
+    }
     suspend fun getProductByBarcode(barcode: String) = productRepository.getProductByBarcode(barcode)
         .catch {  }
         .singleOrNull()
@@ -69,5 +116,8 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         .map { listOf(it) }
         .singleOrNull()
 
-    //suspend fun addEditProduct(product: Product)
+    suspend fun addEditProduct(product: Product) = productRepository.addEditProduct(product, _productBarcode.value ?: "")
+        .onEach { offerError(R.string.successfully_added_edited_product) }
+        .catch { offerError(it.toShopApiMessage()) }
+        .singleOrNull()
 }

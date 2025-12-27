@@ -50,6 +50,8 @@
     <string name="error_zero_price">Cena musi być większa od zera</string>
     <string name="toast_err_inventories_404">Nie udało się pobrać listy dostępnych inwentaryzacji</string>
 
+    <string name="successfully_added_edited_product">Pomyślnie dodano/zaktualizowano produkt</string>
+
     <string name="al_dial_title_delete_position">Usuwanie pozycji</string>
 
     <string name="al_dial_message_delete_position">Czy na pewno chcesz usunąć tę pozycję?</string>

@@ -50,6 +50,8 @@
     <string name="error_zero_price">Price must be greater than zero</string>
     <string name="toast_err_inventories_404">Failed to retrieve the list of available inventories</string>
 
+    <string name="successfully_added_edited_product">Successfully added/updated product</string>
+
     <string name="al_dial_title_delete_position">Deleting position</string>
 
     <string name="al_dial_message_delete_position">Are you certain to remove this position?</string>
