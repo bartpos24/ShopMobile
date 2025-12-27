@@ -22,6 +22,7 @@ import okhttp3.HttpUrl
 import pl.bartpos24.web.model.CommonInventoryPosition
 import pl.bartpos24.web.model.Inventory
 import pl.bartpos24.web.model.InventoryPosition
+import pl.bartpos24.web.model.SummaryInventoryPosition
 
 import com.squareup.moshi.Json
 
@@ -930,6 +931,82 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClie
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/api/Inventory/GetAllInventoryPositions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * 
+     * 
+     * @param inventoryId  (optional)
+     * @return kotlin.collections.List<SummaryInventoryPosition>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun apiInventoryGetAllSummaryPositionsGet(inventoryId: kotlin.Int? = null) : kotlin.collections.List<SummaryInventoryPosition> = withContext(Dispatchers.IO) {
+        val localVarResponse = apiInventoryGetAllSummaryPositionsGetWithHttpInfo(inventoryId = inventoryId)
+
+        return@withContext when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<SummaryInventoryPosition>
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @param inventoryId  (optional)
+     * @return ApiResponse<kotlin.collections.List<SummaryInventoryPosition>?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    suspend fun apiInventoryGetAllSummaryPositionsGetWithHttpInfo(inventoryId: kotlin.Int?) : ApiResponse<kotlin.collections.List<SummaryInventoryPosition>?> = withContext(Dispatchers.IO) {
+        val localVariableConfig = apiInventoryGetAllSummaryPositionsGetRequestConfig(inventoryId = inventoryId)
+
+        return@withContext request<Unit, kotlin.collections.List<SummaryInventoryPosition>>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation apiInventoryGetAllSummaryPositionsGet
+     *
+     * @param inventoryId  (optional)
+     * @return RequestConfig
+     */
+    fun apiInventoryGetAllSummaryPositionsGetRequestConfig(inventoryId: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (inventoryId != null) {
+                    put("inventoryId", listOf(inventoryId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/api/Inventory/GetAllSummaryPositions",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = true,

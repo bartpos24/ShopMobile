@@ -51,6 +51,86 @@ class ProductApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient
     /**
      * 
      * 
+     * @param barcode  (optional)
+     * @param product  (optional)
+     * @return kotlin.Int
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun apiProductAddEditProductPost(barcode: kotlin.String? = null, product: Product? = null) : kotlin.Int = withContext(Dispatchers.IO) {
+        val localVarResponse = apiProductAddEditProductPostWithHttpInfo(barcode = barcode, product = product)
+
+        return@withContext when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Int
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @param barcode  (optional)
+     * @param product  (optional)
+     * @return ApiResponse<kotlin.Int?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    suspend fun apiProductAddEditProductPostWithHttpInfo(barcode: kotlin.String?, product: Product?) : ApiResponse<kotlin.Int?> = withContext(Dispatchers.IO) {
+        val localVariableConfig = apiProductAddEditProductPostRequestConfig(barcode = barcode, product = product)
+
+        return@withContext request<Product, kotlin.Int>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation apiProductAddEditProductPost
+     *
+     * @param barcode  (optional)
+     * @param product  (optional)
+     * @return RequestConfig
+     */
+    fun apiProductAddEditProductPostRequestConfig(barcode: kotlin.String?, product: Product?) : RequestConfig<Product> {
+        val localVariableBody = product
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (barcode != null) {
+                    put("barcode", listOf(barcode.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/api/Product/AddEditProduct",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * 
+     * 
      * @param product  (optional)
      * @return kotlin.Int
      * @throws IllegalStateException If the request is not correctly configured

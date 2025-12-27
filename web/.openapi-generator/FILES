@@ -41,6 +41,7 @@ src/main/kotlin/pl/bartpos24/web/model/Product.kt
 src/main/kotlin/pl/bartpos24/web/model/ProductUnit.kt
 src/main/kotlin/pl/bartpos24/web/model/RegisterModel.kt
 src/main/kotlin/pl/bartpos24/web/model/RoleForUser.kt
+src/main/kotlin/pl/bartpos24/web/model/SummaryInventoryPosition.kt
 src/main/kotlin/pl/bartpos24/web/model/User.kt
 src/main/kotlin/pl/bartpos24/web/model/UserInfo.kt
 src/main/kotlin/pl/bartpos24/web/model/UserRole.kt

@@ -57,11 +57,13 @@ Class | Method | HTTP request | Description
 *InventoryApi* | [**apiInventoryGetAllInventoriesGet**](docs/InventoryApi.md#apiinventorygetallinventoriesget) | **GET** /api/Inventory/GetAllInventories | 
 *InventoryApi* | [**apiInventoryGetAllInventoryPositionsForUserGet**](docs/InventoryApi.md#apiinventorygetallinventorypositionsforuserget) | **GET** /api/Inventory/GetAllInventoryPositionsForUser | 
 *InventoryApi* | [**apiInventoryGetAllInventoryPositionsGet**](docs/InventoryApi.md#apiinventorygetallinventorypositionsget) | **GET** /api/Inventory/GetAllInventoryPositions | 
+*InventoryApi* | [**apiInventoryGetAllSummaryPositionsGet**](docs/InventoryApi.md#apiinventorygetallsummarypositionsget) | **GET** /api/Inventory/GetAllSummaryPositions | 
 *InventoryApi* | [**apiInventoryGetInventoryByIdGet**](docs/InventoryApi.md#apiinventorygetinventorybyidget) | **GET** /api/Inventory/GetInventoryById | 
 *LoginApi* | [**apiLoginLoginPost**](docs/LoginApi.md#apiloginloginpost) | **POST** /api/Login/Login | 
 *LoginApi* | [**apiLoginLogoutPost**](docs/LoginApi.md#apiloginlogoutpost) | **POST** /api/Login/Logout | 
 *LoginApi* | [**apiLoginRefreshPost**](docs/LoginApi.md#apiloginrefreshpost) | **POST** /api/Login/Refresh | 
 *LoginApi* | [**apiLoginRegisterPost**](docs/LoginApi.md#apiloginregisterpost) | **POST** /api/Login/Register | 
+*ProductApi* | [**apiProductAddEditProductPost**](docs/ProductApi.md#apiproductaddeditproductpost) | **POST** /api/Product/AddEditProduct | 
 *ProductApi* | [**apiProductAddProductPost**](docs/ProductApi.md#apiproductaddproductpost) | **POST** /api/Product/AddProduct | 
 *ProductApi* | [**apiProductGetAllProductsGet**](docs/ProductApi.md#apiproductgetallproductsget) | **GET** /api/Product/GetAllProducts | 
 *ProductApi* | [**apiProductGetAllProductsTestOpenApiGenerateGet**](docs/ProductApi.md#apiproductgetallproductstestopenapigenerateget) | **GET** /api/Product/GetAllProductsTestOpenApiGenerate | 
