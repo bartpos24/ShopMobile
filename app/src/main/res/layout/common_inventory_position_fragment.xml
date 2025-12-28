@@ -68,8 +68,7 @@
             android:selectAllOnFocus="true"
             android:nextFocusDown="@id/priceEditText"
             android:singleLine="true"
-            android:maxLines="1"
-            android:text="1.0" />
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -118,8 +117,7 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:maxLines="1"
-            android:nextFocusDown="@id/confirmButton"
-            android:text="0.0" />
+            android:nextFocusDown="@id/confirmButton" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

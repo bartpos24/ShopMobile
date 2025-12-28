@@ -176,8 +176,8 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
 
     private fun clearData() {
         binding.productNameInputEditText.setText("")
-        binding.quantityEditText.setText("1.0")
-        binding.priceEditText.setText("0.0")
+        binding.quantityEditText.setText("")
+        binding.priceEditText.setText("")
         binding.productNameInputEditText.requestFocus()
     }
 

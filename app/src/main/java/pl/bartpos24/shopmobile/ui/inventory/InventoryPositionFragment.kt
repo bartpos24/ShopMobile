@@ -69,6 +69,8 @@ class InventoryPositionFragment : ShopMobileFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        clearData()
+        inventoryViewModel.clearData()
         inventoryViewModel.scanner.stopScanning()
     }
 
@@ -138,7 +140,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.quantityEditText.textChanges()
-            .debounce(700)
+            .debounce(500)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setQuantity(it) }
             .onEach {
@@ -151,7 +153,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.priceEditText.textChanges()
-            .debounce(700)
+            .debounce(500)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setPrice(it) }
             .onEach {
@@ -203,8 +205,9 @@ class InventoryPositionFragment : ShopMobileFragment() {
     }
     private fun clearData() {
         binding.productBarcodeInputEditText.setText("")
-        binding.quantityEditText.setText("1.0")
-        binding.priceEditText.setText("0.0")
+        binding.quantityEditText.setText("")
+        binding.priceEditText.setText("")
+        binding.productBarcodeInputEditText.requestFocus()
     }
     private fun showDeleteDialog(inventoryPosition: InventoryPosition) {
         MaterialAlertDialogBuilder(requireContext()).let { builder ->

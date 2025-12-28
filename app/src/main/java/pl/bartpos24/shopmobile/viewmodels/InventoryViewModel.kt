@@ -87,8 +87,8 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
         _price.value = price
     }
     fun clearData() {
-        _price.value = 0.0
-        _quantity.value = 1.0
+        _price.value = null
+        _quantity.value = null
         _product.value = null
     }
 

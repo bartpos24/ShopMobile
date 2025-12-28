@@ -109,6 +109,14 @@ class AddEditProductFragment : ShopMobileFragment() {
                     productCapacity.text = it?.capacity ?: ""
                 }
             }
+            .onEach {
+                binding.productBarcodeInputEditText.setText(args.barcode ?: "")
+                binding.productBrandInputEditText.setText(it?.brand ?: "")
+                binding.productNameInputEditText.setText(it?.name ?: "")
+                binding.productCapacityInputEditText.setText(it?.capacity ?: "")
+                if(it?.unit != null)
+                    productViewModel.setUnit(it.unit)
+            }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         val unitsDropdownAdapter = DropdownListAdapter<ProductUnit>(
