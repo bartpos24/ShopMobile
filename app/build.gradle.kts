@@ -28,6 +28,24 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    android {
+        signingConfigs {
+            create("release") {
+                storeFile = file("$rootDir/ShopMobile.jks")
+                storePassword = "twoje-haslo-keystore"
+                keyAlias = "my-key-alias"
+                keyPassword = "twoje-haslo-klucza"
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig = signingConfigs.getByName("release")
+                isMinifyEnabled = false
+                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            }
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false

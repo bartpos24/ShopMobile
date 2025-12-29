@@ -107,7 +107,7 @@ class InventoryViewModel  @Inject constructor(private val productRepository: Pro
                 inventoryRepository.getAllInventory()
                     .onEach { _inventories.value = it }
                     .onCompletion { _refresh.value = false }
-                    .catch { offerError(R.string.toast_err_inventories_404) }
+                    .catch {}//.catch { offerError(R.string.toast_err_inventories_404) }
                     .singleOrNull()
             }
             .flowOn(Dispatchers.IO)

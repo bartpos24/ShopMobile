@@ -121,9 +121,6 @@ class InventoryPositionFragment : ShopMobileFragment() {
                     else -> null
                 }
             }
-            .filterNotNull()
-            .onEach { binding.barcodeScannerLayout.visibility = View.GONE }
-            .onEach { binding.quantityEditText.requestFocus() }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         inventoryViewModel.product
@@ -136,6 +133,13 @@ class InventoryPositionFragment : ShopMobileFragment() {
                     productUnt.text = it?.unit?.name ?: ""
                     productCapacity.text = it?.capacity ?: ""
                 }
+            }
+            .filterNotNull()
+            .onEach { binding.barcodeScannerLayout.visibility = View.GONE }
+            .onEach { binding.quantityEditText.requestFocus() }
+            .onEach {
+                val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                imm.showSoftInput(binding.quantityEditText, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
