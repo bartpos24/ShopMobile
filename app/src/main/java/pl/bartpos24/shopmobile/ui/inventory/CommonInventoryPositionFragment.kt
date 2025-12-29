@@ -107,7 +107,7 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.quantityEditText.textChanges()
-            .debounce(700)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setQuantity(it) }
             .onEach {
@@ -120,7 +120,7 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.priceEditText.textChanges()
-            .debounce(700)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setPrice(it) }
             .onEach {
@@ -159,6 +159,7 @@ class CommonInventoryPositionFragment : ShopMobileFragment() {
         inventoryViewModel.commonInventoryPositions
             .map { it.sortedByDescending { it.scanDate } }
             .onEach { adapter.submitList(it) }
+            .onEach { binding.commonInventoryPositionList.smoothScrollToPosition(0) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         inventoryViewModel.refreshCommonInventory()

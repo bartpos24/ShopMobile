@@ -35,6 +35,7 @@ import pl.bartpos24.shopmobile.viewmodels.InventoryViewModel
 import pl.bartpos24.web.model.InventoryPosition
 import ru.ldralighieri.corbind.view.clicks
 import ru.ldralighieri.corbind.widget.textChanges
+import androidx.core.view.isGone
 
 class InventoryPositionFragment : ShopMobileFragment() {
     private val inventoryViewModel: InventoryViewModel by navGraphShopMobileViewModels(R.id.inventory_graph)
@@ -61,7 +62,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
                 findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToCommonInventoryPositionFragment())
             }
             R.id.addEditProduct -> {
-                findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToAddEditProductFragment(null, null))
+                findNavController().navigateSafe(InventoryPositionFragmentDirections.actionInventoryPositionFragmentToAddEditProductFragment(null, binding.productBarcodeInputEditText.text.toString()))
             }
         }
         return super.onOptionsItemSelected(item)
@@ -136,6 +137,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             }
             .filterNotNull()
             .onEach { binding.barcodeScannerLayout.visibility = View.GONE }
+            .onEach { inventoryViewModel.scanner.stopScanning() }
             .onEach { binding.quantityEditText.requestFocus() }
             .onEach {
                 val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
@@ -144,7 +146,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.quantityEditText.textChanges()
-            .debounce(500)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setQuantity(it) }
             .onEach {
@@ -157,7 +159,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.priceEditText.textChanges()
-            .debounce(500)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setPrice(it) }
             .onEach {
@@ -196,6 +198,7 @@ class InventoryPositionFragment : ShopMobileFragment() {
         inventoryViewModel.inventoryPositions
             .map { it.sortedByDescending { it.scanDate } }
             .onEach { adapter.submitList(it) }
+            .onEach { binding.inventoryPositionList.smoothScrollToPosition(0) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         adapter.editClicks()

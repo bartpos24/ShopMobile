@@ -41,6 +41,12 @@ class InventoryPositionEditFragment : ShopMobileFragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        inventoryViewModel.clearData()
+        inventoryViewModel.scanner.stopScanning()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         inventoryViewModel.toastErrors(requireContext()).launchIn(viewLifecycleOwner.lifecycleScope)
 
@@ -59,11 +65,15 @@ class InventoryPositionEditFragment : ShopMobileFragment() {
 
                 binding.priceEditText.setText(it.price.toString())
                 binding.quantityEditText.setText(it.quantity.toString())
+
+                binding.quantityEditText.requestFocus()
+                val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                imm.showSoftInput(binding.quantityEditText, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
             }
         }
 
         binding.quantityEditText.textChanges()
-            .debounce(700)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setQuantity(it) }
             .onEach {
@@ -76,7 +86,7 @@ class InventoryPositionEditFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.priceEditText.textChanges()
-            .debounce(700)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setPrice(it) }
             .onEach {
@@ -97,7 +107,7 @@ class InventoryPositionEditFragment : ShopMobileFragment() {
             .filter { it != null && (it.modifiedByUserId ?: 0) > 0 }
             .onEach { binding.editButton.isEnabled = false }
             .onEach { inventoryViewModel.clearData() }
-            .debounce { 800 }
+            .debounce(400)
             .onEach { findNavController().popBackStack() }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
@@ -119,8 +129,6 @@ class InventoryPositionEditFragment : ShopMobileFragment() {
             }
         ).onEach { binding.editButton.isEnabled = !it }
             .launchIn(viewLifecycleOwner.lifecycleScope)
-
-        binding.quantityEditText.requestFocus()
     }
 
 }

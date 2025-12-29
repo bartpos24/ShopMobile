@@ -42,6 +42,13 @@ class AddEditProductFragment : ShopMobileFragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        clearData()
+        productViewModel.clearData()
+        productViewModel.scanner.stopScanning()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         productViewModel.toastErrors(requireContext()).launchIn(viewLifecycleOwner.lifecycleScope)
 
@@ -94,7 +101,7 @@ class AddEditProductFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.productCapacityInputEditText.textChanges()
-            .debounce(700)
+            .debounce(300)
             .onEach { productViewModel.setProductCapacity(it.toString()) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
@@ -117,6 +124,8 @@ class AddEditProductFragment : ShopMobileFragment() {
                 if(it?.unit != null)
                     productViewModel.setUnit(it.unit)
             }
+            .filterNotNull()
+            .onEach { productViewModel.scanner.stopScanning() }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         val unitsDropdownAdapter = DropdownListAdapter<ProductUnit>(

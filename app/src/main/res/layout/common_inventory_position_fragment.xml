@@ -4,16 +4,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="150dp"
+        android:elevation="8dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorListItem3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="?colorSurface" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/productNameInputLayout"
@@ -36,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusedByDefault="true"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:nextFocusDown="@id/quantityEditText"
             android:maxLines="1"
             android:saveEnabled="false"
@@ -69,28 +71,6 @@
             android:nextFocusDown="@id/priceEditText"
             android:singleLine="true"
             android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/unitInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="10dp"
-        android:hint="@string/lbl_unit"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/quantityInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/productNameInputLayout">
-
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/unitsExposedDropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:saveEnabled="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -131,6 +111,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/priceInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/quantityInputLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/unitInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/lbl_unit"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/quantityInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/productNameInputLayout">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/unitsExposedDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:saveEnabled="false" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commonInventoryPositionList"

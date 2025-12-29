@@ -51,11 +51,15 @@ class CommonInventoryPositionEditFragment : ShopMobileFragment() {
 
                 binding.priceEditText.setText(it.price.toString())
                 binding.quantityEditText.setText(it.quantity.toString())
+
+                binding.quantityEditText.requestFocus()
+                val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                imm.showSoftInput(binding.quantityEditText, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
             }
         }
 
         binding.quantityEditText.textChanges()
-            .debounce(700)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setQuantity(it) }
             .onEach {
@@ -68,7 +72,7 @@ class CommonInventoryPositionEditFragment : ShopMobileFragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.priceEditText.textChanges()
-            .debounce(700)
+            .debounce(200)
             .map { it.toString().toDoubleOrNull() }
             .onEach { inventoryViewModel.setPrice(it) }
             .onEach {
@@ -110,8 +114,6 @@ class CommonInventoryPositionEditFragment : ShopMobileFragment() {
             }
         ).onEach { binding.editButton.isEnabled = !it }
             .launchIn(viewLifecycleOwner.lifecycleScope)
-
-        binding.quantityEditText.requestFocus()
     }
 
 }

@@ -113,38 +113,4 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/btnSettings"-->
-<!--        style="@style/Widget.App.Button.OutlinedButton.IconOnly"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="48dp"-->
-<!--        app:icon="@drawable/ic_settings_black_24dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/ssaid"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/version"-->
-<!--        app:layout_constraintTop_toTopOf="@id/version" />-->
-
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/version"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/login_card"-->
-<!--        tools:text="Version: 1.5.3" />-->
-
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/ssaid"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:textSize="10sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/version"-->
-<!--        tools:text="Version: 1.5.3"-->
-<!--        tools:ignore="SmallSp" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

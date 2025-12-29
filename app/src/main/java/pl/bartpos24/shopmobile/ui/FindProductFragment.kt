@@ -50,9 +50,17 @@ class FindProductFragment : ShopMobileFragment() {
         binding.productList.adapter = productListAdapter
 
         binding.cameraImgBtn.clicks()
+            .map { binding.barcodeScannerLayout.visibility }
             .onEach { productViewModel.clearBarcodeData() }
-            .onEach { binding.barcodeScannerLayout.visibility = View.VISIBLE }
-            .onEach { productViewModel.scanner.startScanning(viewLifecycleOwner, binding.previewView) }
+            .onEach {
+                if(it == View.VISIBLE) {
+                    binding.barcodeScannerLayout.visibility = View.GONE
+                    productViewModel.scanner.stopScanning()
+                } else {
+                    binding.barcodeScannerLayout.visibility = View.VISIBLE
+                    productViewModel.scanner.startScanning(viewLifecycleOwner, binding.previewView)
+                }
+            }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         // Sprawdzic czy kamera jest caly czas wlaczona nawet jesli widocznosc skanowania jest wylaczona
